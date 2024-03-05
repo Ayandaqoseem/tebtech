@@ -1,0 +1,41 @@
+.home-footer {
+  background-image: url(../../assets/field-panel.webp);
+  position: relative;
+  background-position: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 25vh;
+  z-index: -1;
+}
+.home-footer::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 25vh;
+  background-color: #55220bb4;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.home-footer-1 {
+  background-image: url(../../assets/full-sc-panel.jpg);
+  position: relative;
+  background-position: contain;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 30vh;
+  z-index: -1;
+}
+.home-footer-1::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 30vh;
+  background-color: #00000088;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
