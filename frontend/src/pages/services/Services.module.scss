@@ -2,7 +2,115 @@
   margin-top: 5rem;
   height: 100vh;
   width: 100%;
-  h1 {
-    margin-top: 6rem;
+
+  .service-wrapper {
+    // margin: 10rem 0 0 2rem;
+    padding: 1rem;
+    h3 {
+      font-size: 2rem;
+      font-weight: 500;
+      color: #ffa047;
+      margin-bottom: 1rem;
+    }
+
+    .service-list-main-wrapper {
+      display: flex;
+      padding-right: 1rem;
+
+      .service-sub-wrapper {
+        p {
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+        }
+        .service-list-wrapper {
+          display: flex;
+
+          .service-list {
+            h5 {
+              font-size: 1.5rem;
+              font-weight: 500;
+              margin-bottom: 0.5rem;
+              color: #ffa047;
+            }
+            p {
+              font-size: 1.2rem;
+              width: 80%;
+            }
+            button {
+              padding: 1rem;
+              background-color: #ffa047;
+              border: none;
+              border-radius: 0.5rem;
+              color: #ffffff;
+              transition: all 0.3s;
+            }
+            button:hover {
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+      img {
+        border: 1px solid #ffa047;
+        border-radius: 15px;
+        width: 500px;
+        height: 350px;
+      }
+    }
+  }
+}
+.about-contact-wrapper {
+  height: 80vh;
+}
+
+@media (max-width: 1015px) {
+  .service-list-main-wrapper {
+    flex-direction: column;
+    .eng-img {
+      margin: 1.5rem 0 4rem 0;
+      img {
+        width: 100% !important;
+      }
+    }
+  }
+  .about-contact-wrapper {
+    margin-top: 13rem;
+  }
+}
+
+@media (min-width: 315px) and (max-width: 450px) {
+  .service-wrapper {
+    margin-left: 0 !important;
+  }
+  .service-list-main-wrapper {
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    .service-list-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1.5rem;
+
+      .service-list {
+        display: flex;
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .eng-img {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0;
+      img {
+        width: 100% !important;
+        height: 250px !important;
+      }
+    }
+  }
+
+  .about-contact-wrapper {
+    margin-top: 26rem !important;
   }
 }

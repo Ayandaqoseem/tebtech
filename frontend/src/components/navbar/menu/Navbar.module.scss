@@ -40,7 +40,7 @@ header {
           text-decoration: none;
           color: #ffa047;
           font-size: 1.2rem;
-          font-weight: 400;
+          font-weight: 700;
         }
         a:hover {
           height: 30px;
@@ -55,11 +55,12 @@ header {
         align-items: center;
         justify-content: center;
         gap: 3rem;
+        padding: 0 1rem;
         a {
           text-decoration: none;
           color: #ffa047;
           font-size: 1.2rem;
-          font-weight: 400;
+          font-weight: 700;
         }
       }
     }
@@ -70,6 +71,8 @@ header {
       display: none;
     }
   }
+
+  
 
 
 
@@ -87,6 +90,7 @@ header {
       }
       .header-right {
         margin-right: 2rem;
+        
       }
     }
   }
@@ -139,8 +143,9 @@ header {
       align-items: flex-start !important;
       margin-left: 2rem;
       gap: 1rem !important;
+      margin-top: 1rem;
      
-        padding: 1rem 0;
+        padding: 0 !important;
      
     }
     a {

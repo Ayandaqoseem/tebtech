@@ -5,8 +5,31 @@ import { GiCctvCamera } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import HomeFooter from "../../components/footer/Homefooter";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [displayText, setDisplayText] = useState(false);
+
+  useEffect(() => {
+    const showText = () => {
+      if (window.innerWidth <= 770) {
+        setDisplayText(true);
+      } else {
+        setDisplayText(false);
+      }
+    };
+
+    showText();
+
+    window.addEventListener("resize", showText);
+
+    return () => {
+      window.removeEventListener("resize", showText);
+    };
+  }, [setDisplayText]);
+
+  
+
   const heroTextVariants = {
     initial: {
       x: -500,
@@ -21,22 +44,22 @@ export default function Home() {
       },
     },
   };
-  const textVariants = {
-    initial: {
-      x: -50,
-      opacity: 1,
-    },
-    animate: {
-      x: [50, 0],
-      opacity: 0,
-      transition: {
-        repeat: Infinity,
-        repeatType: "loop",
-        duration: 5,
-        ease: "linear",
-      },
-    },
-  };
+  // const textVariants = {
+  //   initial: {
+  //     x: 50,
+  //     opacity: 1,
+  //   },
+  //   animate: {
+  //     x: [0, -90],
+  //     opacity: 0,
+  //     transition: {
+  //       repeat: Infinity,
+  //       repeatType: "loop",
+  //       duration: 5,
+  //       ease: "linear",
+  //     },
+  //   },
+  // };
 
   const items = [
     {
@@ -65,9 +88,7 @@ export default function Home() {
     },
   ];
   return (
-    <div className={styles["general-container"]}
-    
-    >
+    <div className={styles["general-container"]}>
       <section>
         <div className={styles.mainContainer}>
           {/* <img src={ Hero } alt="hero" /> */}
@@ -113,15 +134,10 @@ export default function Home() {
             </motion.div>
           </div>
           <div className={styles.infoBox}>
-            <motion.p
-              variants={textVariants}
-              initial="initial"
-              animate="animate"
-              className={styles["test-1"]}
-            >
+            <p className={styles["text-1"]}>
               Welcome to tebtechnolgy. We efficiently deliver perfect service to
               our clients. Patronize us today.
-            </motion.p>
+            </p>
           </div>
         </div>
       </section>
@@ -137,21 +153,24 @@ export default function Home() {
                 Bringing Your Dreams to Life and Ensuring Their Security
               </span>
             </p>
-            <p className={styles["about-teb-p"]}>
+            <p className={`--parag ${styles["about-teb-p"]}`}>
               Welcome to Tebtechnology, your premier hub for cutting-edge
               engineering solutions. Specializing in safe solar inverter and
               cctv camera services, we cater to the diverse needs of residential
               and industrial clients, offering expert installation, maintenance,
               and restoration.
             </p>
-            <p className={styles["about-teb-p"]}>
+            <p className={`--parag ${styles["about-teb-p"]}`}>
               Despite our youth in the industry, our commitment to excellence
-              and innovation sets us apart. Trust in TEbTechnology's dedication
+              and innovation sets us apart. Trust in Tebtechnology's dedication
               to delivering unparalleled reliability and quality in every
               project.
             </p>
           </div>
-          <img src="https://i.ibb.co/RPprpp4/engineer-img.webp" alt="engineer" />
+          <img
+            src="https://i.ibb.co/GJ6WZQs/teb-eng-img.webp"
+            alt="engineer"
+          />
         </div>
       </section>
 
@@ -171,12 +190,12 @@ export default function Home() {
                 </h2>
               </div>
 
-              <p>
+              <p className="--parag">
                 Tebtechnology isn't just another inverter installation company
                 in Lagos; we're committed to providing unparalleled service to
                 our satisfied clientele.
               </p>
-              <p>
+              <p className="--parag">
                 From selecting the perfect inverter for your residence to
                 handling the entire installation process, including inverter
                 battery and solar setup, we've got you covered.
@@ -190,17 +209,17 @@ export default function Home() {
                   <span>CCTV/SECURITY CAMERAS INSTALLATION</span>
                 </h2>
               </div>
-              <p>
+              <p className="--parag">
                 Blazing a trail in CCTV installation services in Lagos,
                 Tebtechnology is committed to delivering high-quality security
                 solutions for your property.
               </p>
-              <p>
+              <p className="--parag">
                 Leveraging partnerships with globally recognized brands, our
                 skilled installers deploy cutting-edge video surveillance
                 systems.
               </p>
-              <p>
+              <p className="--parag">
                 Experience the convenience of remote monitoring, allowing you to
                 keep an eye on your premises from any location using your
                 smartphone, PC, or tablet.

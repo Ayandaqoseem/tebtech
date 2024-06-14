@@ -1,8 +1,203 @@
 .footer {
-                    background-color: #202020;
-                    color: #fff;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 5rem;
+  position: relative;
+  background-color: #202020;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+
+  .whatsapp-icon-container {
+    position: fixed;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 5rem;
+    bottom: 4rem;
+    width: 100%;
+    z-index: 999;
+    animation: w-slide-up 0.5s ease;
+    // .whatsapp-icon {
+    //   position: fixed;
+    // }
+    .whatsapp-btn {
+      background-color: var(--color-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      margin-right: 19rem;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      .icon {
+        background-color: transparent;
+        stroke: none;
+        stroke-width: 0;
+        color: #ffffff;
+        border: none;
+        padding: 0;
+        outline: none;
+      }
+    }
+    .chat-head-container {
+      width: 20%;
+      position: absolute;
+      bottom: 4rem;
+      border-radius: 5px;
+      background-color: #ffffff;
+      box-shadow: var(--box-shadow);
+      color: #777;
+      .chat-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #ffa047;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 1rem;
+        color: #ffffff;
+        .chat-head-text {
+          margin-left: 1rem;
+          .start-text-1 {
+            font-size: 1.3rem;
+            text-align: start;
+          }
+          .start-text-2 {
+            font-size: 0.8rem;
+            text-align: start;
+          }
+        }
+      }
+      .info-text-1 {
+        font-size: 0.8rem;
+      }
+      .wa-me {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        padding: 1rem;
+
+        .wa-me-1 {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0.5rem 1rem;
+          background-color: #ecebeb83;
+          width: 75%;
+          border-radius: 3px;
+          cursor: pointer;
+          border-left: 1px solid #ffa047;
+          .wa-me-img {
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+            margin-right: 1rem;
+          }
+        }
+      }
+      .info-text-1,
+      .wa-me,
+      .dev-info {
+        margin-top: 1rem;
+      }
+      .dev-info {
+        margin-bottom: 2rem;
+      }
+    }
+    .help-text {
+      position: absolute;
+      background-color: #4b413bb7;
+      color: var(--color-text);
+      padding: 0.8rem;
+      right: 10rem;
+      border-radius: 3px;
+    }
+  }
+  p {
+    text-align: center;
+  }
+}
+
+@keyframes w-slide-up {
+  0% {
+    transform: translateY(4rem);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 860px) and (max-width: 1120px) {
+  .chat-head-container {
+    width: 25% !important;
+    right: 2rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .chat-head-container {
+    width: 35% !important;
+  }
+}
+
+@media (min-width: 540px) and (max-width: 620px) {
+  .chat-head-container {
+    width: 40% !important;
+  }
+}
+
+@media (min-width: 495px) and (max-width: 540px) {
+  .chat-head-container {
+    width: 45% !important;
+  }
+}
+
+@media (min-width: 415px) and (max-width: 495px) {
+  .chat-head-container {
+    width: 55% !important;
+    right: 2rem !important;
+  }
+}
+
+@media (min-width: 380px) and (max-width: 415px) {
+  .chat-head-container {
+    width: 60% !important;
+  }
+}
+
+// @media (min-width: 340px) and (max-width: 380px) {
+//   .whatsapp-icon-container {
+//     .whatsapp-btn {
+//       margin-left: 20px !important;
+//     }
+//   }
+//   .chat-head-container {
+//     width: 70% !important;
+//     right: 2rem !important;
+
+//   }
+// }
+
+@media (max-width: 380px) {
+  .whatsapp-icon-container {
+    left: 2rem !important;
+    .whatsapp-icon {
+      margin-left: 8rem !important;
+    }
+    .whatsapp-btn {
+      margin-right: 16rem !important;
+    }
+  }
+  .chat-head-container {
+    width: 80% !important;
+    right: 3rem !important;
+  }
+  .help-text {
+    right: 6rem !important;
+  }
 }
