@@ -4,18 +4,22 @@ import { toast } from "react-toastify";
 import { Card } from "../../components/card/Card";
 import styles from "./Auth.module.scss";
 import { useState } from "react";
+import { useDispatch} from "react-redux"
 import { validateEmail } from "../../components/utils";
+import { login } from "../../redux/feactures/auth/authSlice";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  const dispatch = useDispatch()
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const LoginUser = (e) => {
+  const LoginUser = async(e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -29,7 +33,7 @@ export default function Contact() {
       email,
       password,
     };
-    console.log(userData);
+    await dispatch(login(userData))
   };
 
   return (
