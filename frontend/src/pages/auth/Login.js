@@ -1,25 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Card } from "../../components/card/Card";
 import styles from "./Auth.module.scss";
-import { useState } from "react";
-import { useDispatch} from "react-redux"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../../components/utils";
-import { login } from "../../redux/feactures/auth/authSlice";
+import { RESET_AUTH, login } from "../../redux/feactures/auth/authSlice";
+import Loader from "../../components/loader/Loader";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { isLoggedIn, isSuccess, isLoading } = useSelector(
+    (state) => state.auth
+  );
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
-  const LoginUser = async(e) => {
+  const LoginUser = async (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -33,54 +38,68 @@ export default function Contact() {
       email,
       password,
     };
-    await dispatch(login(userData))
+    await dispatch(login(userData));
   };
 
-  return (
-    <div className={styles["main-container"]}>
-      <div className={styles["slide-down-wrapper"]}>
-        <Card cardClass={styles.card}>
-          <div className={styles.form}>
-            <h2>Login</h2>
-            <form onSubmit={LoginUser}>
-              <input
-                type="text"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={styles.input}
-              />
-              <label className={styles.input}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={password}
-                  className={styles.pwd}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span onClick={toggleShowPassword}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </label>
-              <button type="submit" className="--btn --btn-primary --btn-block">
-                Login
-              </button>
-            </form>
+  useEffect(() => {
+    if (isLoggedIn && isSuccess) {
+      navigate("/");
+    }
 
-            <span className={styles["forgot-pwd"]}>
-              <Link to={"/forgot"} className={styles.link}>
-                Forgot Password
-              </Link>
-            </span>
-            <span className={styles.register}>
-              <p>Don't have an account?</p>
-              <Link to={"/register"} className={styles.link}>
-                Register
-              </Link>
-            </span>
-          </div>
-        </Card>
+    dispatch(RESET_AUTH());
+  });
+
+  return (
+    <>
+      {isLoading && <Loader />}
+      <div className={styles["main-container"]}>
+        <div className={styles["slide-down-wrapper"]}>
+          <Card cardClass={styles.card}>
+            <div className={styles.form}>
+              <h2>Login</h2>
+              <form onSubmit={LoginUser}>
+                <input
+                  type="text"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles.input}
+                />
+                <label className={styles.input}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    value={password}
+                    className={styles.pwd}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span onClick={toggleShowPassword}>
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </label>
+                <button
+                  type="submit"
+                  className="--btn --btn-primary --btn-block"
+                >
+                  Login
+                </button>
+              </form>
+
+              <span className={styles["forgot-pwd"]}>
+                <Link to={"/forgot"} className={styles.link}>
+                  Forgot Password
+                </Link>
+              </span>
+              <span className={styles.register}>
+                <p>Don't have an account?</p>
+                <Link to={"/register"} className={styles.link}>
+                  Register
+                </Link>
+              </span>
+            </div>
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

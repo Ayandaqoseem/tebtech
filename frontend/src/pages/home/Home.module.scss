@@ -235,6 +235,7 @@ section {
     // gap: 3rem;
     .service-text-holder {
       margin-top: 3rem;
+      padding-right: 2rem;
       .service-text-solar-header,
       .service-text-camera-header {
         display: flex;
@@ -400,7 +401,7 @@ section {
       margin-top: 6rem;
       .about-teb-text {
         h1 {
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
         .about-teb-p {
           font-size: 1.2rem;
@@ -490,7 +491,7 @@ section {
         width: 100% !important;
         padding: 0;
         h1 {
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
       }
       about-teb-p {
@@ -682,7 +683,7 @@ section {
           .service-text-camera-header {
             h2 {
               span {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
               }
             }
           }

@@ -50,14 +50,22 @@ export default function Register() {
       return toast.warning("Password do not match.");
     }
 
+  
+
     const userData = {
       name,
       email,
       password,
+      cPassword,
     };
 
     await dispatch(register(userData));
   };
+
+  const handlePaste = (e) => {
+    e.preventDefault()
+    return toast.warning("Pasting is not allowed in the confirm password field")
+  }
 
   useEffect(() => {
     if(isSuccess && isLoggedIn) {
@@ -114,6 +122,7 @@ export default function Register() {
                   name="cPassword"
                   value={cPassword}
                   onChange={handleInputChange}
+                  onPaste={handlePaste}
                 />
                 {/* <span onClick={toggleShowPassword}>
                   {showPassword ? <FaEyeSlash /> : <FaEye />}

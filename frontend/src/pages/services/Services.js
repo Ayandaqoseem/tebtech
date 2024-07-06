@@ -21,7 +21,7 @@ export default function Services() {
             <h3 className="--center-text-r">Our Services</h3>
             <div className={styles["service-list-main-wrapper"]}>
               <div className={styles["service-sub-wrapper"]}>
-                <p className="--center-text-r">
+                <p className="--pr-2">
                   At Tebtechnology we take the responsibility of working on your
                   most valuable asset and also your personal safety, very
                   serious. That’s why we have the best professionals, whose
@@ -40,7 +40,7 @@ export default function Services() {
                     </Link>
                   </div>
 
-                  <div className={`${styles["service-list"]} --my-1`}>
+                  <div className={styles["service-list"]}>
                     <h5>CCTV Installation</h5>
                     <p>
                       Our Company is a leading security system company that

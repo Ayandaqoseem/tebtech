@@ -5,28 +5,28 @@ import { GiCctvCamera } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import HomeFooter from "../../components/footer/Homefooter";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [displayText, setDisplayText] = useState(false);
+  // const [displayText, setDisplayText] = useState(false);
 
-  useEffect(() => {
-    const showText = () => {
-      if (window.innerWidth <= 770) {
-        setDisplayText(true);
-      } else {
-        setDisplayText(false);
-      }
-    };
+  // useEffect(() => {
+  //   const showText = () => {
+  //     if (window.innerWidth <= 770) {
+  //       setDisplayText(true);
+  //     } else {
+  //       setDisplayText(false);
+  //     }
+  //   };
 
-    showText();
+  //   showText();
 
-    window.addEventListener("resize", showText);
+  //   window.addEventListener("resize", showText);
 
-    return () => {
-      window.removeEventListener("resize", showText);
-    };
-  }, [setDisplayText]);
+  //   return () => {
+  //     window.removeEventListener("resize", showText);
+  //   };
+  // }, [setDisplayText]);
 
   
 
@@ -186,7 +186,7 @@ export default function Home() {
               <div className={styles["service-text-solar-header"]}>
                 <TbSolarPanel2 size={25} />
                 <h2>
-                  <span>SOLAR / INVERTER INSTALLATION</span>
+                  <span>SOLAR/INVERTER</span>
                 </h2>
               </div>
 
@@ -206,7 +206,7 @@ export default function Home() {
               <div className={styles["service-text-camera-header"]}>
                 <GiCctvCamera size={25} />
                 <h2>
-                  <span>CCTV/SECURITY CAMERAS INSTALLATION</span>
+                  <span>CCTV/SECURITY CAMERAS</span>
                 </h2>
               </div>
               <p className="--parag">

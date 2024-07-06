@@ -1,15 +1,21 @@
 import { useState } from "react";
 import styles from "./Navbar.module.scss";
 import Logo from "../../../assets/Logo.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { TfiMenuAlt } from "react-icons/tfi";
 import { MdOutlineCloseFullscreen } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import ServiceDropdown from "./Dropdown";
+import { RESET_AUTH, logout } from "../../../redux/feactures/auth/authSlice";
+import ShowOnLogin, { ShowOnLogout } from "../../hiddenLink/hiddenLink";
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleMouseEnter = () => {
     setTimeout(() => {
@@ -27,6 +33,12 @@ export default function Navbar() {
 
   const hideMenu = () => {
     setShowMenu(false);
+  };
+
+  const LogoutUser = async () => {
+    await dispatch(logout());
+    dispatch(RESET_AUTH());
+    navigate("/login");
   };
 
   return (
@@ -90,7 +102,14 @@ export default function Navbar() {
               </li>
             </ul>
             <div className={styles["header-right"]}>
-              <NavLink to="/login">Login</NavLink>
+              <ShowOnLogout>
+                <NavLink to="/login">Login</NavLink>
+              </ShowOnLogout>
+              <ShowOnLogin>
+                <Link to="/" onClick={LogoutUser}>
+                  Logout
+                </Link>
+              </ShowOnLogin>
               <Link to="/get-quote">Get a Quote</Link>
             </div>
           </nav>

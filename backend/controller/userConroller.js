@@ -2,6 +2,9 @@ const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../model/userModel");
+const Token = require("../model/tokenModel");
+const crypto = require("crypto");
+const sendEmail = require("../utils/sendEmail");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -10,7 +13,7 @@ const generateToken = (id) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, cPassword } = req.body;
 
   //   Validation
   if (!name || !email || !password) {
@@ -19,7 +22,11 @@ const registerUser = asyncHandler(async (req, res) => {
   }
   if (password.length < 8) {
     res.status(400);
-    throw new Error("Password must be up to 8 characters");
+    throw new Error("Password must be up to 8 characters in length");
+  }
+  if (password !== cPassword) {
+    res.status(400);
+    throw new Error("Password do not match");
   }
 
   // Check if user exist
@@ -127,6 +134,8 @@ const getUser = asyncHandler(async (req, res) => {
 
 // Get User Login Status
 const getLoginStatus = asyncHandler(async (req, res) => {
+  const token = req.cookies.token;
+ 
   if (!token) {
     return res.json(false);
   }
@@ -180,7 +189,6 @@ const updatePhoto = asyncHandler(async (req, res) => {
 const changePassword = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   const { oldPassword, password } = req.body;
-  
 
   if (!user) {
     res.status(400);
@@ -207,6 +215,79 @@ const changePassword = asyncHandler(async (req, res) => {
   }
 });
 
+// Forgot Password
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User does not exist");
+  }
+
+  let token = await Token.findOne({ userId: user._id });
+  if (token) {
+    await token.deleteOne();
+  }
+
+  let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
+
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+ 
+
+  await new Token({
+    userId: user._id,
+    token: hashedToken,
+    createdAt: Date.now(),
+    expiresAt: Date.now() + 30 * (60 * 1000),
+  }).save();
+
+  const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+
+
+
+  const template = {
+    body: {
+      name: user.name,
+      intro: 'Someone has requested a new password for the following account on tebtechnologyltd:',
+      action: {
+        instructions: 'If you did not request this, please ignore this email. Otherwise, click the link below to reset your password:',
+        button: {
+          color: '#22BC66', // Optional action button color
+          text: 'Reset your password',
+          link: resetUrl
+        }
+      },
+      outro: 'If you need further assistance, please contact our support team.'
+    }
+  };
+  
+  const template_1 = `
+      <h3>Hello ${user.name}</h3>
+      <p>
+      Someone has requested a new password for the following account on tebtechnologyltd:</p>
+      <p>name: ${user.name}</p>
+      <p>If you didn't make this request, just ignore this email. If you'd like to proceed:</p>;
+      <a href=${resetUrl} clicktracking=off>Click here to reset your password</a>
+      <p>Regards...</p>
+    `;
+    const subject = "Password Reset Request";
+    const send_to = user.email;
+    const send_from = `"no-reply" <${process.env.EMAIL_USER}>`;
+
+    try {
+      await sendEmail(subject, send_to, template, send_from);
+      res.status(200).json({ success: true, message: "Reset Email Sent"})
+    } catch (error) {
+      res.status(500);
+      throw new Error("Email not sent, Please try again")
+    }
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -216,4 +297,5 @@ module.exports = {
   updateUser,
   updatePhoto,
   changePassword,
+  forgotPassword,
 };

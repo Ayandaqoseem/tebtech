@@ -8,6 +8,7 @@ const {
   updateUser,
   updatePhoto,
   changePassword,
+  forgotPassword,
 } = require("../controller/userConroller");
 const { protect } = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -20,5 +21,6 @@ router.get("/get-login-status", getLoginStatus);
 router.patch("/update-user", protect, updateUser);
 router.patch("/update-photo", protect, updatePhoto)
 router.patch("/change-password", protect, changePassword);
+router.post("/forgot-password", forgotPassword)
 
 module.exports = router;

@@ -26,6 +26,7 @@
           display: flex;
 
           .service-list {
+            padding-right: 2rem;
             h5 {
               font-size: 1.5rem;
               font-weight: 500;
@@ -34,7 +35,7 @@
             }
             p {
               font-size: 1.2rem;
-              width: 80%;
+              // width: 80%;
             }
             button {
               padding: 1rem;
@@ -63,9 +64,21 @@
   height: 80vh;
 }
 
-@media (max-width: 1015px) {
+@media (max-width: 950px) {
   .service-list-main-wrapper {
     flex-direction: column;
+    .service-sub-wrapper {
+      p {
+        font-size: 1rem !important;
+      }
+    }
+    .service-list-wrapper {
+      .service-list {
+        p {
+          font-size: 1rem !important;
+        }
+      }
+    }
     .eng-img {
       margin: 1.5rem 0 4rem 0;
       img {
@@ -78,7 +91,7 @@
   }
 }
 
-@media (min-width: 315px) and (max-width: 450px) {
+@media (min-width: 315px) and (max-width: 500px) {
   .service-wrapper {
     margin-left: 0 !important;
   }
@@ -86,16 +99,26 @@
     flex-direction: column;
     align-items: center !important;
     justify-content: center !important;
+
+    .service-sub-wrapper {
+      p {
+        font-size: 1rem !important;
+      }
+    }
     .service-list-wrapper {
       display: flex;
       flex-direction: column;
-      margin-top: 1.5rem;
+      gap: 1rem;
 
       .service-list {
         display: flex;
         flex-direction: column !important;
-        align-items: center;
+
         justify-content: center;
+
+        p {
+          font-size: 1rem !important;
+        }
       }
     }
     .eng-img {
@@ -103,6 +126,7 @@
       display: flex;
       justify-content: center;
       margin-bottom: 0;
+      margin-top: 3rem;
       img {
         width: 100% !important;
         height: 250px !important;
@@ -111,6 +135,6 @@
   }
 
   .about-contact-wrapper {
-    margin-top: 26rem !important;
+    margin-top: 20rem !important;
   }
 }
