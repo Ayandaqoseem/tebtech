@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { Card } from "../../components/card/Card";
 import styles from "./Auth.module.scss";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Loader from "../../components/loader/Loader";
 import { forgotPassword } from "../../redux/feactures/auth/authSlice";
 // import { auth } from "../firebase/Config";
@@ -11,7 +11,7 @@ import { forgotPassword } from "../../redux/feactures/auth/authSlice";
 export default function Reset() {
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const dispatch = useDispatch();
 
   const resetPassword = async (e) => {
