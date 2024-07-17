@@ -135,7 +135,7 @@ const getUser = asyncHandler(async (req, res) => {
 // Get User Login Status
 const getLoginStatus = asyncHandler(async (req, res) => {
   const token = req.cookies.token;
- 
+
   if (!token) {
     return res.json(false);
   }
@@ -237,55 +237,108 @@ const forgotPassword = asyncHandler(async (req, res) => {
     .update(resetToken)
     .digest("hex");
 
- 
-
   await new Token({
     userId: user._id,
     token: hashedToken,
-    createdAt: Date.now(),
-    expiresAt: Date.now() + 30 * (60 * 1000),
+    // createdAt: Date.now(),
+    expiresAt: Date.now() + 3600000,
   }).save();
 
   const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
 
-
-
   const template = {
     body: {
       name: user.name,
-      intro: 'Someone has requested a new password for the following account on tebtechnologyltd:',
+      intro:
+        "Someone has requested a new password for the following account on tebtechnologyltd:",
       action: {
-        instructions: 'If you did not request this, please ignore this email. Otherwise, click the link below to reset your password:',
+        instructions:
+          "If you did not request this, please ignore this email. Otherwise, click the link below to reset your password:",
         button: {
-          color: '#22BC66', // Optional action button color
-          text: 'Reset your password',
-          link: resetUrl
-        }
+          color: "#22BC66", // Optional action button color
+          text: "Reset your password",
+          link: resetUrl,
+        },
       },
-      outro: 'If you need further assistance, please contact our support team.'
-    }
+      outro: "If you need further assistance, please contact our support team.",
+    },
   };
-  
-  const template_1 = `
-      <h3>Hello ${user.name}</h3>
-      <p>
-      Someone has requested a new password for the following account on tebtechnologyltd:</p>
-      <p>name: ${user.name}</p>
-      <p>If you didn't make this request, just ignore this email. If you'd like to proceed:</p>;
-      <a href=${resetUrl} clicktracking=off>Click here to reset your password</a>
-      <p>Regards...</p>
-    `;
-    const subject = "Password Reset Request";
-    const send_to = user.email;
-    const send_from = `"no-reply" <${process.env.EMAIL_USER}>`;
 
-    try {
-      await sendEmail(subject, send_to, template, send_from);
-      res.status(200).json({ success: true, message: "Reset Email Sent"})
-    } catch (error) {
-      res.status(500);
-      throw new Error("Email not sent, Please try again")
-    }
+  // const template_1 = `
+  //     <h3>Hello ${user.name}</h3>
+  //     <p>
+  //     Someone has requested a new password for the following account on tebtechnologyltd:</p>
+  //     <p>name: ${user.name}</p>
+  //     <p>If you didn't make this request, just ignore this email. If you'd like to proceed:</p>;
+  //     <a href=${resetUrl} clicktracking=off>Click here to reset your password</a>
+  //     <p>Regards...</p>
+  //   `;
+  const subject = "Password Reset Request";
+  const send_to = user.email;
+  const send_from = `"no-reply" <${process.env.EMAIL_USER}>`;
+
+  try {
+    await sendEmail(subject, send_to, template, send_from);
+    res.status(200).json({ success: true, message: "Reset Email Sent" });
+  } catch (error) {
+    res.status(500);
+    throw new Error("Email not sent, Please try again");
+  }
+});
+
+// Reset password
+const resetPassword = asyncHandler(async (req, res) => {
+  const { userData } = req.body;
+  const password = userData;
+  
+  const { resetToken } = req.body;
+
+  // Hash token
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  // Find Token in DB
+  const userToken = await Token.findOne({
+    token: hashedToken,
+    expiresAt: { $gt: Date.now() },
+  });
+
+  if(!userToken){
+    return res.status(400).json({message:"Try again session expired"})
+}
+  // Find User
+  const user = await User.findOne({
+    _id: userToken.userId,
+  });
+
+if (!user) {
+  return res.status(404).json({ message: "User not found" });
+}
+
+
+  user.password = password;
+  
+  await user.save();
+
+  await userToken.deleteOne();
+
+
+  res.status(200).json({
+    message: "Password Reset Successfully, Please Login",
+    success: true,
+  });
+  // const passwordIsCorrect = await bcrypt.compare(confirmPassword, password);
+  //   if(user && passwordIsCorrect) {
+  //     user.password = password;
+  //     await user.save();
+  //     res.status(200).json({
+  //       message: "Password Reset Successfully, Please Login"
+  //     })
+  //   } else {
+  //     throw new Error("password has expired");
+  //   }
 });
 
 module.exports = {
@@ -298,4 +351,5 @@ module.exports = {
   updatePhoto,
   changePassword,
   forgotPassword,
+  resetPassword,
 };

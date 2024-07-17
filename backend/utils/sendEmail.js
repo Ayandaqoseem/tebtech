@@ -39,7 +39,7 @@ const sendEmail = async (subject, send_to, template, send_from, cc=null) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(info);
+      // console.log("INFO =>", info);
     }
   });
 };

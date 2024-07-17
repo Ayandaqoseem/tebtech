@@ -52,6 +52,16 @@ const forgotPassword = async (userData) => {
   return response.data.message;
 };
 
+// Reset Password
+const resetPassword = async(userData, resetToken) => {
+  const response = await axios.patch(
+    `${API_URL}resetPassword/${resetToken}`,
+    userData
+  );
+
+  return response.data.message
+}
+
 const authService = {
   register,
   login,
@@ -61,6 +71,7 @@ const authService = {
   updateUser,
   updatePhoto,
   forgotPassword,
+  resetPassword,
 };
 
 export default authService;

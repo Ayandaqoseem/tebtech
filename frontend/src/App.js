@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getLoginStatus } from "./redux/feactures/auth/authSlice";
 import Profile from "./pages/profile/Profile";
+import NewPassword from "./pages/auth/NewPassword";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -52,6 +53,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Reset />} />
           <Route path="/profile" element={<Profile />} />
+          <Route exact path="/resetpassword/:resetToken" element={<NewPassword />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
