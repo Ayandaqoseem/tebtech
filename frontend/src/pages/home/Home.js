@@ -116,6 +116,7 @@ export default function Home() {
                 variants={heroTextVariants}
                 className={styles.btnContainer}
               >
+                <Link to={"/send-a-request"}>
                 <motion.button
                   variants={heroTextVariants}
                   type="button"
@@ -123,6 +124,8 @@ export default function Home() {
                 >
                   Get Free Quote
                 </motion.button>
+                </Link>
+                <Link to={"/contact"}>
                 <motion.button
                   variants={heroTextVariants}
                   type="button"
@@ -130,6 +133,7 @@ export default function Home() {
                 >
                   Get In Touch
                 </motion.button>
+                </Link>
               </motion.div>
             </motion.div>
           </div>
@@ -263,7 +267,7 @@ export default function Home() {
                   </span>
                 </p>
               </div>
-              <Link>
+              <Link to={"/send-a-request"}>
                 <button className={styles.btn}>Send Request</button>
               </Link>
             </div>

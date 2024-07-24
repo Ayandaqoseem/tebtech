@@ -9,6 +9,7 @@ import {
   LinkedinIcon,
 } from "react-share";
 import "./index.scss"
+import { Link } from "react-router-dom";
 
 export default function HeroBanner({
   motion,
@@ -45,6 +46,7 @@ export default function HeroBanner({
               variants={heroTextVariants}
               className={"btnContainer"}
             >
+              <Link to={"/send-a-request"}>
               <motion.button
                 variants={heroTextVariants}
                 type="button"
@@ -52,6 +54,8 @@ export default function HeroBanner({
               >
                 Get Free Quote
               </motion.button>
+              </Link>
+              <Link to={"/contact"}>
               <motion.button
                 variants={heroTextVariants}
                 type="button"
@@ -59,6 +63,7 @@ export default function HeroBanner({
               >
                 Get In Touch
               </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>

@@ -60,7 +60,7 @@ export default function Footer() {
                 <p>Tebtechnologyltd</p>
                 </div>
               </div>
-              <p className="dev-info">POWERED BY KAYTEAM</p>
+              <p className="dev-info">POWERED BY KAYTECH</p>
             </div>
           )}
           {!showIcon && (

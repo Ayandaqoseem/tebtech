@@ -1,10 +1,10 @@
-const nodemailer = require("nodemailer");
-const MailGen = require("mailgen");
+const nodemailer = require('nodemailer');
+const fs = require('fs');
+const path = require('path');
 
-const sendEmail = async (subject, send_to, template, send_from, cc=null) => {
-  // Create Email Transporter
+const sendEmail = async (subject, send_to, htmlTemplate, send_from, cc = null, attachments = []) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     host: process.env.EMAIL_HOST,
     port: 465,
     auth: {
@@ -13,33 +13,43 @@ const sendEmail = async (subject, send_to, template, send_from, cc=null) => {
     },
   });
 
-  // Create Template With MailGen
-  const mailGenerator = new MailGen({
-    theme: "salted",
-    product: {
-      name: "tebtechnologyltd",
-      link: "http://localhost:3000",
-    },
-  });
+  // If the template is an object, assume it's a Mailgen template
+  let emailTemplate;
+  if (typeof htmlTemplate === 'object') {
+    const Mailgen = require('mailgen');
+    const mailGenerator = new Mailgen({
+      theme: 'salted',
+      product: {
+        name: 'tebtechnologyltd',
+        link: 'http://localhost:3000',
+      },
+    });
+    emailTemplate = mailGenerator.generate(htmlTemplate);
+  } else if (typeof htmlTemplate === 'string' && htmlTemplate.endsWith('.html')) {
+    // If the template is a string ending in .html, read the HTML file
+    const templatePath = path.join(__dirname, htmlTemplate);
+    emailTemplate = fs.readFileSync(templatePath, 'utf8');
+  } else {
+    // Assume it's a plain HTML string
+    emailTemplate = htmlTemplate;
+  }
 
-  const emailTemplate = mailGenerator.generate(template);
-  require("fs").writeFileSync("preview.html", emailTemplate, "utf8");
-
-  // Options for sending email
   const options = {
     from: send_from,
     to: send_to,
     subject,
     html: emailTemplate,
     cc,
+    attachments,
   };
 
-  // Send Email
-  transporter.sendMail(options, function (err, info) {
+  console.log('Email options:', options);
+
+  transporter.sendMail(options, (err, info) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log("INFO =>", info);
+      console.log('Message sent: %s', info.messageId);
     }
   });
 };

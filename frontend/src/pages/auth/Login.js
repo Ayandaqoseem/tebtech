@@ -6,8 +6,9 @@ import styles from "./Auth.module.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../../components/utils";
-import { RESET_AUTH, login } from "../../redux/feactures/auth/authSlice";
+import { RESET_AUTH, googleLogin, login } from "../../redux/feactures/auth/authSlice";
 import Loader from "../../components/loader/Loader";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
@@ -39,13 +40,17 @@ export default function Contact() {
       password,
     };
     await dispatch(login(userData));
+
+   
+      navigate("/profile");
+
   };
 
-  useEffect(() => {
-    if (isLoggedIn && isSuccess) {
-      navigate("/");
-    }
+  const googleLoginHandler = () => {
+    dispatch(googleLogin())
+  }
 
+  useEffect(() => {
     dispatch(RESET_AUTH());
   });
 
@@ -84,6 +89,16 @@ export default function Contact() {
                   Login
                 </button>
               </form>
+              <div className={styles["google-btn"]}>
+              <button
+                  type="button"
+                  className="--btn-google --btn-block"
+                  onClick={googleLoginHandler}
+                >
+                  <FcGoogle size={18} />
+                   Login With Google
+                </button>
+                </div>
 
               <span className={styles["forgot-pwd"]}>
                 <Link to={"/forgot"} className={styles.link}>

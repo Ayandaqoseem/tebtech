@@ -12,6 +12,9 @@ import { PiInstagramLogoThin } from "react-icons/pi";
 import EnquiryForm from "../../components/form/EnquiryForm";
 import { useState } from "react";
 import Map from "../../components/card/Map";
+import { useDispatch } from "react-redux";
+import { saveEnquiry } from "../../redux/feactures/auth/authSlice";
+import { toast } from "react-toastify";
 
 const initialstate = {
   name: "",
@@ -22,7 +25,10 @@ const initialstate = {
 };
 export default function Contact() {
   const [request, setRequest] = useState(initialstate);
+  const { name, email, enquiry, subject, message } = request
   const mapAddress = process.env.REACT_APP_GOOGLE_MAP_ADDRESS;
+
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,11 +37,21 @@ export default function Contact() {
 
   const saveRequest = async (e) => {
     e.preventDefault();
-    const { name, email, enquiry, subject, message } = request;
+    // const { name, email, enquiry, subject, message } = request;
     if (!name || !email || !enquiry || !subject || !message) {
-      return console.log("All fields are required.");
+      return toast.warning("All fields are required.");
     }
-    console.log("show request => ", request);
+    const userData = {
+      name,
+      email,
+      enquiry,
+      subject,
+      message
+    }
+
+    await dispatch(saveEnquiry(userData))
+    toast.success("Enquiry saved and email sent")
+    setRequest(initialstate)
   };
 
   const heroTextVariants = {
@@ -86,13 +102,13 @@ export default function Contact() {
   return (
     <div className={styles.container}>
       <section>
-        <HeroBanner
+        {/* <HeroBanner
           motion={motion}
           initial={"initial"}
           animate={"animate"}
           heroTextVariants={heroTextVariants}
           GiSolarPower={GiSolarPower}
-        />
+        /> */}
       </section>
       <section>
         <div className={styles["contact-container"]}>

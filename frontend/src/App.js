@@ -22,6 +22,8 @@ import { useEffect } from "react";
 import { getLoginStatus } from "./redux/feactures/auth/authSlice";
 import Profile from "./pages/profile/Profile";
 import NewPassword from "./pages/auth/NewPassword";
+import Request from "./components/request/Request";
+import ShowOnLogin from "./components/hiddenLink/hiddenLink";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -37,6 +39,7 @@ function App() {
       <AnimatePresence>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/send-a-request" element={<Request />} />
           <Route path="/services" element={<Services />} />
           <Route
             path="/service/solar-details"
@@ -52,7 +55,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Reset />} />
-          <Route path="/profile" element={<Profile />} />
+         
+          <Route path="profile" element={<ShowOnLogin> <Profile /> </ShowOnLogin>} />
+         
           <Route exact path="/resetpassword/:resetToken" element={<NewPassword />} />
 
           <Route path="*" element={<NotFoundPage />} />

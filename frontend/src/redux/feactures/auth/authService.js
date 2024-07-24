@@ -1,66 +1,127 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API_URL = `${BACKEND_URL}/api/users/`;
 
+// Helper function to handle errors
+const handleError = (error) => {
+  if (error.response) {
+    return error.response.data.message || error.message;
+  } else if (error.request) {
+    return "No response received from server";
+  } else {
+    return error.message;
+  }
+};
+
 // Register user
 const register = async (userData) => {
-  const response = await axios.post(API_URL + "register", userData, {
-    withCredentials: true,
-  });
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}register`, userData, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
 
 // Login user
 const login = async (userData) => {
-  const response = await axios.post(API_URL + "login", userData);
-  return response.data;
+  try {
+    const response = await axios.post(`${API_URL}login`, userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
 
 // Logout user
 const logout = async () => {
-  const response = await axios.get(API_URL + "logout");
-  return response.data.message;
+  try {
+    const response = await axios.get(`${API_URL}logout`);
+    return response.data.message;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
 
 // Get login status
 const getLoginStatus = async () => {
-  const response = await axios.get(API_URL + "get-login-status");
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}get-login-status`);
+    return response.data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
 
 // Get user
 const getUser = async () => {
-  const response = await axios.get(API_URL + "get-user");
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}get-user`);
+    return response.data;
+  } catch (error) {
+    toast.error(error);
+    throw new Error(handleError(error));
+  }
 };
 
 // Update user
 const updateUser = async (userData) => {
-  const response = await axios.patch(API_URL + "update-user", userData);
-  return response.data;
+  try {
+    const response = await axios.patch(`${API_URL}update-user`, userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
+
 // Update user photo
 const updatePhoto = async (userData) => {
-  const response = await axios.patch(API_URL + "update-photo", userData);
-  return response.data;
+  try {
+    const response = await axios.patch(`${API_URL}update-photo`, userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
 
 // Forgot Password
 const forgotPassword = async (userData) => {
-  const response = await axios.post(API_URL + "forgot-password", userData);
-  return response.data.message;
+  try {
+    const response = await axios.post(`${API_URL}forgot-password`, userData);
+    return response.data.message;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
 };
 
 // Reset Password
-const resetPassword = async(userData, resetToken) => {
-  const response = await axios.patch(
-    `${API_URL}resetPassword/${resetToken}`,
-    userData
-  );
+const resetPassword = async (userData, resetToken) => {
+  try {
+    const response = await axios.patch(
+      `${API_URL}resetPassword/${resetToken}`,
+      userData
+    );
+    return response.data.message;
+  } catch (error) {
+    throw new Error(handleError(error));
+  }
+};
 
-  return response.data.message
-}
+// Google Login
+const googleLogin = () => {
+  window.location.href = `${BACKEND_URL}/api/auth/google`;
+};
+
+// Save Enquiry
+const saveEnquiry = async (userData) => {
+  const response = await axios.post(`${API_URL}saveEnquiry`, userData);
+  console.log(response);
+  return response.data;
+};
 
 const authService = {
   register,
@@ -72,6 +133,8 @@ const authService = {
   updatePhoto,
   forgotPassword,
   resetPassword,
+  googleLogin,
+  saveEnquiry,
 };
 
 export default authService;

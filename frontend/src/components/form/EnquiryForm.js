@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card } from "../card/Card";
 import "./EnquiryForm.scss";
 
@@ -6,6 +7,10 @@ export default function EnquiryForm({
   saveRequest,
   request,
 }) {
+  const [isOption] = useState([
+    "Solar Inverter Installation",
+    "CCTV Camera Installation"
+  ])
   // const { name, email, enquiry, subject, message } = request;
   return (
     <>
@@ -33,11 +38,17 @@ export default function EnquiryForm({
             <label>How can we serve you today?<span style={{ color: "orangered"}}>*</span></label>
             <select
               name="enquiry"
-              value={request?.enquiry}
+              value={request?.enquiry || ""}
               onChange={handleInputChange}
             >
-              <option value="Solar Inverter Installation">Solar Inverter Installation</option>
-              <option value="CCTV Camera Installation">CCTV Camera Installation</option>
+               <option value="" disabled>
+              Please select an option
+            </option>
+             {isOption.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+             ))}
             </select>
           </p>
           <p>

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const { ObjectId } = mongoose.Schema;
 
 const userSchema = mongoose.Schema(
   {
@@ -20,8 +19,7 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
-      minLength: [8, "Password must be up to 8 characters"],
+      minLength: [8, "Password must be at least 8 characters long"],
     },
     role: {
       type: String,
@@ -31,7 +29,6 @@ const userSchema = mongoose.Schema(
     },
     photo: {
       type: String,
-      required: [true, "Please add a photo"],
       default: "https://i.ibb.co/4pDNDk1/avatar.png",
     },
     phone: {
@@ -40,6 +37,9 @@ const userSchema = mongoose.Schema(
     },
     address: {
       type: Object,
+    },
+    googleId: {
+      type: String,
     },
   },
   {
@@ -54,10 +54,14 @@ userSchema.pre("save", async function (next) {
   }
   // Hash password
   const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(this.password, salt);
-  this.password = hashedPassword;
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+// Method to compare hashed password
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -12,6 +12,7 @@ const {
   resetPassword,
 } = require("../controller/userConroller");
 const { protect } = require("../middleware/authMiddleware");
+const { saveEnquiry } = require("../controller/enquiryController");
 const router = express.Router();
 
 router.post("/register", registerUser);
@@ -24,5 +25,10 @@ router.patch("/update-photo", protect, updatePhoto)
 router.patch("/change-password", protect, changePassword);
 router.post("/forgot-password", forgotPassword);
 router.patch("/resetPassword/:resetToken", resetPassword )
+
+
+
+
+router.post("/saveEnquiry", saveEnquiry); 
 
 module.exports = router;

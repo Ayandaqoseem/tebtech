@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const initialState = {
   isLoggedIn: false,
   user: null,
+  enquiry: null,
   users: [],
   isError: false,
   isSuccess: false,
@@ -146,12 +147,12 @@ export const forgotPassword = createAsyncThunk(
   }
 );
 
-// Reset Password 
+// Reset Password
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
-  async ({userData, resetToken}, thunkAPI) => {
+  async ({ userData, resetToken }, thunkAPI) => {
     try {
-      return await authService.resetPassword({userData, resetToken});
+      return await authService.resetPassword({ userData, resetToken });
     } catch (error) {
       const message =
         (error.response &&
@@ -164,6 +165,41 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+export const googleLogin = createAsyncThunk(
+  "auth/googleLogin",
+  async (_, thunkAPI) => {
+    try {
+      return authService.googleLogin();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Save Enquiry
+export const saveEnquiry = createAsyncThunk(
+  "auth/saveEnquiry",
+  async (userData, thunkAPI) => {
+    try {
+       const response = await authService.saveEnquiry(userData);
+      return response.data;
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -259,12 +295,14 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = true;
+        // console.log(action.payload);
         state.user = action.payload;
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+        // toast.error(action.payload)
       })
 
       // Update user
@@ -293,6 +331,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = true;
+        console.log(action.payload);
         state.user = action.payload;
         toast.success("Photo updated");
       })
@@ -318,22 +357,54 @@ const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-            // Reset Password
-            .addCase(resetPassword.pending, (state) => {
-              state.isLoading = true;
-            })
-            .addCase(resetPassword.fulfilled, (state, action) => {
-              state.isLoading = false;
-              state.isSuccess = action.payload.success;
-              state.message = action.payload.message;
-              toast.success(action.payload);
-            })
-            .addCase(resetPassword.rejected, (state, action) => {
-              state.isLoading = false;
-              state.isError = true;
-              state.message = action.payload;
-              toast.error(action.payload);
-            })
+      // Reset Password
+      .addCase(resetPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = action.payload.success;
+        state.message = action.payload.message;
+        toast.success(action.payload);
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+      .addCase(googleLogin.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(googleLogin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isLoggedIn = true;
+        state.user = action.payload;
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.user = null;
+        toast.error(action.payload);
+      })
+      // Save Enquiry
+      .addCase(saveEnquiry.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(saveEnquiry.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        // state.enquiry = action.payload;
+        // console.log(action.payload);
+        toast.success(action.payload);
+      })
+      .addCase(saveEnquiry.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
   },
 });
 
