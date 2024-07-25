@@ -14,7 +14,7 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { isLoggedIn, isSuccess, isLoading } = useSelector(
+  const { isLoggedIn, isSuccess, isLoading, user } = useSelector(
     (state) => state.auth
   );
 
@@ -41,14 +41,22 @@ export default function Contact() {
     };
     await dispatch(login(userData));
 
-   
-      navigate("/profile");
-
+      
   };
 
   const googleLoginHandler = () => {
     dispatch(googleLogin())
   }
+
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      if (user.role === "customer") {
+        navigate("/profile");
+      } else {
+        navigate("/admin/dashboard/profile");
+      }
+    }
+  }, [isLoggedIn, user, navigate]);
 
   useEffect(() => {
     dispatch(RESET_AUTH());

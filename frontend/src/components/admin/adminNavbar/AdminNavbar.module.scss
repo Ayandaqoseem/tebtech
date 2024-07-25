@@ -1,0 +1,65 @@
+.navbar {
+    border-right: 1px solid #ccc;
+    min-height: 120vh;
+  
+    .user {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 8rem 4rem 4rem 4rem;
+      background-color: #ffa047d3;
+
+      .admin-profile-img {
+        width: 50px;
+        border-radius: 50%;
+      }
+  
+      h4 {
+        color: #fff;
+      }
+    }
+  
+    nav ul {
+      li {
+        border-bottom: 1px solid #ccc;
+        padding: 1rem;
+        position: relative;
+        a {
+          display: block;
+          width: 100%;
+          text-decoration: none;
+          color: var(--color-text);
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  
+  .active {
+    cursor: pointer;
+  }
+  
+  .active::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #d62710;
+    font-weight: 300;
+  }
+  
+
+  @media (max-width: 640px) and (max-width: 800px) {
+    .navbar {
+        min-height: 150vh !important;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .navbar {
+        min-height: 132vh !important;
+    }
+  }

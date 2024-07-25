@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from '../../components/card/Card';
-import './Profile.scss';
+import './UserProfile.scss';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { getUser, updatePhoto, updateUser } from '../../redux/feactures/auth/authSlice';
 import Loader from '../../components/loader/Loader';
@@ -11,7 +11,7 @@ const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 const url = process.env.REACT_APP_CLOUD_URL;
 
-export default function Profile() {
+export default function UserProfile() {
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const { isLoading, isError, isSuccess, message, user } = useSelector((state) => state.auth);
@@ -155,8 +155,8 @@ export default function Profile() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="main-container">
-          <div className="profile">
+        <div className="user-main-container">
+          <div className="user-profile">
             <Card cardClass={"card-form"}>
               <p className="text-head">
                 <b>Welcome back</b> {user?.name || 'User'}

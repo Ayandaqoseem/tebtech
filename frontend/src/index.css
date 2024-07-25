@@ -28,6 +28,12 @@ html {
   box-sizing: border-box;
   
 }
+.adminOnlyContainer {
+  max-width: 1000px;
+
+  margin: 10rem auto;
+  padding: 0 20px;
+}
 
 .not-found-page {
   height: 100vh;

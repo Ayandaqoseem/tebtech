@@ -124,11 +124,11 @@ export default function Navbar() {
                 </Link>
               </ShowOnLogin>
               <ShowOnLogin>
-                <Link to="/profile">
+                <Link to={user?.role === "customer" ? "/profile" : "/admin/dashboard/profile"}>
                   <span className={styles["profile-span"]}>
                     <img
                       src={user?.photo}
-                      alt={user?.name}
+                      alt=""
                       className={styles["nav-img"]}
                     />
                     {user?.name && user.name.split(' ')[0]}

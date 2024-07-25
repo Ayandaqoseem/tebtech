@@ -20,10 +20,12 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getLoginStatus } from "./redux/feactures/auth/authSlice";
-import Profile from "./pages/profile/Profile";
+import UserProfile from "./pages/profile/UserProfile";
 import NewPassword from "./pages/auth/NewPassword";
 import Request from "./components/request/Request";
 import ShowOnLogin from "./components/hiddenLink/hiddenLink";
+import AdminOnlyRoute from "./components/AdminOnlyRoute/AdminOnlyRoute";
+import Admin from "./components/admin/Admin";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -41,6 +43,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/send-a-request" element={<Request />} />
           <Route path="/services" element={<Services />} />
+
+          <Route path="/admin/dashboard/*" element={<AdminOnlyRoute>
+            <Admin />
+          </AdminOnlyRoute>} />
           <Route
             path="/service/solar-details"
             element={<ServiceSolarDetails />}
@@ -56,7 +62,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Reset />} />
          
-          <Route path="profile" element={<ShowOnLogin> <Profile /> </ShowOnLogin>} />
+          <Route path="profile" element={<ShowOnLogin> <UserProfile /> </ShowOnLogin>} />
          
           <Route exact path="/resetpassword/:resetToken" element={<NewPassword />} />
 

@@ -25,6 +25,9 @@ router.get(
         httpOnly: true,
         expires: new Date(Date.now() + 7000 * 86400),
       });
+      if (req.user.role === "admin") {
+        res.redirect(`${process.env.FRONTEND_URL}/admin/dashboard/profile`);
+      }
       res.redirect(`${process.env.FRONTEND_URL}/profile`);
     }
   );

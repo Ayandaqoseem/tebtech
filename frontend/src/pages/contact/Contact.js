@@ -1,7 +1,7 @@
-import { GiSolarPower } from "react-icons/gi";
+// import { GiSolarPower } from "react-icons/gi";
 import { motion } from "framer-motion";
 import styles from "./Contact.module.scss";
-import HeroBanner, { SocialIcon } from "../../components/utils";
+import { SocialIcon } from "../../components/utils";
 import { Card } from "../../components/card/Card";
 import { PiPhoneCall } from "react-icons/pi";
 import { RiHomeOfficeLine } from "react-icons/ri";
@@ -54,20 +54,20 @@ export default function Contact() {
     setRequest(initialstate)
   };
 
-  const heroTextVariants = {
-    initial: {
-      x: -500,
-      opacity: 0,
-    },
-    animate: {
-      x: [500, 0],
-      opacity: 1,
-      transition: {
-        duration: 1,
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  // const heroTextVariants = {
+  //   initial: {
+  //     x: -500,
+  //     opacity: 0,
+  //   },
+  //   animate: {
+  //     x: [500, 0],
+  //     opacity: 1,
+  //     transition: {
+  //       duration: 1,
+  //       staggerChildren: 0.1,
+  //     },
+  //   },
+  // };
 
   const socialTextVariants = {
     initial: {

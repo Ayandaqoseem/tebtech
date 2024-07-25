@@ -1,0 +1,46 @@
+.admin {
+  display: flex;
+  position: relative;
+
+  .navbar {
+    width: 20%;
+    min-height: 80vh;
+    transition: all 0.3s;
+  }
+  .content {
+    width: 80%;
+    padding: 1rem;
+    position: relative;
+
+    .icon {
+      display: none;
+      position: absolute;
+      cursor: pointer;
+      top: 8rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    width: 50% !important;
+    background-color: #fff;
+    margin-top: 9rem;
+    position: absolute;
+    left: -200%;
+    z-index: 99;
+    transition: left 0.3s;
+
+    &.show {
+      left: 0 !important;
+    }
+  }
+  .content {
+    width: 100% !important;
+
+    .icon {
+      display: flex !important;
+      top: 6rem !important;
+    }
+  }
+}
