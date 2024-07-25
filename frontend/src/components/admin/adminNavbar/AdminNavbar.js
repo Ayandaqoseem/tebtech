@@ -26,35 +26,35 @@ const AdminNavbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/all-products" className={activeLink}>
-              All Products
+            <NavLink to="/admin/dashboard/all-blog" className={activeLink}>
+              All Blogs
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/add-product" className={activeLink}>
-              Add Product
+            <NavLink to="/admin/dashboard/update-blog" className={activeLink}>
+              Update Blogs
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/orders" className={activeLink}>
-              Orders
+            <NavLink to="/admin/dashboard/create-product" className={activeLink}>
+               Create Product
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/coupon" className={activeLink}>
-              Coupon
+            <NavLink to="/admin/dashboard/all-product" className={activeLink}>
+              All Products 
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/category" className={activeLink}>
-              Categories
+            <NavLink to="/admin/dashboard/update-product" className={activeLink}>
+              Update Product
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/admin/brand" className={activeLink}>
               Brands
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>
