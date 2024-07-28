@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Solar/Inverter Web App - Hackathon Project #MERNStack #Hackathon #SolarEnergy
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project Overview
 
-## Available Scripts
+Our Solar/Inverter Web App is an innovative solution designed to help users efficiently manage and monitor their solar energy systems. Built with the MERN stack and styled using SCSS, this application offers a user-friendly interface and essential features tailored for solar energy management.
 
-In the project directory, you can run:
+## Problem Statement
 
-### `npm start`
+Managing solar energy systems can be complex and challenging for users. Our web app addresses this issue by providing an intuitive platform for real-time monitoring, secure authentication, and easy access to support through WhatsApp.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **User-Friendly Interface**: A modern and responsive design ensures ease of use.
+- **Secure Authentication**: JWT-based authentication for secure user access.
+- **WhatsApp Integration**: Direct link to WhatsApp for support and inquiries.
+- **Enquiry Form**: Allows customers to submit enquiries which are received by the company via email as text and saved in an Excel file.
+- **Future Blog Page**: A dedicated blog page to provide insights and updates (coming soon).
+- **Future Leave a Review**: A component for a user to leave a review on the service rendered (coming soon).
 
-### `npm test`
+## Technology Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend**: React.js, SCSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT
 
-### `npm run build`
+## Development Process
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Planning**: Defined the project's goals and features in line with hackathon criteria.
+2. **Frontend Development**: Designed and implemented the user interface with React and SCSS.
+3. **Backend Development**: Developed APIs using Node.js and Express for data handling and authentication.
+4. **Integration**: Connected the frontend to the backend and implemented the WhatsApp redirection feature and enquiry form.
+5. **Testing and Optimization**: Conducted rigorous testing and optimized performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Enquiry Form Details
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Functionality**: Customers can fill out an enquiry form with their details and submit it.
+- **Email Notification**: The enquiry details are sent to the company email as text.
+- **Excel Recording**: The enquiry details are also saved in an Excel file for record-keeping and future reference.
 
-### `npm run eject`
+## Challenges and Solutions
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Challenge**: Providing an effective support channel.
+  - **Solution**: Implemented a direct link to WhatsApp, allowing users to easily reach support.
+- **Challenge**: Storing and managing customer enquiries.
+  - **Solution**: Created a form submission system that sends enquiries to the company email and records them in an Excel file.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Future Enhancements
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Blog Page**: Plan to develop a blog page for sharing insights, updates, and technical details.
+- **Advanced Analytics**: Integrate detailed analytics and reporting features.
+- **User Feedback**: Add functionality to collect and act on user feedback.
+- **Extended Compatibility**: Expand support to include various types of solar inverters.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## How to Run the Project
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-username/solar-inverter-web-app.git

@@ -91,6 +91,7 @@ export default function AdminProfile() {
         ) {
           const image = new FormData();
           image.append('file', profileImage);
+          image.append("cloud_name", cloud_name);
           image.append('upload_preset', upload_preset);
 
           const response = await fetch(url, {
@@ -110,6 +111,7 @@ export default function AdminProfile() {
       }
 
       const userData = { photo: imageUrl };
+      console.log(userData);
       await dispatch(updatePhoto(userData));
       setImagePreview(null);
     } catch (error) {
@@ -131,6 +133,7 @@ export default function AdminProfile() {
     };
 
     try {
+      console.log("save =>", userData);
       await dispatch(updateUser(userData));
       toast.success('Profile updated successfully');
     } catch (error) {

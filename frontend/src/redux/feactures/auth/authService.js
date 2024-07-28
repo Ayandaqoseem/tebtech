@@ -80,12 +80,8 @@ const updateUser = async (userData) => {
 
 // Update user photo
 const updatePhoto = async (userData) => {
-  try {
-    const response = await axios.patch(`${API_URL}update-photo`, userData);
-    return response.data;
-  } catch (error) {
-    throw new Error(handleError(error));
-  }
+const response = await axios.patch(API_URL + "update-photo", userData)
+return response.data
 };
 
 // Forgot Password

@@ -11,7 +11,7 @@ const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
 const url = process.env.REACT_APP_CLOUD_URL;
 
-export default function UserProfile() {
+export default function AdminProfile() {
   const [profileImage, setProfileImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const { isLoading, isError, isSuccess, message, user } = useSelector((state) => state.auth);
@@ -91,6 +91,7 @@ export default function UserProfile() {
         ) {
           const image = new FormData();
           image.append('file', profileImage);
+          image.append("cloud_name", cloud_name);
           image.append('upload_preset', upload_preset);
 
           const response = await fetch(url, {
@@ -110,6 +111,7 @@ export default function UserProfile() {
       }
 
       const userData = { photo: imageUrl };
+      console.log(userData);
       await dispatch(updatePhoto(userData));
       setImagePreview(null);
     } catch (error) {
@@ -131,6 +133,7 @@ export default function UserProfile() {
     };
 
     try {
+      console.log("save =>", userData);
       await dispatch(updateUser(userData));
       toast.success('Profile updated successfully');
     } catch (error) {
@@ -155,9 +158,9 @@ export default function UserProfile() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="user-main-container">
-          <div className="user-profile">
-            <Card cardClass={"card-form"}>
+        <div className="main-container">
+          <div className="profile">
+            <Card cardClass={"admin-card-form"}>
               <p className="text-head">
                 <b>Welcome back</b> {user?.name || 'User'}
               </p>

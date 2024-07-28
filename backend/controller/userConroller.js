@@ -176,12 +176,15 @@ const updateUser = asyncHandler(async (req, res) => {
 // Update user photo
 const updatePhoto = asyncHandler(async (req, res) => {
   const { photo } = req.body;
+  console.log("PHOTO", photo);
   let user;
-
+  console.log("USER IN DB", req.user);
   if (req.user.googleId) {
-    user = await GoogleUser.findById(req.user._id);
+    user = await User.findById(req.user._id);
+    console.log("GOOGLE", user);
   } else {
     user = await User.findById(req.user._id);
+    console.log("TDT USER", user);
   }
 
   if (!user) {
@@ -189,6 +192,7 @@ const updatePhoto = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  console.log("USER =>", user);
   user.photo = photo;
   const updatedUser = await user.save();
 
@@ -328,8 +332,11 @@ const handleGoogleUser = asyncHandler(async (profile, done) => {
         email: profile._json.email,
       });
     }
+    await googleUser.save();
 
     done(null, googleUser);
+
+    console.log("GOOGLE USER FRM DB", googleUser);
   } catch (error) {
     done(error);
   }
