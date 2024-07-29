@@ -6,7 +6,7 @@ Our Solar/Inverter Web App is an innovative solution designed to help users effi
 
 ## Problem Statement
 
-Managing solar energy systems can be complex and challenging for users. Our web app addresses this issue by providing an intuitive platform for real-time monitoring, secure authentication, and easy access to support through WhatsApp.
+Managing solar energy systems can be complex and challenging for users. Our web app addresses this issue by providing an intuitive platform for monitoring, secure authentication, and easy access to support through WhatsApp.
 
 ## Features
 

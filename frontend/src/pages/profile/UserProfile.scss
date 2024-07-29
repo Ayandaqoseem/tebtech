@@ -1,7 +1,7 @@
 .user-main-container {
   height: 82vh;
   margin-top: 8rem;
-
+}
   .user-profile {
     display: flex;
     justify-content: center;
@@ -62,7 +62,7 @@
       }
     }
   }
-}
+
 
 @media (min-width: 950px) and (max-width: 1120px) {
   // .text-head {
@@ -75,7 +75,7 @@
 
 @media (min-width: 790px) and (max-width: 950px) {
   .card-form {
-    max-width: 70% !important;
+    max-width: 90% !important;
   }
 }
 

@@ -72,7 +72,7 @@ export default function AdminProfile() {
     e.preventDefault();
     const file = e.target.files[0];
     if (file) {
-      console.log('Selected file:', file);
+      // console.log('Selected file:', file);
       setProfileImage(file);
       setImagePreview(URL.createObjectURL(file));
     }
@@ -133,7 +133,7 @@ export default function AdminProfile() {
     };
 
     try {
-      console.log("save =>", userData);
+      
       await dispatch(updateUser(userData));
       toast.success('Profile updated successfully');
     } catch (error) {
@@ -159,8 +159,8 @@ export default function AdminProfile() {
         <Loader />
       ) : (
         <div className="main-container">
-          <div className="profile">
-            <Card cardClass={"admin-card-form"}>
+          <div className="user-profile">
+            <Card cardClass={"card-form"}>
               <p className="text-head">
                 <b>Welcome back</b> {user?.name || 'User'}
               </p>

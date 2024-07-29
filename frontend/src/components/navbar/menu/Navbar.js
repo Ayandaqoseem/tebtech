@@ -117,7 +117,7 @@ export default function Navbar() {
               <ShowOnLogout>
                 <NavLink to="/login">Login</NavLink>
               </ShowOnLogout>
-              <Link to="/send-a-request">Get a Quote</Link>
+              {/* <Link to="/send-a-request">Get a Quote</Link> */}
               <ShowOnLogin>
                 <Link to="/" onClick={LogoutUser}>
                   Logout

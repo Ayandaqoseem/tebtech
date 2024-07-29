@@ -111,7 +111,7 @@ export default function AdminProfile() {
       }
 
       const userData = { photo: imageUrl };
-      console.log(userData);
+      
       await dispatch(updatePhoto(userData));
       setImagePreview(null);
     } catch (error) {
