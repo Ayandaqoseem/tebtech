@@ -1,6 +1,7 @@
 const expressAsyncHandler = require("express-async-handler");
 const Blog = require("../model/blogModel");
 const User = require("../model/userModel");
+
 // const { postToAll } = require("../utils/socialMediaPost");
 
 // Create Blog Post
@@ -62,13 +63,27 @@ const createBlog = expressAsyncHandler(async (req, res) => {
 
 // Get All Blog Post
 const getBlogs = expressAsyncHandler(async (req, res) => {
-  const blogs = await Blog.find();
+  const blogs = await Blog.find().sort({ createdAt: -1 });
   res.status(200).json(blogs);
+});
+
+// Get Single Blog Post
+const getSingleBlog = expressAsyncHandler(async (req, res) => {
+  const blog = await Blog.findById(req.params.id);
+
+  if (!blog) {
+    res.status(404);
+    throw new Error("Blog not found");
+  }
+
+  res.status(200).json(blog);
 });
 
 // Update Blog
 const updateBlog = expressAsyncHandler(async (req, res) => {
+  console.log("REQ BODY", req.body);
   const { id } = req.params;
+  console.log("REQ PARAMS", id);
   const {
     title,
     textDescription,
@@ -78,15 +93,10 @@ const updateBlog = expressAsyncHandler(async (req, res) => {
     views,
     likes,
     comments,
-    isPublish,
+    isPublished,
   } = req.body;
 
-  const user = await User.findById(req.user._id);
-
-  if (!user) {
-    res.status(404);
-    throw new Error("No User Found");
-  }
+ 
 
   const blog = await Blog.findById(id);
   if (!blog) {
@@ -95,8 +105,8 @@ const updateBlog = expressAsyncHandler(async (req, res) => {
   }
 
   // Update Blog
-  const updateBlog = await Blog.findByIdAndUpdate(
-    { _id: id },
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    {_id: id},
     {
       title,
       textDescription,
@@ -106,15 +116,15 @@ const updateBlog = expressAsyncHandler(async (req, res) => {
       views,
       likes,
       comments,
-      isPublish,
-      author: user._id,
+      isPublished,
     },
     {
       new: true,
       runValidators: true,
     }
   );
-  res.status(200).json(updateBlog);
+
+  res.status(200).json(updatedBlog);
 });
 
 
@@ -134,6 +144,7 @@ const deleteBlog = expressAsyncHandler(async (req, res) => {
 module.exports = {
   createBlog,
   getBlogs,
+  getSingleBlog,
   updateBlog,
   deleteBlog,
 };

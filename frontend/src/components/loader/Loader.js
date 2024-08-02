@@ -11,13 +11,12 @@ export default function Loader() {
     </div>,
     document.getElementById("loader")
   );
-};
-
+}
 
 export const Spinner = () => {
   return (
-    <div className="--center-all">
-      <img src={loaderImg} alt="Loading..." />
+    <div className="">
+      <img className="--sm-spinner" src={loaderImg} alt="Loading..." />
     </div>
   );
 };

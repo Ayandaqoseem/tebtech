@@ -72,6 +72,34 @@ section {
  width: 100%;
   text-align: center;
 }
+.--sm-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 35%;
+  margin: auto;
+  text-align: center;
+}
+/* Card */
+.--card {
+  border: 1px solid transparent;
+  border-radius: 5px;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+/* Flex */
+.--flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Backeground */
+.--bg-light {
+  background: #fff;
+}
 .--mx-4 {
   margin-left: 4rem;
 }
@@ -143,6 +171,10 @@ section {
   text-align: center;
 }
 
+/* Padding */
+.--p {
+  padding: 1rem;
+}
 .--pr-2 {
   padding-right: 2rem;
 }

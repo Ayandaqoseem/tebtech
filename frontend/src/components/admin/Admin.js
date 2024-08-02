@@ -5,6 +5,8 @@ import styles from "./Admin.module.scss"
 import AdminNavbar from "./adminNavbar/AdminNavbar"
 import { PiSidebarDuotone } from "react-icons/pi";
 import { useState } from "react"
+import GetBlogs from "./blog/getBlogs/GetBlogs"
+import UpdateBlog from "./blog/updateBlog/UpdateBlog"
 
 
 export default function Admin() {
@@ -29,6 +31,8 @@ export default function Admin() {
                 <Routes>
                     <Route path="profile" element={<AdminProfile />} />
                     <Route path="create-blog" element={<CreateBlog />} />
+                    <Route path="get-blogs" element={<GetBlogs /> } />
+                    <Route path="edit-blog/:id" element={<UpdateBlog /> } />
                 </Routes>
             </div>
         </div>

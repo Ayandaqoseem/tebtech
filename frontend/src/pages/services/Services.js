@@ -35,9 +35,9 @@ export default function Services() {
                       installation company, but we also offer an unrivaled
                       service to our happy customers.
                     </p>
-                    <Link to={"/service/solar-details"}>
+                    {/* <Link to={"/service/solar-details"}>
                       <button type="button">Learn More</button>
-                    </Link>
+                    </Link> */}
                   </div>
 
                   <div className={styles["service-list"]}>
@@ -46,9 +46,9 @@ export default function Services() {
                       Our Company is a leading security system company that
                       offers end to end security cameras systems and services.
                     </p>
-                    <Link to={"/service/cctv-details"}>
+                    {/* <Link to={"/service/cctv-details"}>
                       <button type="button">Learn More</button>
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>

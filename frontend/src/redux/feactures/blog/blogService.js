@@ -16,9 +16,15 @@ const getBlogs = async () => {
   return response.data;
 };
 
+// Get a Blog
+const getSingleBlog = async (id) => {
+  const response = await axios.get(`${API_URL}getSingleBlog/` + id);
+  return response.data;
+};
+
 // Update Blog
-const updateBlog = async (id) => {
-  const response = await axios.patch(`${API_URL}updateBlog/` + id);
+const updateBlog = async (id, formData) => {
+  const response = await axios.patch(`${API_URL}updateBlog/${id}`, formData);
   return response.data;
 };
 
@@ -31,6 +37,7 @@ const deleteBlog = async (id) => {
 const blogService = {
   createBlog,
   getBlogs,
+  getSingleBlog,
   updateBlog,
   deleteBlog,
 };

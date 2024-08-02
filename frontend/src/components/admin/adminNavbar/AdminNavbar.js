@@ -26,11 +26,11 @@ const AdminNavbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/dashboard/all-blog" className={activeLink}>
+            <NavLink to="/admin/dashboard/get-blogs" className={activeLink}>
               All Blogs
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/admin/dashboard/update-blog" className={activeLink}>
               Update Blogs
             </NavLink>
@@ -49,7 +49,7 @@ const AdminNavbar = () => {
             <NavLink to="/admin/dashboard/update-product" className={activeLink}>
               Update Product
             </NavLink>
-          </li>
+          </li> */}
           {/* <li>
             <NavLink to="/admin/brand" className={activeLink}>
               Brands
