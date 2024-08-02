@@ -81,9 +81,8 @@ const getSingleBlog = expressAsyncHandler(async (req, res) => {
 
 // Update Blog
 const updateBlog = expressAsyncHandler(async (req, res) => {
-  console.log("REQ BODY", req.body);
   const { id } = req.params;
-  console.log("REQ PARAMS", id);
+
   const {
     title,
     textDescription,

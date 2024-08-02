@@ -25,17 +25,17 @@ export default function GetBlogs() {
 
   const { blogs, isLoading } = useSelector((state) => state.blog);
 
-  console.log("selectedBlogId", selectedBlogId);
+
 
   const handlePost = (_id) => {
     setSelectedBlogId(_id);
     setShow(true);
-    console.log("Show set to true, selectedBlogId:", _id);
+    
   };
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
-    console.log(selectedBlogId, isPublished);
+   
 
     const formData = {
       isPublished,
@@ -63,19 +63,7 @@ export default function GetBlogs() {
   const confirmDelete = (id) => {
     setShowDelete(!showDelete)
     setSelectedBlogId(id)
-    // confirmAlert({
-    //   title: "Delete Product",
-    //   message: "Are you sure you want to delete this product.",
-    //   buttons: [
-    //     {
-    //       label: "Delete",
-    //       onClick: () => delBlog(id),
-    //     },
-    //     {
-    //       label: "Cancel",
-    //     },
-    //   ],
-    // });
+    
   };
 
   useEffect(() => {

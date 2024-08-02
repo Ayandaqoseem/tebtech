@@ -176,7 +176,7 @@ const blogSlice = createSlice({
         if (index !== -1) {
           state.blogs[index] = updatedBlog;
         }
-        console.log(action.payload);
+        // console.log(action.payload);
         toast.success(action.payload);
       })
       .addCase(updateBlog.rejected, (state, action) => {
@@ -200,7 +200,7 @@ const blogSlice = createSlice({
             if (index !== -1) {
               state.blogs[index] = updatedBlog;
             }
-            console.log(action.payload);
+            // console.log(action.payload);
             toast.success(action.payload);
           })
           .addCase(deleteBlog.rejected, (state, action) => {
