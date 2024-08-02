@@ -154,8 +154,7 @@ export default function UpdateBlog() {
       publish: blogData.publish,
       textDescription,
     };
-    console.log("FORM DATA HERE", formData);
-    console.log("FORM DATA ID", id);
+   
     try {
       await dispatch(updateBlog({ id, formData }));
       toast.success("Blog update successfully");
