@@ -12,8 +12,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Card } from "../../../card/Card";
 import BlogPostModel from "../../../model/blogPostModel";
-
-
+import ReactPaginate from "react-paginate";
 
 export default function GetBlogs() {
   const dispatch = useDispatch();
@@ -25,17 +24,24 @@ export default function GetBlogs() {
 
   const { blogs, isLoading } = useSelector((state) => state.blog);
 
+  const itemsPerPage = 3;
+  const [itemOffset, setItemOffset] = useState(0);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentBlog = blogs.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(blogs.length / itemsPerPage);
 
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % blogs.length;
+    setItemOffset(newOffset);
+  };
 
   const handlePost = (_id) => {
     setSelectedBlogId(_id);
     setShow(true);
-    
   };
 
   const handleSubmitPost = async (e) => {
     e.preventDefault();
-   
 
     const formData = {
       isPublished,
@@ -56,14 +62,13 @@ export default function GetBlogs() {
   const delBlog = async () => {
     await dispatch(deleteBlog(selectedBlogId));
     await dispatch(getBlogs());
-    setSelectedBlogId(null)
-    setShowDelete(false)
+    setSelectedBlogId(null);
+    setShowDelete(false);
   };
 
   const confirmDelete = (id) => {
-    setShowDelete(!showDelete)
-    setSelectedBlogId(id)
-    
+    setShowDelete(!showDelete);
+    setSelectedBlogId(id);
   };
 
   useEffect(() => {
@@ -91,7 +96,7 @@ export default function GetBlogs() {
             </thead>
             <tbody>
               {Array.isArray(blogs) &&
-                blogs.map((blog, index) => {
+                currentBlog.map((blog, index) => {
                   const { _id, title, likes, views, isPublished } = blog;
                   return (
                     <tr key={_id}>
@@ -132,6 +137,20 @@ export default function GetBlogs() {
           </table>
         )}
       </div>
+      <ReactPaginate
+        breakLabel="..."
+        nextLabel="Next"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        pageCount={pageCount}
+        previousLabel="Prev"
+        renderOnZeroPageCount={null}
+        containerClassName="pagination"
+        pageLinkClassName="page-num"
+        previousLinkClassName="page-num"
+        nextLinkClassName="page-num"
+        activeLinkClassName="activePage"
+      />
       {show && (
         <div className={styles["publish-container"]}>
           <Card cardClass={styles["change-publish-card"]}>
@@ -162,10 +181,7 @@ export default function GetBlogs() {
       )}
 
       {showDelete && (
-       <BlogPostModel
-        setShowDelete={setShowDelete}
-        delBlog={delBlog}
-       />
+        <BlogPostModel setShowDelete={setShowDelete} delBlog={delBlog} />
       )}
     </div>
   );

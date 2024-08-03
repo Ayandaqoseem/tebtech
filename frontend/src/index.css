@@ -67,6 +67,34 @@ section {
   cursor: pointer;
 }
 
+/* ReactPaginate  */
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+.pagination .page-num {
+  text-decoration: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  color: #333;
+  font-weight: normal;
+  border: 1px solid #ffa73452;
+  margin: 2px;
+}
+.pagination .page-num:hover {
+  color: var(--color-brown);
+  background-color: #ffa73452;
+}
+.activePage {
+  height: 100%;
+  color: var(--color-brown);
+  background-color: #ffa73452;
+}
+
 /* Utility */
 .--custom-textDisplay {
  width: 100%;

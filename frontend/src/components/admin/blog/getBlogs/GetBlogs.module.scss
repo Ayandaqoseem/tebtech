@@ -87,7 +87,20 @@
 
 @media (max-width: 640px) {
   .get-blog-container {
-    height: 117vh;
+    height: 140vh;
     // margin-top: 10rem !important;
   }
+
+  .publish-container  {
+    justify-content: center !important;
+    width: 100%;
+    margin: 2rem 0 !important;
+  }
 }
+
+
+// @media (max-width: 500px) {
+//   .get-blog-container {
+//     height: 140vh;
+//   }
+// }

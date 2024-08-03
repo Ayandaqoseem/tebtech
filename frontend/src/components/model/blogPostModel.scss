@@ -28,6 +28,13 @@
   }
   .blog-post-btn-can {
     margin-top: 2rem;
-    
+
   }
+}
+
+
+@media (max-width: 500px) {
+    .modal-content {
+        min-width: 290px !important;
+    }
 }
