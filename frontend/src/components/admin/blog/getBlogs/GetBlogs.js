@@ -100,7 +100,7 @@ export default function GetBlogs() {
                   const { _id, title, likes, views, isPublished } = blog;
                   return (
                     <tr key={_id}>
-                      <td>{index + 1}</td>
+                      <td>{itemOffset + index + 1}</td>
                       <td>{title}</td>
                       <td>{likes}</td>
                       <td>{views}</td>
@@ -164,8 +164,8 @@ export default function GetBlogs() {
                   <option value="" disabled>
                     -- Choose one --
                   </option>
-                  <option value="true">True</option>
-                  <option value="false">False</option>
+                  <option value="true">Post Blog</option>
+                  <option value="false">Deactivate Blog</option>
                 </select>
               </span>
               <button type="submit" className="--btn --btn-primary --btn-block">

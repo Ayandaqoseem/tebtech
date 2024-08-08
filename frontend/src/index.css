@@ -149,8 +149,8 @@ section {
 }
 .--btn-secondary {
   color: #d62710;
-  border: 1px solid #d62710;
-  background: transparent;
+  border: 2px solid #d62710;
+  background-color: transparent;
 }
 .--btn-google {
   font-size: 1.2rem;

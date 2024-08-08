@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"
 import "./Footer.scss";
 import { AiOutlineWhatsApp } from "react-icons/ai";
 import { MdOutlineClose } from "react-icons/md";
@@ -68,7 +69,7 @@ export default function Footer() {
           )}
         </div>
 
-        <p>All Rights Resevered &copy; {year} Tebtechnology Ltd || terms</p>
+        <p>All Rights Resevered &copy; {year} Tebtechnology Ltd || <Link to={"/terms"}>terms</Link> || <Link to="/privacy-policy">Privacy Policy</Link></p>
       </div>
     </>
   );

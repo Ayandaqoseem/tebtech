@@ -22,7 +22,7 @@ export default function UpdateBlog() {
     const { id } = useParams()
     
     const { blog } = useSelector((state) => state.blog)
-  const [blogData, setBlogData] = useState();
+  const [blogData, setBlogData] = useState(null);
   const [blogImage, setBlogImage] = useState(null);
   const [blogVideo, setBlogVideo] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);

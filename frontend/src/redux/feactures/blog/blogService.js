@@ -34,12 +34,19 @@ const deleteBlog = async (id) => {
   return response.data;
 };
 
+// Like Blog
+const blogLike = async (id, formData) => {
+  const response = await axios.patch(`${API_URL}blogLike/${id}`, formData);
+  return response.data;
+};
+
 const blogService = {
   createBlog,
   getBlogs,
   getSingleBlog,
   updateBlog,
   deleteBlog,
+  blogLike,
 };
 
 export default blogService;

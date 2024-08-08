@@ -22,10 +22,15 @@ const blogSchema = new mongoose.Schema(
       trim: true,
     },
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
+      default: "Admin"
+      // type: mongoose.Schema.Types.ObjectId,
+      // ref: 'User',
       // required: true
     },
+    // authorAdmin: {
+    //   t
+    // },
     tags: [
       {
         type: String,
@@ -40,6 +45,7 @@ const blogSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    likedBy: [String],
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,

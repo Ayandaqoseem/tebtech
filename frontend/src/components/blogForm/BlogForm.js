@@ -26,6 +26,8 @@ export default function BlogForm({
 }) {
 
   const { isLoading } = useSelector((state) => state.blog)
+
+  console.log("Show loading status", isLoading);
   return (
     <Card cardClass={styles["card-container"]}>
       <div className={styles["form-wrapper"]}>

@@ -140,10 +140,36 @@ const deleteBlog = expressAsyncHandler(async (req, res) => {
   });
 });
 
+// Blog Likes 
+const blogLike = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+  const blog = await Blog.findById(id);
+
+  if (!blog) {
+    throw new Error("Blog not found");
+  }
+
+  const likedIndex = blog.likedBy.indexOf(userId);
+
+  if (likedIndex === -1) {
+    blog.likes += 1;
+    blog.likedBy.push(userId);
+  } else {
+    blog.likes -= 1;
+    blog.likedBy.splice(likedIndex, 1);
+  }
+
+  await blog.save();
+  res.status(200).json(blog);
+});
+
+
 module.exports = {
   createBlog,
   getBlogs,
   getSingleBlog,
   updateBlog,
   deleteBlog,
+  blogLike,
 };

@@ -1,26 +1,29 @@
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
 import styles from "./Blog.module.scss";
 import { Card } from "../../components/card/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { getBlogs } from "../../redux/feactures/blog/blogSlice";
-// import decodeAndFormatHTML from "../../components/DecodeandFormatHTML";
+import { blogLike, getBlogs } from "../../redux/feactures/blog/blogSlice";
+import { useNavigate } from "react-router-dom";
+import { ImUser } from "react-icons/im";
+import { v4 as uuidv4 } from "uuid";
+import { RxCalendar } from "react-icons/rx";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function removeHTMLTagsAndEntities(input) {
-  // Remove HTML tags
   const tagRegex = /<[^>]+>/g;
   let result = input.replace(tagRegex, "");
 
-  // Decode HTML entities
   const entityMap = {
-    '&amp;': '&',
-    '&lt;': '<',
-    '&gt;': '>',
-    '&quot;': '"',
-    '&#39;': "'",
-    '&nbsp;': ' ',
+    "&amp;": "&",
+    "&lt;": "<",
+    "&gt;": ">",
+    "&quot;": '"',
+    "&#39;": "'",
+    "&nbsp;": " ",
   };
 
-  result = result.replace(/&[^;]+;/g, match => entityMap[match] || match);
+  result = result.replace(/&[^;]+;/g, (match) => entityMap[match] || match);
 
   return result;
 }
@@ -38,64 +41,132 @@ function getEmbedUrl(videoUrl) {
 }
 
 export default function Blog() {
+  const [likeStates, setLikeStates] = useState({});
   const { blogs } = useSelector((state) => state.blog);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const publishedBlogs = Array.isArray(blogs)
-    ? blogs.filter((blog) => blog.isPublished)
-    : [];
+  const publishedBlogs = useMemo(() => {
+    return Array.isArray(blogs) ? blogs.filter((blog) => blog.isPublished) : [];
+  }, [blogs]);
 
-  // console.log(publishedBlogs);
   useEffect(() => {
     dispatch(getBlogs());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (publishedBlogs.length > 0) {
+      const initialLikeStates = {};
+      publishedBlogs.forEach((blog) => {
+        const userId = localStorage.getItem("userId");
+        const liked = blog.likedBy.includes(userId);
+        initialLikeStates[blog._id] = {
+          liked,
+          likes: blog.likes,
+        };
+      });
+      setLikeStates(initialLikeStates);
+    }
+  }, [publishedBlogs]);
+
+  const handleLearnMore = (id) => {
+    navigate(`/blog/${id}`);
+  };
+
+  const handleClick = async (id) => {
+    let userId = localStorage.getItem("userId");
+    if (!userId) {
+      userId = uuidv4();
+      localStorage.setItem("userId", userId);
+    }
+    const formData = { userId };
+
+    await dispatch(blogLike({ id, formData }));
+
+    setLikeStates((prevState) => {
+      const liked = !prevState[id].liked;
+      const likes = liked
+        ? prevState[id].likes + 1
+        : Math.max(prevState[id].likes - 1, 0); // Prevent likes from going below 0
+      return {
+        ...prevState,
+        [id]: { liked, likes },
+      };
+    });
+  };
 
   return (
     <div className={styles["blog-container"]}>
       <Card cardClass={styles["card-container"]}>
         <div>
-          {/* <h1>Blog page</h1> */}
           <div>
-            {Array.isArray(publishedBlogs) &&
-              publishedBlogs.map((blog) => {
-                const { _id, title, video, photo, textDescription } = blog;
-                const desc = removeHTMLTagsAndEntities(textDescription);
-                const newVideo = getEmbedUrl(video);
-                return (
-                  <div key={_id} className={styles["blog-post"]}>
+            {publishedBlogs.map((blog) => {
+              const {
+                _id,
+                title,
+                video,
+                photo,
+                textDescription,
+                author,
+                createdAt,
+              } = blog;
+              const desc = removeHTMLTagsAndEntities(textDescription);
+              const newVideo = getEmbedUrl(video);
+              const likeState = likeStates[_id] || {
+                liked: false,
+                likes: blog.likes,
+              };
+
+              return (
+                <div key={_id} className={styles["blog-post"]}>
+                  <div className={styles["blog-content-wrapper"]}>
                     <div className={styles["blog-content"]}>
                       <img src={photo} alt="blogPhoto" />
-                      <div>
+                      <div className={styles["blog-text-content"]}>
+                        <p>
+                          <span className={styles["author-span"]}>
+                            <ImUser />
+                            {author} at <RxCalendar />
+                            {createdAt.split("T")[0]}
+                          </span>
+                        </p>
                         <h3>{title}</h3>
-                        <p>{desc}</p>
+                        <p>{desc?.substring(0, 400).concat("...")}</p>
+                        <div className={styles["likes-btn"]}>
+                          <button
+                            className={`--btn ${
+                              styles[
+                                likeState.liked
+                                  ? "btn-filled-like"
+                                  : "btn-outlined-like"
+                              ]
+                            }`}
+                            onClick={() => handleClick(_id)}
+                          >
+                            {likeState.liked ? (
+                              <FavoriteIcon className={styles["filled-icon"]} />
+                            ) : (
+                              <FavoriteBorderIcon
+                                className={styles["outline-icon"]}
+                              />
+                            )}
+                          </button>
+                          <span>{likeState.likes === 1 || likeState.likes === 0 ? `${likeState.likes} Like` : `${likeState.likes} Likes`}</span>
+                        </div>
+                        <button
+                          type="submit"
+                          className="--btn-secondary --btn"
+                          onClick={() => handleLearnMore(_id)}
+                        >
+                          Learn More
+                        </button>
                       </div>
                     </div>
-                    <div className={styles["blog-video"]}>
-                      {newVideo ? (
-                        <iframe
-                          width="560"
-                          height="315"
-                          src={newVideo}
-                          title="YouTube video player"
-                          // style={{ border: "none" }}
-                          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
-                      ) : (
-                        <video
-                          controls
-                          controlsList="nodownload"
-                          // autoPlay
-                          loop
-                          src={video}
-                          // style={{ width: "100%" }}
-                        ></video>
-                      )}
-                    </div>
-                      <div className={styles.hr}></div>
                   </div>
-                );
-              })}
+                  <div className={styles.hr}></div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </Card>

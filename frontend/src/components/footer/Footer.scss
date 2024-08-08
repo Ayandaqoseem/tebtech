@@ -14,7 +14,7 @@
     justify-content: flex-end;
     align-items: center;
     padding-right: 5rem;
-    bottom: 1.5rem;
+    bottom: 2rem;
     width: 100%;
     z-index: 999;
     animation: w-slide-up 0.5s ease;
@@ -120,6 +120,19 @@
   }
   p {
     text-align: center;
+    a {
+      text-decoration: none;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    
+  }
+}
+
+p {
+  a:hover {
+    color: #ffa047;
+    border-bottom: #fff;
   }
 }
 

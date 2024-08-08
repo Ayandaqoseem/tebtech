@@ -26,6 +26,8 @@ import Request from "./components/request/Request";
 import ShowOnLogin from "./components/hiddenLink/hiddenLink";
 import AdminOnlyRoute from "./components/AdminOnlyRoute/AdminOnlyRoute";
 import Admin from "./components/admin/Admin";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import SingleBlog from "./pages/blog/SingleBlog";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -43,6 +45,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/send-a-request" element={<Request />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
           <Route path="/admin/dashboard/*" element={<AdminOnlyRoute>
             <Admin />
@@ -57,7 +60,8 @@ function App() {
           />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/blogs" element={<Blog />} />
+          <Route path="/blog/:id" element={<SingleBlog />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Reset />} />

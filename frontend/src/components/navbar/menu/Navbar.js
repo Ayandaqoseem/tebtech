@@ -110,7 +110,7 @@ export default function Navbar() {
                 <NavLink to="/contact">Contact</NavLink>
               </li>
               <li>
-                <NavLink to="/blog">Blog</NavLink>
+                <NavLink to="/blogs">Blog</NavLink>
               </li>
             </ul>
             <div className={styles["header-right"]}>

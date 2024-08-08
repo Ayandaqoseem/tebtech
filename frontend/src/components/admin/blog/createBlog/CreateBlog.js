@@ -4,8 +4,9 @@ import { Card } from "../../../card/Card";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../../../../redux/feactures/blog/blogSlice";
+import { Spinner } from "../../../loader/Loader";
 
 const initialState = {
   title: "",
@@ -30,9 +31,13 @@ export default function CreateBlog() {
   const [videoPreview, setVideoPreview] = useState(null);
   const [textDescription, setTextDescription] = useState("");
 
+  const { isLoading } = useSelector((state) => state.blog)
+
   const { title, video, photo, publish, views, likes } = formData;
 
   const dispatch = useDispatch();
+
+  console.log("Show loading status", isLoading);
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -180,7 +185,7 @@ export default function CreateBlog() {
                       className={`--btn --btn-secondary  ${styles["blog-upload-button"]}`}
                       onClick={uploadNow}
                     >
-                      Upload Image
+                      {isLoading ? <Spinner /> : "Upload Image"}
                     </button>
                   </div>
                 )}
@@ -197,7 +202,7 @@ export default function CreateBlog() {
                       className={`--btn --btn-secondary  ${styles["video-upload-button"]}`}
                       onClick={uploadVidNow}
                     >
-                      Upload Video
+                      {isLoading ? <Spinner /> : "Upload Video"}
                     </button>
                   </div>
                 )}
