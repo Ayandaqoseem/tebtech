@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from "uuid";
 import { RxCalendar } from "react-icons/rx";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import Loader from "../../components/loader/Loader";
 
 function removeHTMLTagsAndEntities(input) {
   const tagRegex = /<[^>]+>/g;
@@ -46,6 +48,7 @@ export default function Blog() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { isLoading } = useSelector((state) => state.blog);
   const publishedBlogs = useMemo(() => {
     return Array.isArray(blogs) ? blogs.filter((blog) => blog.isPublished) : [];
   }, [blogs]);
@@ -62,7 +65,7 @@ export default function Blog() {
         const liked = blog.likedBy.includes(userId);
         initialLikeStates[blog._id] = {
           liked,
-          likes: blog.likes,
+          likes: blog.likes || 0,
         };
       });
       setLikeStates(initialLikeStates);
@@ -81,95 +84,129 @@ export default function Blog() {
     }
     const formData = { userId };
 
-    await dispatch(blogLike({ id, formData }));
-
+    // Optimistic UI update
     setLikeStates((prevState) => {
       const liked = !prevState[id].liked;
       const likes = liked
         ? prevState[id].likes + 1
-        : Math.max(prevState[id].likes - 1, 0); // Prevent likes from going below 0
+        : Math.max(prevState[id].likes - 1, 0);
       return {
         ...prevState,
         [id]: { liked, likes },
       };
     });
+
+    try {
+      // Perform the API request
+      await dispatch(blogLike({ id, formData }));
+    } catch (error) {
+      // Revert optimistic UI update in case of an error
+      setLikeStates((prevState) => {
+        const liked = !prevState[id].liked;
+        const likes = liked
+          ? prevState[id].likes - 1
+          : Math.max(prevState[id].likes + 1, 0);
+        return {
+          ...prevState,
+          [id]: { liked, likes },
+        };
+      });
+      console.error("Failed to update like state", error);
+    }
   };
-
   return (
-    <div className={styles["blog-container"]}>
-      <Card cardClass={styles["card-container"]}>
-        <div>
-          <div>
-            {publishedBlogs.map((blog) => {
-              const {
-                _id,
-                title,
-                video,
-                photo,
-                textDescription,
-                author,
-                createdAt,
-              } = blog;
-              const desc = removeHTMLTagsAndEntities(textDescription);
-              const newVideo = getEmbedUrl(video);
-              const likeState = likeStates[_id] || {
-                liked: false,
-                likes: blog.likes,
-              };
+    <>
+      {/* {isLoading && <Loader />} */}
 
-              return (
-                <div key={_id} className={styles["blog-post"]}>
-                  <div className={styles["blog-content-wrapper"]}>
-                    <div className={styles["blog-content"]}>
-                      <img src={photo} alt="blogPhoto" />
-                      <div className={styles["blog-text-content"]}>
-                        <p>
-                          <span className={styles["author-span"]}>
-                            <ImUser />
-                            {author} at <RxCalendar />
-                            {createdAt.split("T")[0]}
-                          </span>
-                        </p>
-                        <h3>{title}</h3>
-                        <p>{desc?.substring(0, 400).concat("...")}</p>
-                        <div className={styles["likes-btn"]}>
+      <div className={styles["blog-container"]}>
+        <Card cardClass={styles["card-container"]}>
+          <div>
+            <div>
+              {publishedBlogs.map((blog) => {
+                const {
+                  _id,
+                  title,
+                  video,
+                  photo,
+                  textDescription,
+                  author,
+                  createdAt,
+                  views,
+                } = blog;
+                const desc = removeHTMLTagsAndEntities(textDescription);
+                const newVideo = getEmbedUrl(video);
+                const likeState = likeStates[_id] || {
+                  liked: false,
+                  likes: blog.likes,
+                };
+
+                return (
+                  <div key={_id} className={styles["blog-post"]}>
+                    <div className={styles["blog-content-wrapper"]}>
+                      <div className={styles["blog-content"]}>
+                        <img src={photo} alt="blogPhoto" />
+                        <div className={styles["blog-text-content"]}>
+                          <p>
+                            <span className={styles["author-span"]}>
+                              <ImUser />
+                              {author} at <RxCalendar />
+                              {createdAt.split("T")[0]}
+                            </span>
+                          </p>
+                          <h3>{title}</h3>
+                          <p>{desc?.substring(0, 400).concat("...")}</p>
+                          <div className={styles["likes-btn"]}>
+                            <button
+                              type="button"
+                              className={`--btn ${
+                                styles[
+                                  likeState.liked
+                                    ? "btn-filled-like"
+                                    : "btn-outlined-like"
+                                ]
+                              }`}
+                              onClick={() => handleClick(_id)}
+                            >
+                              {likeState.liked ? (
+                                <FavoriteIcon
+                                  className={styles["filled-icon"]}
+                                />
+                              ) : (
+                                <FavoriteBorderIcon
+                                  className={styles["outline-icon"]}
+                                />
+                              )}
+                            </button>
+                            <span>
+                              {likeState.likes === 1 || likeState.likes === 0
+                                ? `${likeState.likes} Like`
+                                : `${likeState.likes} Likes`}
+                            </span>
+                            <span className={styles["blog-view"]}>
+                              <VisibilityOutlinedIcon />
+                              {views === 1 || views === 0 || views === null
+                                ? `${views || 0} View`
+                                : `${views} Views`}
+                            </span>
+                          </div>
                           <button
-                            className={`--btn ${
-                              styles[
-                                likeState.liked
-                                  ? "btn-filled-like"
-                                  : "btn-outlined-like"
-                              ]
-                            }`}
-                            onClick={() => handleClick(_id)}
+                            type="submit"
+                            className="--btn-secondary --btn"
+                            onClick={() => handleLearnMore(_id)}
                           >
-                            {likeState.liked ? (
-                              <FavoriteIcon className={styles["filled-icon"]} />
-                            ) : (
-                              <FavoriteBorderIcon
-                                className={styles["outline-icon"]}
-                              />
-                            )}
+                            Learn More
                           </button>
-                          <span>{likeState.likes === 1 || likeState.likes === 0 ? `${likeState.likes} Like` : `${likeState.likes} Likes`}</span>
                         </div>
-                        <button
-                          type="submit"
-                          className="--btn-secondary --btn"
-                          onClick={() => handleLearnMore(_id)}
-                        >
-                          Learn More
-                        </button>
                       </div>
                     </div>
+                    <div className={styles.hr}></div>
                   </div>
-                  <div className={styles.hr}></div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </Card>
-    </div>
+        </Card>
+      </div>
+    </>
   );
 }

@@ -1,4 +1,7 @@
 .single-blog-section {
+    .single-blog-loader {
+        height: 100vh;
+    }
     .single-blog-container {
         margin-top: 8rem;
         display: flex;
@@ -32,6 +35,28 @@
                     opacity: 0.8;
                 }
             }
+
+            .likes-btn {
+                display: flex;
+                align-items: center;
+                // gap: 1rem;
+              }
+        
+              .btn-outlined-like, .btn-filled-like {
+                background-color: transparent;
+        
+                .filled-icon {
+                  color: orangered;
+                }
+              }
+
+              .blog-view {
+                margin-left: 1rem;
+                padding-left: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+              }
         }
     }
 }

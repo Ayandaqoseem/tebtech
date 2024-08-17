@@ -10,6 +10,9 @@ const {
   changePassword,
   forgotPassword,
   resetPassword,
+  getCart,
+  saveCart,
+  clearCart,
 } = require("../controller/userConroller");
 const { protect } = require("../middleware/authMiddleware");
 const { saveEnquiry } = require("../controller/enquiryController");
@@ -30,5 +33,12 @@ router.patch("/resetPassword/:resetToken", resetPassword )
 
 
 router.post("/saveEnquiry", saveEnquiry); 
+
+
+// cart
+router.get("/getCart", protect, getCart);
+router.patch("/saveCart", protect, saveCart);
+router.patch("/clearCart", protect, clearCart);
+
 
 module.exports = router;

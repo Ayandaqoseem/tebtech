@@ -28,6 +28,9 @@ import AdminOnlyRoute from "./components/AdminOnlyRoute/AdminOnlyRoute";
 import Admin from "./components/admin/Admin";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SingleBlog from "./pages/blog/SingleBlog";
+import Product from "./pages/shop/Product";
+import ProductDetails from "./components/product/productDetails/ProductDetails";
+// import Cart from "./pages/cart/Cart";
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -65,6 +68,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Reset />} />
+          <Route path="/shop" element={<Product />} />
+          <Route path="/product-details/:id" element={<ProductDetails />} />
+          {/* <Route path="/cart" element={<Cart />} /> */}
          
           <Route path="profile" element={<ShowOnLogin> <UserProfile /> </ShowOnLogin>} />
          

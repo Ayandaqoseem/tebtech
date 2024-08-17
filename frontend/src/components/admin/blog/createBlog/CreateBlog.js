@@ -37,7 +37,7 @@ export default function CreateBlog() {
 
   const dispatch = useDispatch();
 
-  console.log("Show loading status", isLoading);
+
 
   const handleImageChange = (e) => {
     e.preventDefault();

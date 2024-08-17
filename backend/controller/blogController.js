@@ -1,6 +1,17 @@
 const expressAsyncHandler = require("express-async-handler");
 const Blog = require("../model/blogModel");
 const User = require("../model/userModel");
+const redisClient = require("../redisClient");
+const rateLimit = require("express-rate-limit")
+
+
+// Rate Limiting Middleware
+const getSingleBlogLimiter = rateLimit({
+  windowMs: 15*60*1000,
+  max:100,
+  message: "Too many request from this IP, please try again after 15 minutes",
+  keyGenerator: (req) => req.ip,
+})
 
 // const { postToAll } = require("../utils/socialMediaPost");
 
@@ -69,12 +80,37 @@ const getBlogs = expressAsyncHandler(async (req, res) => {
 
 // Get Single Blog Post
 const getSingleBlog = expressAsyncHandler(async (req, res) => {
-  const blog = await Blog.findById(req.params.id);
+  const blogId = req.params.id;
+  const ipKey = `blog:${blogId}:ip:${req.ip}`;
+  const viewsKey = `blog:${blogId}:views`;
+
+  // Check if this IP has already viewed this blog
+  const hasViewed = await redisClient.get(ipKey);
+
+  if (!hasViewed) {
+    // Increment views in Redis if not viewed
+    await redisClient.incr(viewsKey);
+
+    // Mark this IP as having viewed the blog
+    await redisClient.set(ipKey, 'viewed', 'EX', 24 * 60 * 60); 
+  }
+
+  // Get updated views count from Redis
+  let views = await redisClient.get(viewsKey);
+  views = parseInt(views) || 0; 
+
+  // Fetch blog data
+  const blog = await Blog.findById(blogId);
 
   if (!blog) {
     res.status(404);
     throw new Error("Blog not found");
   }
+
+  
+  // Update blog with the current views from Redis
+  blog.views = views;
+  await blog.save();
 
   res.status(200).json(blog);
 });
@@ -95,8 +131,6 @@ const updateBlog = expressAsyncHandler(async (req, res) => {
     isPublished,
   } = req.body;
 
- 
-
   const blog = await Blog.findById(id);
   if (!blog) {
     res.status(400);
@@ -105,7 +139,7 @@ const updateBlog = expressAsyncHandler(async (req, res) => {
 
   // Update Blog
   const updatedBlog = await Blog.findByIdAndUpdate(
-    {_id: id},
+    { _id: id },
     {
       title,
       textDescription,
@@ -126,7 +160,6 @@ const updateBlog = expressAsyncHandler(async (req, res) => {
   res.status(200).json(updatedBlog);
 });
 
-
 // Delete Blog
 const deleteBlog = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -140,7 +173,7 @@ const deleteBlog = expressAsyncHandler(async (req, res) => {
   });
 });
 
-// Blog Likes 
+// Blog Likes
 const blogLike = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.body;
@@ -164,7 +197,6 @@ const blogLike = expressAsyncHandler(async (req, res) => {
   res.status(200).json(blog);
 });
 
-
 module.exports = {
   createBlog,
   getBlogs,
@@ -172,4 +204,5 @@ module.exports = {
   updateBlog,
   deleteBlog,
   blogLike,
+  getSingleBlogLimiter,
 };

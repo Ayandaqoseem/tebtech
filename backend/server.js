@@ -6,6 +6,10 @@ const cookieParser = require("cookie-parser");
 const userRoute = require("./routes/userRoutes");
 const authRoute = require("./routes/authRoutes");
 const blogRoute = require("./routes/blogRoute");
+const productRoute = require("./routes/productRoute");
+const categoryRoute = require("./routes/categoryRoute");
+const brandRoute = require("./routes/brandRoute");
+const couponRoute = require("./routes/couponRoute");
 const errorHandler = require("./middleware/errorMiddleware");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -49,10 +53,14 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
+// Routes Middleware
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/blogs", blogRoute);
+app.use("/api/products", productRoute);
+app.use("/api/category", categoryRoute);
+app.use("/api/brand", brandRoute);
+app.use("/api/coupon", couponRoute);
 
 app.get("/", (req, res) => {
   res.json({

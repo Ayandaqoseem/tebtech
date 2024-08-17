@@ -1,0 +1,24 @@
+// Create Brand
+.create-brand-container {
+  h3,
+  p {
+    margin-bottom: 1rem;
+  }
+
+  .brand-form {
+    width: 100%;
+
+    .brand-input {
+        margin-bottom: 1rem;
+    }
+
+    .brand-input,
+    .form-control {
+      width: 100%;
+      padding: 1rem;
+      outline: none;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+  }
+}

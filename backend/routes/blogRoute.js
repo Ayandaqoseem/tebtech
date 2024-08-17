@@ -7,13 +7,14 @@ const {
   deleteBlog,
   getSingleBlog,
   blogLike,
+  getSingleBlogLimiter,
 } = require("../controller/blogController");
 
 const router = express.Router();
 
 router.post("/createBlog", protect, adminOnly, createBlog);
 router.get("/getBlogs", getBlogs);
-router.get("/getSingleBlog/:id", getSingleBlog);
+router.get("/getSingleBlog/:id", getSingleBlogLimiter, getSingleBlog);
 router.patch("/updateBlog/:id", protect, adminOnly, updateBlog);
 router.delete("/deleteBlog/:id", protect, adminOnly, deleteBlog);
 

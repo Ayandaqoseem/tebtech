@@ -1,13 +1,15 @@
-.navbar {
-    border-right: 1px solid #ccc;
-    min-height: 200vh;
+.main-admin-navbar {
+    border-right: 1px solid #ccc !important;
+    min-height: 240vh;
+    overflow: hidden;
+    overflow-y: auto;
   
     .user {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      padding: 8rem 4rem 4rem 4rem;
+      padding: 8rem 2rem 4rem 2rem;
       background-color: #ffa047d3;
 
       .admin-profile-img {

@@ -41,6 +41,9 @@ const userSchema = mongoose.Schema(
     googleId: {
       type: String,
     },
+    cartItems: {
+      type: [Object],
+    },
   },
   {
     timestamps: true,

@@ -5,6 +5,11 @@ import { GiCctvCamera } from "react-icons/gi";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import HomeFooter from "../../components/footer/Homefooter";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../redux/feactures/product/productSlice";
+import { useEffect } from "react";
+import CarouselItem from "../../components/carousel/CarouselItem";
+import ProductCarousel from "../../components/carousel/CarouselItem";
 // import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -28,7 +33,51 @@ export default function Home() {
   //   };
   // }, [setDisplayText]);
 
+  const PageHeading = ({ heading, btnText }) => {
+    return (
+      <>
+        <div className="--flex-between">
+          <h2 className="--fw-thin">{heading}</h2>
+          <button className="--btn"> {btnText}</button>
+        </div>
+        <div className="--hr" />
+      </>
+    );
+  };
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const { products } = useSelector((state) => state.product);
+  const latest = Array.isArray(products)
+  ? products
+      .filter((item) => item.quantity > 0)
+      .slice(0, 10)
+  : [];
+
+console.log("LATEST", latest);
   
+  const latestProducts = latest?.map((product) => {
+    console.log("PRODUCT DETAILS", product); 
+    return (
+      <div key={product.id}>
+        <CarouselItem
+          name={product.name}
+          url={product.image[0]}
+          price={product.price}
+          regularPrice={product.regularPrice}
+          description={product.description}
+          product={product}
+        />
+      </div>
+    );
+  });
+  
+
+    console.log("LATEST PRODUCT", latestProducts);
+    
 
   const heroTextVariants = {
     initial: {
@@ -125,13 +174,13 @@ export default function Home() {
                   Get Free Quote
                 </motion.button>
                 </Link>
-                <Link to={"/contact"}>
+                <Link to={"/shop"}>
                 <motion.button
                   variants={heroTextVariants}
                   type="button"
                   className={styles.getInTouch}
                 >
-                  Get In Touch
+                  Shop Now
                 </motion.button>
                 </Link>
               </motion.div>
@@ -230,6 +279,14 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+      <section>
+        <div className="container">
+          <Link to={"/shop"}>
+          <PageHeading btnText={"Shop Now >>>"} />
+          </Link>
+          {/* <ProductCarousel products={latestProducts} /> */}
         </div>
       </section>
       <section>

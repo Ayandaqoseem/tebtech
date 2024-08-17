@@ -7,6 +7,12 @@ import { PiSidebarDuotone } from "react-icons/pi";
 import { useState } from "react"
 import GetBlogs from "./blog/getBlogs/GetBlogs"
 import UpdateBlog from "./blog/updateBlog/UpdateBlog"
+import Category from "./category/Category"
+import Brand from "./brand/Brand"
+import AddProduct from "./addProduct/AddProduct"
+import ViewProducts from "./viewProducts/ViewProducts"
+import EditProduct from "./editProduct/EditProduct"
+import Coupon from "./coupon/Coupon"
 
 
 export default function Admin() {
@@ -30,9 +36,15 @@ export default function Admin() {
                 </div>
                 <Routes>
                     <Route path="profile" element={<AdminProfile />} />
+                    <Route path="add-product" element={<AddProduct />} />
+                    <Route path="all-products" element={<ViewProducts />} />
+                    <Route path="edit-product/:id" element={<EditProduct />} />
                     <Route path="create-blog" element={<CreateBlog />} />
                     <Route path="get-blogs" element={<GetBlogs /> } />
                     <Route path="edit-blog/:id" element={<UpdateBlog /> } />
+                    <Route path="category" element={<Category />} />
+                    <Route path="brand" element={<Brand />} />
+                    <Route path="coupon" element={<Coupon />} />
                 </Routes>
             </div>
         </div>

@@ -1,0 +1,126 @@
+.cart-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1;
+
+    .cart-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .cart-container {
+            width: 80%;
+            margin: 8rem 0 5rem 0;
+            
+            padding: 1rem;
+            background-color: #fff;
+            
+            .close-icon {
+                width: 40px;
+                // margin-top: 10rem;
+                margin-left: auto;
+                display: flex;
+                justify-content: flex-end;
+                
+            }
+            
+        }
+    }
+}
+
+
+.table {
+    padding: 5px;
+    width: 100%;
+    overflow-x: auto;
+
+    .cont-shop {
+        cursor: pointer;
+    }
+    .no-cart {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+  
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    
+  
+      thead {
+        border-top: 2px solid var(--light-blue);
+        border-bottom: 2px solid var(--light-blue);
+      }
+  
+      th {
+        border: 1px solid #eee;
+      }
+  
+      th,
+      td {
+        vertical-align: top;
+        text-align: left;
+        padding: 8px;
+        &.icons {
+          > * {
+            margin-right: 5px;
+            cursor: pointer;
+          }
+        }
+      }
+  
+      tr {
+        border-bottom: 1px solid #ccc;
+      }
+  
+      tr:nth-child(even) {
+        background-color: #eee;
+      }
+    }
+    .summary {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+
+      .card {
+        padding: 1rem;
+        .text {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          h3 {
+            color: var(--color-danger);
+          }
+        }
+        button {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+  .count {
+    display: flex;
+    align-items: center;
+    button {
+      border: 1px solid var(--darkblue);
+    }
+    & > * {
+      margin-right: 1rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .summary {
+        flex-direction: column;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+  }

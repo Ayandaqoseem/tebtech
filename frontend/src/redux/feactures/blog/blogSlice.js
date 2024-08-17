@@ -235,13 +235,14 @@ const blogSlice = createSlice({
       .addCase(blogLike.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
+        state.blog = action.payload
+        // const index = state.blogs.findIndex(
+        //   (blog) => blog._id === updatedBlog._id
+        // );
+        // if (index !== -1) {
+        //   state.blogs[index] = updatedBlog;
+        // }
         const updatedBlog = action.payload;
-        const index = state.blogs.findIndex(
-          (blog) => blog._id === updatedBlog._id
-        );
-        if (index !== -1) {
-          state.blogs[index] = updatedBlog;
-        }
         // console.log(action.payload);
         toast.success(action.payload);
       })

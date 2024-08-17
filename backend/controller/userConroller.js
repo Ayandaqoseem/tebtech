@@ -342,6 +342,51 @@ const handleGoogleUser = asyncHandler(async (profile, done) => {
   }
 });
 
+// Save Cart
+const saveCart = asyncHandler(async (req, res) => {
+  const { cartItems } = req.body;
+
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.cartItems = cartItems;
+    user.save();
+    res.status(200).json({ message: "Cart saved" });
+  } else {
+    res.status(400);
+    throw new Error("User Not Found");
+  }
+});
+
+// Get Cart
+const getCart = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    // const { _id, name, email, phone, address } = user;
+    res.status(200).json(user.cartItems);
+  } else {
+    res.status(400);
+    throw new Error("User Not Found");
+  }
+});
+
+// Clear Cart
+const clearCart = asyncHandler(async (req, res) => {
+  const { cartItems } = req.body;
+
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.cartItems = [];
+    user.save();
+    res.status(200).json({ message: "Cart cleared" });
+  } else {
+    res.status(400);
+    throw new Error("User Not Found");
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -354,4 +399,7 @@ module.exports = {
   forgotPassword,
   resetPassword,
   handleGoogleUser,
+  saveCart,
+  getCart,
+  clearCart,
 };
