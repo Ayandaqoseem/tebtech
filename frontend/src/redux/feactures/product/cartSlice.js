@@ -228,7 +228,7 @@ const cartSlice = createSlice({
         state.isError = false;
         localStorage.setItem("cartItems", JSON.stringify(action.payload));
         if (action.payload.length > 0) {
-          window.location.href = FRONTEND_URL + "/cart";
+          window.location.href = FRONTEND_URL + "/shop";
         } else {
           window.location.href = FRONTEND_URL;
         }

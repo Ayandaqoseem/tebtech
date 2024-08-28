@@ -14,7 +14,7 @@ const getCoupons = async () => {
   return response.data;
 };
 
-// Get a Product
+// Get a Coupon
 const getCoupon = async (couponName) => {
   const response = await axios.get(API_URL + couponName);
   return response.data;

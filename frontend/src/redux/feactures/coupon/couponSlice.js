@@ -68,7 +68,7 @@ export const getCoupon = createAsyncThunk(
   }
 );
 
-// Delete a Product
+// Delete a Coupon
 export const deleteCoupon = createAsyncThunk(
   "coupons/delete",
   async (id, thunkAPI) => {
@@ -131,7 +131,7 @@ const couponSlice = createSlice({
         state.message = action.payload;
         toast.error(action.payload);
       })
-      //   Get single coupons
+      //   Get single coupon
       .addCase(getCoupon.pending, (state) => {
         state.isLoading = true;
       })

@@ -133,7 +133,6 @@ export default function AdminProfile() {
     };
 
     try {
-      console.log("save =>", userData);
       await dispatch(updateUser(userData));
       toast.success('Profile updated successfully');
     } catch (error) {

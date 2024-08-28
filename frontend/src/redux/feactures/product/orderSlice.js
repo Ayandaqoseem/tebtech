@@ -12,7 +12,7 @@ const initialState = {
   message: "",
 };
 
-// Create New Product
+// Create New Order
 export const createOrder = createAsyncThunk(
   "orders/create",
   async (formData, thunkAPI) => {

@@ -11,7 +11,7 @@ import Loader, { Spinner } from "../../../loader/Loader";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Card } from "../../../card/Card";
-import BlogPostModel from "../../../model/blogPostModel";
+import BlogPostModel from "../../../modal/blogPostModel";
 import ReactPaginate from "react-paginate";
 
 export default function GetBlogs() {
@@ -74,6 +74,9 @@ export default function GetBlogs() {
   useEffect(() => {
     dispatch(getBlogs());
   }, [dispatch]);
+
+
+  const message = "Are you sure you want to delete this blog."
 
   return (
     <div className={styles["get-blog-container"]}>
@@ -181,7 +184,7 @@ export default function GetBlogs() {
       )}
 
       {showDelete && (
-        <BlogPostModel setShowDelete={setShowDelete} delBlog={delBlog} />
+        <BlogPostModel setShowDelete={setShowDelete} delBlog={delBlog} message={message} />
       )}
     </div>
   );

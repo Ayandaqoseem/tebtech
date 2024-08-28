@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { Card } from "../../components/card/Card";
@@ -6,9 +6,14 @@ import styles from "./Auth.module.scss";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validateEmail } from "../../components/utils";
-import { RESET_AUTH, googleLogin, login } from "../../redux/feactures/auth/authSlice";
+import {
+  RESET_AUTH,
+  googleLogin,
+  login,
+} from "../../redux/feactures/auth/authSlice";
 import Loader from "../../components/loader/Loader";
 import { FcGoogle } from "react-icons/fc";
+import { getCartDB, saveCartDB } from "../../redux/feactures/product/cartSlice";
 
 export default function Contact() {
   const [email, setEmail] = useState("");
@@ -20,6 +25,10 @@ export default function Contact() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [urlParams] = useSearchParams();
+  // console.log(urlParams.get("redirect"));
+  const redirect = urlParams.get("redirect");
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -40,27 +49,42 @@ export default function Contact() {
       password,
     };
     await dispatch(login(userData));
-
-      
   };
 
   const googleLoginHandler = () => {
-    dispatch(googleLogin())
-  }
+    dispatch(googleLogin());
+  };
 
   useEffect(() => {
-    if (isLoggedIn && user) {
-      if (user.role === "customer") {
-        navigate("/profile");
-      } else {
-        navigate("/admin/dashboard/profile");
+    if (isLoggedIn && user && isSuccess) {
+      //   if(redirect === "cart") {
+      //     dispatch(saveCartDB({
+      //       cartItems: JSON.parse(localStorage.getItem("cartItems"))
+      //     }))
+      //     return navigate("/shop")
+      //   }else{
+      //   if (user.role === "customer") {
+      //     navigate("/profile");
+      //   } else {
+      //     navigate("/admin/dashboard/profile");
+      //   }
+      // }
+      if (redirect === "cart") {
+        dispatch(
+          saveCartDB({
+            cartItems: JSON.parse(localStorage.getItem("cartItems")),
+          })
+        );
+        return navigate("/shop");
       }
+     
+      dispatch(getCartDB());
     }
-  }, [isLoggedIn, user, navigate]);
+  }, [isLoggedIn, user, navigate, dispatch, isSuccess, redirect]);
 
   useEffect(() => {
     dispatch(RESET_AUTH());
-  });
+  }, [dispatch]);
 
   return (
     <>
@@ -98,15 +122,15 @@ export default function Contact() {
                 </button>
               </form>
               <div className={styles["google-btn"]}>
-              <button
+                <button
                   type="button"
                   className="--btn-google --btn-block"
                   onClick={googleLoginHandler}
                 >
                   <FcGoogle size={18} />
-                   Login With Google
+                  Login With Google
                 </button>
-                </div>
+              </div>
 
               <span className={styles["forgot-pwd"]}>
                 <Link to={"/forgot"} className={styles.link}>

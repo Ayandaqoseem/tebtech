@@ -13,6 +13,9 @@ import AddProduct from "./addProduct/AddProduct"
 import ViewProducts from "./viewProducts/ViewProducts"
 import EditProduct from "./editProduct/EditProduct"
 import Coupon from "./coupon/Coupon"
+import Orders from "./orders/Orders"
+import OrderDetails from "./orderDetails/OrderDetails"
+
 
 
 export default function Admin() {
@@ -39,6 +42,8 @@ export default function Admin() {
                     <Route path="add-product" element={<AddProduct />} />
                     <Route path="all-products" element={<ViewProducts />} />
                     <Route path="edit-product/:id" element={<EditProduct />} />
+                    <Route path="orders" element={<Orders />} />
+                    <Route path="order-details/:id" element={<OrderDetails />} /> 
                     <Route path="create-blog" element={<CreateBlog />} />
                     <Route path="get-blogs" element={<GetBlogs /> } />
                     <Route path="edit-blog/:id" element={<UpdateBlog /> } />

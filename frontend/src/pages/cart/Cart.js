@@ -27,7 +27,7 @@ import {
 } from "../../redux/feactures/product/checkoutSlice";
 import { getCartQuantityById } from "../../utils";
 import NoShoppingCartImg from "../../assets/shopping-cart-img.svg";
-// import VerifyCoupon from "../../components/verifyCoupon/VerifyCoupon";
+import VerifyCoupon from "../../components/verifyCoupon/VerifyCoupon";
 
 export default function Cart({ setShowCart, showCart }) {
   const navigate = useNavigate();
@@ -38,7 +38,6 @@ export default function Cart({ setShowCart, showCart }) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const [paymentMethod, setPaymentMethod] = useState("");
 
-  console.log(cartTotalAmount);
 
   const increaseCart = (cart) => {
     // const cartQuantity = getCartQuantityById(cartItems, cart._id);
@@ -115,12 +114,12 @@ export default function Cart({ setShowCart, showCart }) {
               >
                 &larr; Continue shopping
               </span>
-              <div>
+              <div className={styles["noShoppingCartImg-wrapper"]}>
                 <img src={NoShoppingCartImg} alt="img-illustrator" />
               </div>
             </div>
           ) : (
-            <>
+            <div className={styles["table-wrapper"]}>
               <table>
                 <thead>
                   <tr>
@@ -203,8 +202,8 @@ export default function Cart({ setShowCart, showCart }) {
                       <h4>Subtotal:</h4>
                       <h3>&#8358;{cartTotalAmount?.toFixed(2)}</h3>
                     </div>
-                    {/* <VerifyCoupon /> */}
-                    <div className="--underline --mb"></div>
+                    <VerifyCoupon />
+                    <div className="--underline --my-1"></div>
                     <p>Please choose a payment method</p>
                     <form className="cart-form-control" onSubmit={setPayment}>
                       {/* <label htmlFor={"stripe"} className="radio-label">
@@ -278,7 +277,7 @@ export default function Cart({ setShowCart, showCart }) {
                   </Card>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

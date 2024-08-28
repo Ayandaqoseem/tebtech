@@ -6,6 +6,7 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { getUser, updatePhoto, updateUser } from '../../redux/feactures/auth/authSlice';
 import Loader from '../../components/loader/Loader';
 import { toast } from 'react-toastify';
+import PageMenu from '../../components/pageMenu/PageMenu';
 
 const cloud_name = process.env.REACT_APP_CLOUD_NAME;
 const upload_preset = process.env.REACT_APP_UPLOAD_PRESET;
@@ -159,6 +160,7 @@ export default function AdminProfile() {
         <Loader />
       ) : (
         <div className="main-container">
+            <PageMenu />
           <div className="user-profile">
             <Card cardClass={"card-form"}>
               <p className="text-head">

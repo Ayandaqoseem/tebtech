@@ -30,6 +30,11 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SingleBlog from "./pages/blog/SingleBlog";
 import Product from "./pages/shop/Product";
 import ProductDetails from "./components/product/productDetails/ProductDetails";
+import CheckoutDetails from "./pages/checkout/CheckoutDetails";
+import CheckoutFlutterwave from "./pages/checkout/CheckoutFlutterwave";
+import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+import OrderHistory from "./pages/orderHistory/OrderHistory";
+import OrderDetails from "./pages/orderDetails/OrderDetails";
 // import Cart from "./pages/cart/Cart";
 
 function App() {
@@ -50,9 +55,14 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
-          <Route path="/admin/dashboard/*" element={<AdminOnlyRoute>
-            <Admin />
-          </AdminOnlyRoute>} />
+          <Route
+            path="/admin/dashboard/*"
+            element={
+              <AdminOnlyRoute>
+                <Admin />
+              </AdminOnlyRoute>
+            }
+          />
           <Route
             path="/service/solar-details"
             element={<ServiceSolarDetails />}
@@ -70,11 +80,50 @@ function App() {
           <Route path="/forgot" element={<Reset />} />
           <Route path="/shop" element={<Product />} />
           <Route path="/product-details/:id" element={<ProductDetails />} />
-          {/* <Route path="/cart" element={<Cart />} /> */}
-         
-          <Route path="profile" element={<ShowOnLogin> <UserProfile /> </ShowOnLogin>} />
-         
-          <Route exact path="/resetpassword/:resetToken" element={<NewPassword />} />
+          <Route
+            path="/checkout-details"
+            element={
+              <ShowOnLogin>
+                <CheckoutDetails />
+              </ShowOnLogin>
+            }
+          />
+
+          <Route
+            path="/checkout-flutterwave"
+            element={
+              <ShowOnLogin>
+                <CheckoutFlutterwave />
+              </ShowOnLogin>
+            }
+          />
+          <Route
+            path="/checkout-success"
+            element={
+              <ShowOnLogin>
+                <CheckoutSuccess />
+              </ShowOnLogin>
+            }
+          />
+
+<Route path="/order-history" element={<ShowOnLogin><OrderHistory /></ShowOnLogin>} />
+<Route path="/order-details/:id" element={<ShowOnLogin><OrderDetails /></ShowOnLogin>} />
+
+          <Route
+            path="profile"
+            element={
+              <ShowOnLogin>
+                {" "}
+                <UserProfile />{" "}
+              </ShowOnLogin>
+            }
+          />
+
+          <Route
+            exact
+            path="/resetpassword/:resetToken"
+            element={<NewPassword />}
+          />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

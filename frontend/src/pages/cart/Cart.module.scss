@@ -37,7 +37,7 @@
 .table {
     padding: 5px;
     width: 100%;
-    overflow-x: auto;
+
 
     .cont-shop {
         cursor: pointer;
@@ -47,12 +47,16 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+       
     }
-  
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
     table {
       border-collapse: collapse;
       width: 100%;
-    
   
       thead {
         border-top: 2px solid var(--light-blue);
@@ -96,6 +100,7 @@
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-bottom: 0.5rem;
           h3 {
             color: var(--color-danger);
           }
@@ -122,5 +127,12 @@
         flex-direction: column;
         justify-content: center !important;
         align-items: center !important;
+    }
+
+    .noShoppingCartImg-wrapper {
+      width: 50%;
+      img {
+        width: 100%;
+      }
     }
   }

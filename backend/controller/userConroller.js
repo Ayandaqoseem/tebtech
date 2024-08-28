@@ -348,14 +348,15 @@ const saveCart = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.user._id);
 
-  if (user) {
-    user.cartItems = cartItems;
-    user.save();
-    res.status(200).json({ message: "Cart saved" });
-  } else {
-    res.status(400);
-    throw new Error("User Not Found");
+  if(!user) {
+    res.status(401);
+    throw new Error("User Not Found")
   }
+
+  user.cartItems = cartItems;
+  user.save();
+  res.status(200).json({ message: "Cart saved" });
+ 
 });
 
 // Get Cart

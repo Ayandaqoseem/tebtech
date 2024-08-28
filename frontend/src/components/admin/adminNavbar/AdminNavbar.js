@@ -56,6 +56,11 @@ const AdminNavbar = () => {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/admin/dashboard/orders" className={activeLink}>
+              Orders
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/admin/dashboard/coupon" className={activeLink}>
               Coupon
             </NavLink>
