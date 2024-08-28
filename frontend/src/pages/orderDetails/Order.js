@@ -41,7 +41,7 @@ const Order = () => {
         imageWidth * ratio,
         imageHeight * ratio
       );
-      pdf.save(`shopitoInvoice.pdf`);
+      pdf.save(`tebtechnologyltdInvoice.pdf`);
     });
   };
 
@@ -115,6 +115,7 @@ const Order = () => {
                             src={image[0]}
                             alt={name}
                             style={{ width: "100px" }}
+                            crossOrigin="anonymous"
                           />
                         </td>
                         <td>&#8358;{price}</td>
