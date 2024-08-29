@@ -8,8 +8,9 @@ import HomeFooter from "../../components/footer/Homefooter";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/feactures/product/productSlice";
 import { useEffect } from "react";
-import CarouselItem from "../../components/carousel/CarouselItem";
-import ProductCarousel from "../../components/carousel/CarouselItem";
+// import CarouselItem from "../../components/carousel/CarouselItem";
+// import ProductCarousel from "../../components/carousel/CarouselItem";
+import LatestProductList from "../../components/product/productList/LatestProductList";
 // import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -54,29 +55,29 @@ export default function Home() {
   const latest = Array.isArray(products)
   ? products
       .filter((item) => item.quantity > 0)
-      .slice(0, 10)
+      .slice(0, 20)
   : [];
 
-console.log("LATEST", latest);
+
   
-  const latestProducts = latest?.map((product) => {
-    console.log("PRODUCT DETAILS", product); 
-    return (
-      <div key={product.id}>
-        <CarouselItem
-          name={product.name}
-          url={product.image[0]}
-          price={product.price}
-          regularPrice={product.regularPrice}
-          description={product.description}
-          product={product}
-        />
-      </div>
-    );
-  });
+//   const latestProducts = latest?.map((product) => {
+//     console.log("PRODUCT DETAILS", product); 
+//     return (
+//       <div key={product.id}>
+//         <CarouselItem
+//           name={product.name}
+//           url={product.image[0]}
+//           price={product.price}
+//           regularPrice={product.regularPrice}
+//           description={product.description}
+//           product={product}
+//         />
+//       </div>
+//     );
+//   });
   
 
-    console.log("LATEST PRODUCT", latestProducts);
+//     console.log("LATEST PRODUCT", latestProducts);
     
 
   const heroTextVariants = {
@@ -110,32 +111,7 @@ console.log("LATEST", latest);
   //   },
   // };
 
-  const items = [
-    {
-      id: 1,
-      name: "Grid-solar",
-      description: "Grid connected solar system",
-      url: "https://i.ibb.co/6bj4LgK/img-001.jpg",
-    },
-    {
-      id: 2,
-      name: "Battery-solar",
-      description: "Battery based solar system",
-      url: "https://i.ibb.co/qMrBd84/img-002.jpg",
-    },
-    {
-      id: 3,
-      name: "Micro-inverter",
-      description: "Micro inverter based grid connected system",
-      url: "https://i.ibb.co/6gxttdQ/img-003.jpg",
-    },
-    {
-      id: 4,
-      name: "Solar-tree",
-      description: "Tree solar system",
-      url: "https://i.ibb.co/zG1TdcL/img-004.jpg",
-    },
-  ];
+  
   return (
     <div className={styles["general-container"]}>
       <section>
@@ -282,28 +258,11 @@ console.log("LATEST", latest);
         </div>
       </section>
       <section>
-        <div className="container">
-          <Link to={"/shop"}>
-          <PageHeading btnText={"Shop Now >>>"} />
-          </Link>
-          {/* <ProductCarousel products={latestProducts} /> */}
-        </div>
-      </section>
-      <section>
         <div className={styles.ProductListContainer}>
           <h4>Choose a product as per your need</h4>
-          <div className={styles.item}>
-            {items.map((item, index) => {
-              return (
-                <div className={styles.eachItem} key={index}>
-                  <img src={item.url} alt="item" />
-                  <p>{item.name}</p>
-                  <p className={styles.desc}>
-                    {item.description.substring(0, 28)}...
-                  </p>
-                </div>
-              );
-            })}
+        
+          <div className={styles["home-latest-product"]}>
+            <LatestProductList products={latest} />
           </div>
         </div>
       </section>

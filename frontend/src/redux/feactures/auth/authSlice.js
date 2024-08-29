@@ -187,7 +187,7 @@ export const saveEnquiry = createAsyncThunk(
   "auth/saveEnquiry",
   async (userData, thunkAPI) => {
     try {
-       const response = await authService.saveEnquiry(userData);
+      const response = await authService.saveEnquiry(userData);
       return response.data;
     } catch (error) {
       const message =
@@ -331,7 +331,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = true;
-        console.log(action.payload);
+
         state.user = action.payload;
         toast.success("Photo updated");
       })

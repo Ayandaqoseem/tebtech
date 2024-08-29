@@ -112,7 +112,6 @@ export default function AdminProfile() {
       }
 
       const userData = { photo: imageUrl };
-      console.log(userData);
       await dispatch(updatePhoto(userData));
       setImagePreview(null);
     } catch (error) {
@@ -168,7 +167,7 @@ export default function AdminProfile() {
               </p>
               <div className="profile-wrapper">
                 <div className="profile-image">
-                  <div>
+                  <div className="img-wrapper">
                     <img
                       src={imagePreview || user?.photo || 'fallback-image-url'}
                       alt="Profile"
