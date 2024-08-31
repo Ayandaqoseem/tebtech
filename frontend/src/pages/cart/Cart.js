@@ -83,7 +83,7 @@ export default function Cart({ setShowCart, showCart }) {
   const setPayment = (e) => {
     e.preventDefault();
     if (paymentMethod === "") {
-      return toast.error("Please select a payment method");
+      return toast.error("Check the button to proceed");
     }
     dispatch(SAVE_PAYMENT_METHOD(paymentMethod));
 
@@ -204,7 +204,7 @@ export default function Cart({ setShowCart, showCart }) {
                     </div>
                     <VerifyCoupon />
                     <div className="--underline --my-1"></div>
-                    <p>Please choose a payment method</p>
+                    {/* <p>Please choose a payment method</p> */}
                     <form className="cart-form-control" onSubmit={setPayment}>
                       {/* <label htmlFor={"stripe"} className="radio-label">
                         <input
@@ -228,7 +228,7 @@ export default function Cart({ setShowCart, showCart }) {
                           onChange={(e) => setPaymentMethod(e.target.value)}
                         />
                         <span className="custom-radio" />
-                        Flutterwave
+                        Check to proceed
                       </label>
                       {/* <label htmlFor={"paypal"} className="radio-label">
                         <input
@@ -254,7 +254,7 @@ export default function Cart({ setShowCart, showCart }) {
                         <span className="custom-radio" />
                         Wallet
                       </label> */}
-                      <label htmlFor={"wallet"} className="radio-label">
+                      {/* <label htmlFor={"wallet"} className="radio-label">
                         <input
                           className="radio-input"
                           type="radio"
@@ -265,7 +265,7 @@ export default function Cart({ setShowCart, showCart }) {
                         />
                         <span className="custom-radio" />
                         Wallet
-                      </label>
+                      </label> */}
                       <button
                         type="submit"
                         className="--btn --btn-primary --btn-block checkout-btn"

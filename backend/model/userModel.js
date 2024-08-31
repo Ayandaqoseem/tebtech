@@ -38,6 +38,10 @@ const userSchema = mongoose.Schema(
     address: {
       type: Object,
     },
+    balance: {
+      type: Number,
+      default: 0,
+    },
     googleId: {
       type: String,
     },

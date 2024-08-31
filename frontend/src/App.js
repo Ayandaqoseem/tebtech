@@ -35,6 +35,7 @@ import CheckoutFlutterwave from "./pages/checkout/CheckoutFlutterwave";
 import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
 import OrderHistory from "./pages/orderHistory/OrderHistory";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
+import Wallet from "./pages/wallet/Wallet";
 // import Cart from "./pages/cart/Cart";
 
 function App() {
@@ -106,8 +107,31 @@ function App() {
             }
           />
 
-<Route path="/order-history" element={<ShowOnLogin><OrderHistory /></ShowOnLogin>} />
-<Route path="/order-details/:id" element={<ShowOnLogin><OrderDetails /></ShowOnLogin>} />
+          {/* <Route
+            path="/wallet"
+            element={
+              <ShowOnLogin>
+                <Wallet />
+              </ShowOnLogin>
+            }
+          /> */}
+
+          <Route
+            path="/order-history"
+            element={
+              <ShowOnLogin>
+                <OrderHistory />
+              </ShowOnLogin>
+            }
+          />
+          <Route
+            path="/order-details/:id"
+            element={
+              <ShowOnLogin>
+                <OrderDetails />
+              </ShowOnLogin>
+            }
+          />
 
           <Route
             path="profile"

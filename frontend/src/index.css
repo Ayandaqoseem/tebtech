@@ -129,13 +129,17 @@ section {
 .--flex-start {
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .--flex-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.--flex-dir-column {
+  display: flex;
 }
 @media(max-width: 360px) {
   .--flex-column {
@@ -164,6 +168,9 @@ section {
 }
 .--mt {
   margin-top: 1rem;
+}
+.--m {
+  margin: 1rem;
 }
 .--pb-5 {
   padding-bottom: 5rem;
@@ -342,4 +349,11 @@ section {
 
 .--cursor {
   cursor: pointer;
+}
+
+
+@media screen and (max-width: 600px) {
+  .--flex-dir-column {
+    flex-direction: column;
+  }
 }

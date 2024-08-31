@@ -1,0 +1,38 @@
+.wallet-container {
+  width: 100%;
+  margin: 8rem auto;
+}
+
+.wallet {
+  .wallet-data {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+  .wallet-info {
+    width: 35%;
+    padding: 1rem;
+    border-color: var(--color-text);
+  }
+  .wallet-promo {
+    width: 65%;
+    padding: 1rem;
+  }
+  .wallet-text {
+    width: 65%;
+  }
+  .wallet-img {
+    width: 35%;
+  }
+}
+
+
+
+@media (max-width: 600px) {
+  .wallet-info, .wallet-promo  {
+    width: 100% !important;
+  }
+  .wallet-promo-span {
+    font-size: 0.7rem;
+    
+  }
+}

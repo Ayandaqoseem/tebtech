@@ -1,4 +1,4 @@
-# Solar/Inverter Web App - Hackathon Project #MERNStack #Hackathon #SolarEnergy
+# Solar/Inverter Web App - #MERNStack #Hackathon #SolarEnergy
 
 ## Project Overview
 

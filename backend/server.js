@@ -29,6 +29,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -64,8 +65,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/transaction", transactionRoute);
-app.use(express.json());
+
+
 
 // Routes Middleware
 app.use("/api/users", userRoute);
@@ -76,6 +77,7 @@ app.use("/api/category", categoryRoute);
 app.use("/api/brand", brandRoute);
 app.use("/api/coupon", couponRoute);
 app.use("/api/order", orderRoute);
+app.use("/api/transaction", transactionRoute);
 
 app.get("/", (req, res) => {
   res.json({

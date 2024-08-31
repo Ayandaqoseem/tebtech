@@ -179,7 +179,7 @@ const payWithFlutterwave = async (req, res) => {
     // Function to create a payment link
     const createPaymentLink = async () => {
       const response = await axios.post(
-        process.env.FLW_URL,
+        `${process.env.FLW_URL}/payments`,
         {
           tx_ref: `${process.env.TX_REF}_${Date.now()}`,
           amount: orderAmount,

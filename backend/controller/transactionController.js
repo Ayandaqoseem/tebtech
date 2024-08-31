@@ -20,8 +20,6 @@ const transferFund = asyncHandler(async (req, res) => {
     throw new Error("Insufficient balance");
   }
 
-  // save the transaction
-  const newTransaction = await Transaction.create(req.body);
 
   // decrease the sender's balance
   await User.findOneAndUpdate(
@@ -31,6 +29,7 @@ const transferFund = asyncHandler(async (req, res) => {
     }
   );
 
+
   // increase the receiver's balance
   await User.findOneAndUpdate(
     { email: receiver },
@@ -38,6 +37,12 @@ const transferFund = asyncHandler(async (req, res) => {
       $inc: { balance: amount },
     }
   );
+
+
+  // save the transaction
+  await Transaction.create(req.body);
+
+
 
   res.status(200).json({ message: "Transaction successful" });
 });
@@ -182,7 +187,7 @@ const depositFundFLW = asyncHandler(async (req, res) => {
   const { transaction_id } = req.query;
 
   // Confirm transaction
-  const url = `https://api.flutterwave.com/v3/transactions/${transaction_id}/verify`;
+  const url = `${process.env.FLW_URL}/transactions/${transaction_id}/verify`;
 
   const response = await axios({
     url,
@@ -219,7 +224,7 @@ module.exports = {
   transferFund,
   verifyAccount,
   getUserTransactions,
-  depositFundStripe,
-  webhook,
+  // depositFundStripe,
+  // webhook,
   depositFundFLW,
 };
