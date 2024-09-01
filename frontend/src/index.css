@@ -160,6 +160,9 @@ section {
 .--mx-4 {
   margin-left: 4rem;
 }
+.--ml {
+  margin-left: 1rem;
+}
 .--my {
   margin: 1rem 0;
 }
@@ -168,6 +171,12 @@ section {
 }
 .--mt {
   margin-top: 1rem;
+}
+.--flex-div {
+  height: 45vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .--m {
   margin: 1rem;
@@ -356,4 +365,10 @@ section {
   .--flex-dir-column {
     flex-direction: column;
   }
+}
+
+
+.order-container {
+  width: 100%;
+  margin: 8rem auto;
 }

@@ -13,6 +13,9 @@ const {
   getCart,
   saveCart,
   clearCart,
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
 } = require("../controller/userConroller");
 const { protect } = require("../middleware/authMiddleware");
 const { saveEnquiry } = require("../controller/enquiryController");
@@ -24,21 +27,21 @@ router.get("/logout", logoutUser);
 router.get("/get-user", protect, getUser);
 router.get("/get-login-status", getLoginStatus);
 router.patch("/update-user", protect, updateUser);
-router.patch("/update-photo", protect, updatePhoto)
+router.patch("/update-photo", protect, updatePhoto);
 router.patch("/change-password", protect, changePassword);
 router.post("/forgot-password", forgotPassword);
-router.patch("/resetPassword/:resetToken", resetPassword )
+router.patch("/resetPassword/:resetToken", resetPassword);
 
-
-
-
-router.post("/saveEnquiry", saveEnquiry); 
-
+router.post("/saveEnquiry", saveEnquiry);
 
 // cart
 router.get("/getCart", protect, getCart);
 router.patch("/saveCart", protect, saveCart);
 router.patch("/clearCart", protect, clearCart);
 
+// wishlist
+router.post("/addToWishlist", protect, addToWishlist);
+router.get("/getWishlist", protect, getWishlist);
+router.put("/wishlist/:productId", protect, removeFromWishlist);
 
 module.exports = router;

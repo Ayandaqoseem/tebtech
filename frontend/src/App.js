@@ -36,6 +36,7 @@ import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
 import OrderHistory from "./pages/orderHistory/OrderHistory";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
 import Wallet from "./pages/wallet/Wallet";
+import Wishlist from "./pages/wishlist/Wishlist";
 // import Cart from "./pages/cart/Cart";
 
 function App() {
@@ -107,14 +108,14 @@ function App() {
             }
           />
 
-          {/* <Route
-            path="/wallet"
+          <Route
+            path="/wishlist"
             element={
               <ShowOnLogin>
-                <Wallet />
+                <Wishlist />
               </ShowOnLogin>
             }
-          /> */}
+          />
 
           <Route
             path="/order-history"

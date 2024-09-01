@@ -21,6 +21,7 @@ import { calculateAverageRating, getCartQuantityById } from "../../../utils";
 import ProductRating from "../productRating/ProductRating";
 import { toast } from "react-toastify";
 import ProductRatingSummary from "../productRating/productRatingSummary";
+import { addToWishlist } from "../../../redux/feactures/auth/authSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -68,14 +69,14 @@ const ProductDetails = () => {
       saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
     );
   };
-  // console.log(product);
-  // const addWishlist = (product) => {
-  //   const productData = {
-  //     productId: product._id,
-  //   };
-  //   console.log(productData);
-  //   dispatch(addToWishlist(productData));
-  // };
+  console.log(product);
+  const addWishlist = (product) => {
+    const productData = {
+      productId: product._id,
+    };
+    console.log(productData);
+    dispatch(addToWishlist(productData));
+  };
   // const averageRating = calculateAverageRating(product?.ratings);
   // console.log(product);
 
@@ -94,7 +95,7 @@ const ProductDetails = () => {
               <div className={styles.img}>
                 {product?.image && product.image.length > 0 && (
                   <img
-                    src={product.image[imageIndex]} // Safe to access since we've checked the length
+                    src={product.image[imageIndex]} 
                     alt={product?.name}
                     className={styles.pImg}
                   />
@@ -205,7 +206,7 @@ const ProductDetails = () => {
                   )}
                   <button
                     className="--btn --btn-danger"
-                    // onClick={() => addWishlist(product)}
+                    onClick={() => addWishlist(product)}
                   >
                     ADD TO WISHLIST
                   </button>

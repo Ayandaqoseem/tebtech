@@ -83,7 +83,7 @@ export default function Cart({ setShowCart, showCart }) {
   const setPayment = (e) => {
     e.preventDefault();
     if (paymentMethod === "") {
-      return toast.error("Check the button to proceed");
+      return toast.error("Please click the round button to proceed.");
     }
     dispatch(SAVE_PAYMENT_METHOD(paymentMethod));
 
@@ -228,7 +228,7 @@ export default function Cart({ setShowCart, showCart }) {
                           onChange={(e) => setPaymentMethod(e.target.value)}
                         />
                         <span className="custom-radio" />
-                        Check to proceed
+                        Click the round button to proceed.
                       </label>
                       {/* <label htmlFor={"paypal"} className="radio-label">
                         <input

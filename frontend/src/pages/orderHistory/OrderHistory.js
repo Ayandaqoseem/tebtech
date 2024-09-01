@@ -8,6 +8,7 @@ import {
 } from "../../redux/feactures/product/orderSlice";
 import Loader from "../../components/loader/Loader";
 import ReactPaginate from "react-paginate";
+import PageMenu from "../../components/pageMenu/PageMenu";
 
 const OrderHistory = () => {
   const { isLoading, isError, message, orders } = useSelector(
@@ -38,9 +39,10 @@ const OrderHistory = () => {
 
   return (
     <section>
-      <div className={`gen-container order`}>
-        <h2>Your Order History</h2>
-        <p>
+      <div className="order-container order">
+        <PageMenu />
+        <h2 className="--ml --mt">Your Order History</h2>
+        <p className="--ml --mt">
           Open an order to leave a <b>Product Review</b>
         </p>
         <br />
@@ -100,20 +102,20 @@ const OrderHistory = () => {
           </div>
         </>
 
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel="Next"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={pageCount}
-        previousLabel="Prev"
-        renderOnZeroPageCount={null}
-        containerClassName="pagination"
-        pageLinkClassName="page-num"
-        previousLinkClassName="page-num"
-        nextLinkClassName="page-num"
-        activeLinkClassName="activePage"
-      />
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="Next"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel="Prev"
+          renderOnZeroPageCount={null}
+          containerClassName="pagination"
+          pageLinkClassName="page-num"
+          previousLinkClassName="page-num"
+          nextLinkClassName="page-num"
+          activeLinkClassName="activePage"
+        />
       </div>
     </section>
   );

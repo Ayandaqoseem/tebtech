@@ -119,6 +119,27 @@ const saveEnquiry = async (userData) => {
   return response.data;
 };
 
+// Add to wishlist
+const addToWishlist = async(productData) => {
+  const response = await axios.post(API_URL + "addToWishlist", productData);
+
+  return response.data.message
+}
+
+// Get wishlist
+const getWishlist = async() => {
+  const response = await axios.get(API_URL + "getWishlist");
+
+  return response.data
+}
+
+// Remove from wishlist
+const removeFromWishlist = async(productId) => {
+  const response = await axios.put(API_URL + `wishlist/${productId}` );
+
+  return response.data.message
+}
+
 const authService = {
   register,
   login,
@@ -131,6 +152,9 @@ const authService = {
   resetPassword,
   googleLogin,
   saveEnquiry,
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
 };
 
 export default authService;

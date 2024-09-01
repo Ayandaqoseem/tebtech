@@ -6,6 +6,7 @@ const Token = require("../model/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 const GoogleUser = require("../model/googleModel");
+const expressAsyncHandler = require("express-async-handler");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -90,7 +91,9 @@ const loginUser = asyncHandler(async (req, res) => {
   // Check if user has a password set
   if (!user.password) {
     res.status(400);
-    throw new Error("User registered via Google. Please set a password to login with email and password.");
+    throw new Error(
+      "User registered via Google. Please set a password to login with email and password."
+    );
   }
 
   // Check password
@@ -176,22 +179,19 @@ const updateUser = asyncHandler(async (req, res) => {
 // Update user photo
 const updatePhoto = asyncHandler(async (req, res) => {
   const { photo } = req.body;
-  
+
   let user;
- 
+
   if (req.user.googleId) {
     user = await User.findById(req.user._id);
-  
   } else {
     user = await User.findById(req.user._id);
-   
   }
 
   if (!user) {
     res.status(400);
     throw new Error("User not found");
   }
-
 
   user.photo = photo;
   const updatedUser = await user.save();
@@ -253,7 +253,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
   }
 
   const resetToken = crypto.randomBytes(32).toString("hex") + user._id;
-  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
   await new Token({
     userId: user._id,
@@ -266,11 +269,13 @@ const forgotPassword = asyncHandler(async (req, res) => {
   const template = {
     body: {
       name: user.name,
-      intro: "Someone has requested a new password for the following account on tebtechnologyltd:",
+      intro:
+        "Someone has requested a new password for the following account on tebtechnologyltd:",
       action: {
-        instructions: "If you did not request this, please ignore this email. Otherwise, click the link below to reset your password:",
+        instructions:
+          "If you did not request this, please ignore this email. Otherwise, click the link below to reset your password:",
         button: {
-          color: "#22BC66", 
+          color: "#22BC66",
           text: "Reset your password",
           link: resetUrl,
         },
@@ -297,7 +302,10 @@ const resetPassword = asyncHandler(async (req, res) => {
   const { resetToken, userData } = req.body;
   const password = userData;
 
-  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
   const userToken = await Token.findOne({
     token: hashedToken,
@@ -305,7 +313,9 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 
   if (!userToken) {
-    return res.status(400).json({ message: "Session expired, please try again" });
+    return res
+      .status(400)
+      .json({ message: "Session expired, please try again" });
   }
 
   const user = await User.findOne({ _id: userToken.userId });
@@ -317,7 +327,10 @@ const resetPassword = asyncHandler(async (req, res) => {
   await user.save();
   await userToken.deleteOne();
 
-  res.status(200).json({ message: "Password reset successfully, please login", success: true });
+  res.status(200).json({
+    message: "Password reset successfully, please login",
+    success: true,
+  });
 });
 
 // Handle Google user integration
@@ -335,8 +348,6 @@ const handleGoogleUser = asyncHandler(async (profile, done) => {
     await googleUser.save();
 
     done(null, googleUser);
-
-   
   } catch (error) {
     done(error);
   }
@@ -348,15 +359,14 @@ const saveCart = asyncHandler(async (req, res) => {
 
   const user = await User.findById(req.user._id);
 
-  if(!user) {
+  if (!user) {
     res.status(401);
-    throw new Error("User Not Found")
+    throw new Error("User Not Found");
   }
 
   user.cartItems = cartItems;
   user.save();
   res.status(200).json({ message: "Cart saved" });
- 
 });
 
 // Get Cart
@@ -388,6 +398,35 @@ const clearCart = asyncHandler(async (req, res) => {
   }
 });
 
+// add to wishlist
+const addToWishlist = expressAsyncHandler(async (req, res) => {
+  const { productId } = req.body;
+
+  await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $addToSet: { wishlist: productId } }
+  );
+  res.json({ message: "Product added to wishlist" });
+});
+
+// get wishlist
+const getWishlist = expressAsyncHandler(async (req, res) => {
+  const list = await User.findOne({ email: req.user.email })
+    .select("wishlist")
+    .populate("wishlist");
+
+  res.json(list);
+});
+
+// get wishlist
+const removeFromWishlist = expressAsyncHandler(async (req, res) => {
+  const { productId } = req.params;
+  await User.findOneAndUpdate(
+    { email: req.user.email },
+    { $pull: { wishlist: productId } }
+  );
+  res.json({ message: "Product remove from wishlist" });
+});
 module.exports = {
   registerUser,
   loginUser,
@@ -403,4 +442,7 @@ module.exports = {
   saveCart,
   getCart,
   clearCart,
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
 };

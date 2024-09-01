@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ProductList.module.scss";
-import { BsFillGridFill } from "react-icons/bs";
-import { FaListAlt, FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
 import Search from "../../search/Search";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,8 +8,7 @@ import {
   SORT_PRODUCTS,
   selectFilteredProducts,
 } from "../../../redux/feactures/product/filterSlice";
-// import ReactPaginate from "react-paginate";
-import { Link } from "react-router-dom";
+
 import { selectCartTotalQuantity } from "../../../redux/feactures/product/cartSlice";
 import Cart from "../../../pages/cart/Cart";
 import LatestProductItem from "../productItem/LatestProductItem";
@@ -24,24 +22,7 @@ const LatestProductList = ({ products }) => {
   const dispatch = useDispatch();
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
-  //   Begin Pagination
-//   const [currentItems, setCurrentItems] = useState([]);
-//   const [pageCount, setPageCount] = useState(0);
-//   const [itemOffset, setItemOffset] = useState(0);
-//   const itemsPerPage = 10;
 
-//   useEffect(() => {
-//     const endOffset = itemOffset + itemsPerPage;
-
-//     setCurrentItems(filteredProducts.slice(itemOffset, endOffset));
-//     setPageCount(Math.ceil(filteredProducts.length / itemsPerPage));
-//   }, [itemOffset, itemsPerPage, filteredProducts]);
-
-//   const handlePageClick = (event) => {
-//     const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
-//     setItemOffset(newOffset);
-//   };
-  //   End Pagination
 
   useEffect(() => {
     dispatch(SORT_PRODUCTS({ products, sort }));
@@ -68,23 +49,7 @@ const LatestProductList = ({ products }) => {
     <>
       <div className={styles["product-list"]} id="product">
         <div className={styles.top}>
-          {/* <div className={styles.icons}>
-            <BsFillGridFill
-              size={22}
-              color="orangered"
-              onClick={() => setGrid(true)}
-            />
-
-            <FaListAlt
-              size={24}
-              color="#0066d4"
-              onClick={() => setGrid(false)}
-            />
-
-            <p>
-              <b>{filteredProducts.length}</b> Products found.
-            </p>
-          </div> */}
+         
           {/* Search Icon */}
           <div>{cart}</div>
           <div className={styles["top-search"]}>
@@ -121,20 +86,7 @@ const LatestProductList = ({ products }) => {
             </>
           )}
         </div>
-        {/* <ReactPaginate
-          breakLabel="..."
-          nextLabel="Next"
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={3}
-          pageCount={pageCount}
-          previousLabel="Prev"
-          renderOnZeroPageCount={null}
-          containerClassName="pagination"
-          pageLinkClassName="page-num"
-          previousLinkClassName="page-num"
-          nextLinkClassName="page-num"
-          activeLinkClassName="activePage"
-        /> */}
+     
       </div>
       {showCart && <Cart setShowCart={setShowCart} showCart={showCart} />}
     </>

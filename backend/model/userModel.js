@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = mongoose.Schema(
   {
@@ -38,6 +39,12 @@ const userSchema = mongoose.Schema(
     address: {
       type: Object,
     },
+    wishlist: [
+      {
+        type: ObjectId,
+        ref: "Product",
+      },
+    ],
     balance: {
       type: Number,
       default: 0,

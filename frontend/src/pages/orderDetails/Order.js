@@ -7,7 +7,6 @@ import jsPDF from "jspdf";
 import { Spinner } from "../../components/loader/Loader";
 import { getOrder } from "../../redux/feactures/product/orderSlice";
 
-
 const Order = () => {
   const pdfRef = useRef();
   const { id } = useParams();

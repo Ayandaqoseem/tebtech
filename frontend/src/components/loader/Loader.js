@@ -20,3 +20,11 @@ export const Spinner = () => {
     </div>
   );
 };
+
+export const SpinnerGIF = () => {
+  return (
+    <div className="--center-all">
+      <img src={loaderImg} alt="Loading..." />
+    </div>
+  );
+};
