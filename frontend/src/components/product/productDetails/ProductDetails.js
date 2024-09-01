@@ -69,7 +69,7 @@ const ProductDetails = () => {
       saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
     );
   };
-  console.log(product);
+
   const addWishlist = (product) => {
     const productData = {
       productId: product._id,
