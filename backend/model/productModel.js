@@ -1,5 +1,13 @@
 const mongoose = require("mongoose");
 
+// const ratingSchema = new mongoose.Schema({
+//   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+//   star: { type: Number, required: true },
+//   review: { type: String, required: true },
+//   reviewDate: { type: Date, required: true },
+// }
+// );
+
 const productSchema = mongoose.Schema(
   {
     name: {

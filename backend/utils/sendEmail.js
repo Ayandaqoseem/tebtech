@@ -43,7 +43,7 @@ const sendEmail = async (subject, send_to, htmlTemplate, send_from, cc = null, a
     attachments,
   };
 
-  console.log('Email options:', options);
+
 
   transporter.sendMail(options, (err, info) => {
     if (err) {

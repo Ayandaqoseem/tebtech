@@ -1,7 +1,7 @@
 import React from "react";
 import StarRatings from "react-star-ratings"; 
 
-const ProductRating = ({ averageRating, noOfRatings }) => {
+export default function ProductRating ({ averageRating, noOfRatings }) {
   return (
     <>
       {averageRating > 0 && (
@@ -20,4 +20,4 @@ const ProductRating = ({ averageRating, noOfRatings }) => {
   );
 };
 
-export default ProductRating;
+

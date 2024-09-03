@@ -37,6 +37,7 @@ import OrderHistory from "./pages/orderHistory/OrderHistory";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
 import Wallet from "./pages/wallet/Wallet";
 import Wishlist from "./pages/wishlist/Wishlist";
+import ReviewProduct from "./pages/review/reviewProduct/reviewProduct";
 // import Cart from "./pages/cart/Cart";
 
 function App() {
@@ -113,6 +114,15 @@ function App() {
             element={
               <ShowOnLogin>
                 <Wishlist />
+              </ShowOnLogin>
+            }
+          />
+
+<Route
+            path="/review-product/:id"
+            element={
+              <ShowOnLogin>
+                <ReviewProduct />
               </ShowOnLogin>
             }
           />

@@ -1,7 +1,12 @@
-import styles from "./ProductDetails.module.scss";
-import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import styles from "./ProductDetails.module.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getProduct } from "../../../redux/feactures/product/productSlice";
+import { SpinnerGIF } from "../../loader/Loader";
+import { toast } from "react-toastify";
+import { Card } from "../../card/Card";
+import StarRatings from "react-star-ratings";
 import {
   ADD_TO_CART,
   CALCULATE_TOTAL_QUANTITY,
@@ -9,21 +14,17 @@ import {
   saveCartDB,
   selectCartItems,
 } from "../../../redux/feactures/product/cartSlice";
-import { Card } from "../../card/Card";
-// import StarsRating from "react-star-rate";
-import { Spinner } from "../../loader/Loader";
-import { getProduct } from "../../../redux/feactures/product/productSlice";
-import DOMPurify from "dompurify";
-// import StarsRating from "react-star-rate";
-// import { addToWishlist } from "../../../redux/features/auth/authSlice";
-import StarRating from "react-star-ratings";
-import { calculateAverageRating, getCartQuantityById } from "../../../utils";
-import ProductRating from "../productRating/ProductRating";
-import { toast } from "react-toastify";
-import ProductRatingSummary from "../productRating/productRatingSummary";
 import { addToWishlist } from "../../../redux/feactures/auth/authSlice";
+import { calculateAverageRating } from "../../../utils";
+import ProductRating from "../productRating/ProductRating";
+import DOMPurify from "dompurify";
+import ProductRatingSummary from "../productRating/productRatingSummary";
 
-const ProductDetails = () => {
+
+
+
+
+export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
@@ -69,7 +70,7 @@ const ProductDetails = () => {
       saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
     );
   };
-
+  // console.log(product);
   const addWishlist = (product) => {
     const productData = {
       productId: product._id,
@@ -77,8 +78,7 @@ const ProductDetails = () => {
     console.log(productData);
     dispatch(addToWishlist(productData));
   };
-  // const averageRating = calculateAverageRating(product?.ratings);
-  // console.log(product);
+  const averageRating = calculateAverageRating(product?.ratings);
 
   return (
     <section>
@@ -88,14 +88,14 @@ const ProductDetails = () => {
           <Link to="/shop">&larr; Back To Products</Link>
         </div>
         {isLoading ? (
-          <Spinner />
+          <SpinnerGIF />
         ) : (
           <>
             <div className={styles.details}>
               <div className={styles.img}>
                 {product?.image && product.image.length > 0 && (
                   <img
-                    src={product.image[imageIndex]} 
+                    src={product.image[imageIndex]}
                     alt={product?.name}
                     className={styles.pImg}
                   />
@@ -117,10 +117,10 @@ const ProductDetails = () => {
               <div className={styles.content}>
                 <h3>{product?.name}</h3>
 
-                {/* <ProductRating
+                <ProductRating
                   averageRating={averageRating}
                   noOfRatings={product?.ratings.length}
-                /> */}
+                />
                 <div className="--underline"></div>
                 <div className={styles.property}>
                   <p>
@@ -227,10 +227,10 @@ const ProductDetails = () => {
         )}
         <Card cardClass={styles.card}>
           <h3>Product Reviews</h3>
-          {/* <ProductRating
+          <ProductRating
             averageRating={averageRating}
             noOfRatings={product?.ratings.length}
-          /> */}
+          />
           <div className="--underline"></div>
           <div className={styles.ratings}>
             {product !== null && product?.ratings.length > 0 && (
@@ -243,11 +243,10 @@ const ProductDetails = () => {
               ) : (
                 <>
                   {product?.ratings.map((item, index) => {
-                    const { star, review, reviewDate, name, userID } = item;
+                    const { star, review, reviewDate, name } = item;
                     return (
                       <div key={index} className={styles.review}>
-                        {/* <StarsRating value={star} style={{ fontSize: 10 }} /> */}
-                        <StarRating
+                        <StarRatings
                           starDimension="20px"
                           starSpacing="2px"
                           starRatedColor="#F6B01E"
@@ -273,6 +272,4 @@ const ProductDetails = () => {
       </div>
     </section>
   );
-};
-
-export default ProductDetails;
+}

@@ -1,0 +1,27 @@
+.review-container {
+    margin-bottom: 14rem;
+}
+
+.review-card {
+    width: 100%;
+    max-width: 700px;
+    padding: 1rem;
+} 
+
+.review {
+    gap: 1rem;
+}
+
+.review-icon {
+    display: flex;
+}
+
+@media (max-width: 450px) {
+    .review {
+        flex-direction: column;
+    }
+    .review-icon {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
