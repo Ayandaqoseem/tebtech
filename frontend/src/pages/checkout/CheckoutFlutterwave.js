@@ -40,6 +40,8 @@ const CheckoutFlutterwave = () => {
   const payment = urlParams.get("payment");
   const ref = urlParams.get("ref");
 
+  const message="You are being redirected to a payment page. Do you want to proceed?"
+
   // Refs to store stable values
   const cartTotalAmountRef = useRef(cartTotalAmount);
   const couponRef = useRef(coupon);
@@ -166,7 +168,7 @@ const CheckoutFlutterwave = () => {
         {showDelete && (
           <Modal
             setShowDelete={setShowDelete}
-            message="You are being redirected to a payment page. Do you want to proceed?"
+            message={message}
             proceed={() => (window.location.href = modalLink)}
           />
         )}

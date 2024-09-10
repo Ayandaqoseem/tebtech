@@ -1,5 +1,7 @@
 .review-container {
-    margin-bottom: 14rem;
+    width: 100%;
+    margin: 8rem 0 14rem 0;
+    padding: 1rem;
 }
 
 .review-card {
@@ -25,3 +27,31 @@
         justify-content: flex-end;
     }
 }
+
+
+
+.service-review-container {
+    display: flex;
+    gap: 1rem;
+    .service-review-img {
+        width: 100px;
+        border-radius: 50%;
+        border: 1px solid #ffa047;
+    }
+    .service-review-parag {
+        font-size: 0.8rem;
+        
+        @media (max-width: 500px) {
+                font-size: 0.7rem;
+        }
+    }
+    .service-review-icon {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        & * {
+            cursor: pointer;
+        }
+    }
+}
+

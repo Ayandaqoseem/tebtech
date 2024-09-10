@@ -81,6 +81,9 @@
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
 }
+.product-detail-underline {
+  border-bottom: 1px solid #ccc;
+}
 
 @media screen and (max-width: 700px) {
   .product {
@@ -97,8 +100,18 @@
       }
     }
   }
+ 
 }
 
 .ratings {
   display: flex;
+}
+
+@media(max-width: 500px) {
+  .ratings {
+    flex-direction: column;
+  }
+  .product-detail-underline {
+    border-bottom: none;
+  }
 }

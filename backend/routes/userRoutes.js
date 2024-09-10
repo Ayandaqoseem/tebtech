@@ -16,6 +16,10 @@ const {
   addToWishlist,
   getWishlist,
   removeFromWishlist,
+  reviewService,
+  deleteReviewService,
+  updateReviewService,
+  allReviews,
 } = require("../controller/userConroller");
 const { protect } = require("../middleware/authMiddleware");
 const { saveEnquiry } = require("../controller/enquiryController");
@@ -43,5 +47,12 @@ router.patch("/clearCart", protect, clearCart);
 router.post("/addToWishlist", protect, addToWishlist);
 router.get("/getWishlist", protect, getWishlist);
 router.put("/wishlist/:productId", protect, removeFromWishlist);
+
+
+// Service Review
+router.patch("/service-review/:id", protect, reviewService);
+router.patch("/delete-service-review/:id", protect, deleteReviewService);
+router.patch("/update-service-review/:id", protect, updateReviewService);
+router.get("/service-reviews", allReviews);
 
 module.exports = router;

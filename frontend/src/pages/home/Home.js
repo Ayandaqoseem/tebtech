@@ -8,31 +8,17 @@ import HomeFooter from "../../components/footer/Homefooter";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/feactures/product/productSlice";
 import { useEffect } from "react";
-// import CarouselItem from "../../components/carousel/CarouselItem";
-// import ProductCarousel from "../../components/carousel/CarouselItem";
+import CarouselItem from "../../components/carousel/CarouselItem";
 import LatestProductList from "../../components/product/productList/LatestProductList";
-// import { useEffect, useState } from "react";
+import ProductCarousel from "../../components/carousel/Carousel";
+import { allReviews } from "../../redux/feactures/auth/authSlice";
+
 
 export default function Home() {
-  // const [displayText, setDisplayText] = useState(false);
+  const { reviews } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   const showText = () => {
-  //     if (window.innerWidth <= 770) {
-  //       setDisplayText(true);
-  //     } else {
-  //       setDisplayText(false);
-  //     }
-  //   };
-
-  //   showText();
-
-  //   window.addEventListener("resize", showText);
-
-  //   return () => {
-  //     window.removeEventListener("resize", showText);
-  //   };
-  // }, [setDisplayText]);
+  // console.log("USERS =>", users);
+  // console.log("REVIEWS =>", reviews);
 
   const PageHeading = ({ heading, btnText }) => {
     return (
@@ -49,36 +35,29 @@ export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
+    dispatch(allReviews())
   }, [dispatch]);
 
   const { products } = useSelector((state) => state.product);
   const latest = Array.isArray(products)
-  ? products
-      .filter((item) => item.quantity > 0)
-      .slice(0, 20)
-  : [];
+    ? products.filter((item) => item.quantity > 0).slice(0, 20)
+    : [];
 
+  const userReviews = reviews?.map((review) => {
+    return (
+      <div key={review.id}>
+        <CarouselItem
+          name={review.name}
+          photo={review.photo}
+          reviewDate={review.reviewDate}
+          review={review.review}
+          star={review.star}
+        />
+      </div>
+    );
+  });
 
-  
-//   const latestProducts = latest?.map((product) => {
-//     console.log("PRODUCT DETAILS", product); 
-//     return (
-//       <div key={product.id}>
-//         <CarouselItem
-//           name={product.name}
-//           url={product.image[0]}
-//           price={product.price}
-//           regularPrice={product.regularPrice}
-//           description={product.description}
-//           product={product}
-//         />
-//       </div>
-//     );
-//   });
-  
-
-//     console.log("LATEST PRODUCT", latestProducts);
-    
+  // console.log("LATEST PRODUCT", userReviews);
 
   const heroTextVariants = {
     initial: {
@@ -111,7 +90,6 @@ export default function Home() {
   //   },
   // };
 
-  
   return (
     <div className={styles["general-container"]}>
       <section>
@@ -142,22 +120,22 @@ export default function Home() {
                 className={styles.btnContainer}
               >
                 <Link to={"/send-a-request"}>
-                <motion.button
-                  variants={heroTextVariants}
-                  type="button"
-                  className={styles.getQuote}
-                >
-                  Get Free Quote
-                </motion.button>
+                  <motion.button
+                    variants={heroTextVariants}
+                    type="button"
+                    className={styles.getQuote}
+                  >
+                    Get Free Quote
+                  </motion.button>
                 </Link>
                 <Link to={"/shop"}>
-                <motion.button
-                  variants={heroTextVariants}
-                  type="button"
-                  className={styles.getInTouch}
-                >
-                  Shop Now
-                </motion.button>
+                  <motion.button
+                    variants={heroTextVariants}
+                    type="button"
+                    className={styles.getInTouch}
+                  >
+                    Shop Now
+                  </motion.button>
                 </Link>
               </motion.div>
             </motion.div>
@@ -196,10 +174,7 @@ export default function Home() {
               project.
             </p>
           </div>
-          <img
-            src="https://i.ibb.co/GJ6WZQs/teb-eng-img.webp"
-            alt="engineer"
-          />
+          <img src="https://i.ibb.co/GJ6WZQs/teb-eng-img.webp" alt="engineer" />
         </div>
       </section>
 
@@ -260,13 +235,18 @@ export default function Home() {
       <section>
         <div className={styles.ProductListContainer}>
           <h4>Choose a product as per your need</h4>
-        
+
           <div className={styles["home-latest-product"]}>
             <LatestProductList products={latest} />
           </div>
         </div>
       </section>
       <section>
+        <div className={styles["review-wrapper"]}>
+          <div className={styles["review-product-carousel"]}>
+        <ProductCarousel products={userReviews} />
+        </div>
+        </div>
         <div className={styles["small-div-container"]}>
           <div className={styles["small-div-subContainer"]}>
             <img

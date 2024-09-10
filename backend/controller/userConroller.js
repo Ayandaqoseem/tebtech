@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 const GoogleUser = require("../model/googleModel");
 const expressAsyncHandler = require("express-async-handler");
+const mongoose = require("mongoose")
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -427,6 +428,145 @@ const removeFromWishlist = expressAsyncHandler(async (req, res) => {
   );
   res.json({ message: "Product remove from wishlist" });
 });
+
+
+// Service review
+const reviewService = asyncHandler(async(req, res) => {
+  const { star, review, reviewDate } = req.body;
+  const { id } = req.params
+
+  // Validation 
+  if(star < 1) {
+    re.status(400)
+    throw new Error("Please add star  and review")
+  }
+
+  const user = await User.findById(id)
+
+  if(!user) {
+    res.status(404)
+    throw new Error("User not found")
+  }
+
+  // Update review
+  user.serviceReview.push({
+    star,
+    review,
+    reviewDate,
+    name: req.user.name,
+    photo: req.user.photo,
+    userID: req.user._id,
+  })
+
+  user.save();
+
+  res.status(200).json({ message: "Service review added"})
+})
+
+// delete review service
+const deleteReviewService = asyncHandler(async (req, res) => {
+  const { userID } = req.body;
+
+  // Find the user by their ID
+  const user = await User.findById(userID);
+
+  // Check if the user exists
+  if (!user) {
+    res.status(400);
+    throw new Error("User not found");
+  }
+
+  // Check if serviceReview exists and is an array
+  if (!user.serviceReview || !Array.isArray(user.serviceReview)) {
+    res.status(400);
+    throw new Error("Service reviews not found or invalid");
+  }
+
+  // Filter out the service review, ensuring userID exists
+  const newServiceReview = user.serviceReview.filter((review) => {
+    return review.userID && review.userID.toString() !== userID.toString();
+  });
+
+ 
+  user.serviceReview = newServiceReview;
+  await user.save();  
+
+ 
+  res.status(200).json({ message: "Service review deleted" });
+});
+
+
+// update review service
+const updateReviewService = asyncHandler(async(req, res) => {
+
+  const { star, review, reviewDate, userID } = req.body;
+  
+    
+  const user = await User.findById(userID)
+
+  if(!user) {
+    res.status(400)
+    throw new Error("User not found")
+  }
+
+ 
+
+ // Check if the serviceReview array exists and is valid
+ if (!user.serviceReview || !Array.isArray(user.serviceReview)) {
+  res.status(400);
+  throw new Error("Service reviews not found or invalid");
+}
+
+// Find the specific service review by userID
+const servReview = user.serviceReview.find(review => review.userID && review.userID.toString() === userID.toString());
+
+// Check if the review exists
+if (!servReview) {
+  res.status(400);
+  throw new Error("Service review not found for this user");
+}
+
+ // Convert userID to ObjectId
+ const userObjectId = new mongoose.Types.ObjectId(`${userID}`);
+
+  const updatedReview = await User.findOneAndUpdate(
+    {
+      "serviceReview.userID": userObjectId,
+    },
+    {
+      $set: {
+        "serviceReview.$.star": Number(star),
+        "serviceReview.$.review": review,
+        "serviceReview.$.reviewDate": reviewDate,
+      },
+    },
+    { new: true }
+  )
+
+  if (!updatedReview) {
+    return res.status(404).json({ message: "review not found during update." });
+  }
+
+  res.status(200).json({ message: "Review updated successfully." });
+  
+  
+})
+
+const allReviews = async(req, res) => {
+  try {
+    const users = await User.find({ "serviceReview.0": { $exists: true } }, 'serviceReview');
+
+    if(!users) {
+      return res.json("reviews not found")
+    }
+    const reviews = users.flatMap(user => user.serviceReview); 
+    res.status(200).json(reviews);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch reviews' });
+  }
+}
+
+
 module.exports = {
   registerUser,
   loginUser,
@@ -445,4 +585,8 @@ module.exports = {
   addToWishlist,
   getWishlist,
   removeFromWishlist,
+  reviewService,
+  deleteReviewService,
+  updateReviewService, 
+  allReviews,
 };

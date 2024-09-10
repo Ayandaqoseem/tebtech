@@ -140,6 +140,30 @@ const removeFromWishlist = async(productId) => {
   return response.data.message
 }
 
+// Service Review 
+const reviewService = async (id, formData) => {
+  const response = await axios.patch(`${API_URL}service-review/${id}`, formData);
+  return response.data.message;
+};
+
+// Delete Service Review 
+const deleteReviewService= async (id, formData) => {
+  const response = await axios.patch(`${API_URL}delete-service-review/${id}`, formData);
+  return response.data.message;
+};
+
+// Update Service Review 
+const updateReviewService = async (id, formData) => {
+  const response = await axios.patch(`${API_URL}update-service-review/${id}`, formData);
+  return response.data.message;
+};
+
+// Get all Service Review 
+const allReviews = async () => {
+  const response = await axios.get(`${API_URL}service-reviews`);
+  return response.data;
+};
+
 const authService = {
   register,
   login,
@@ -155,6 +179,10 @@ const authService = {
   addToWishlist,
   getWishlist,
   removeFromWishlist,
+  reviewService,
+  deleteReviewService,
+  updateReviewService,
+  allReviews, 
 };
 
 export default authService;

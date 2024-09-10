@@ -6,14 +6,14 @@ import { Card } from "../../../components/card/Card";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    deleteReview,
+  deleteReview,
   getProduct,
   reviewProduct,
   updateReview,
 } from "../../../redux/feactures/product/productSlice";
 import { SpinnerGIF } from "../../../components/loader/Loader";
 import { toast } from "react-toastify";
-import styles from "./ReviewProduct.module.scss"
+import styles from "./ReviewProduct.module.scss";
 
 export default function ReviewProduct() {
   const dispatch = useDispatch();
@@ -54,56 +54,51 @@ export default function ReviewProduct() {
     navigate(-1);
   };
 
-  
   useEffect(() => {
     const reviewed = product?.ratings.filter((rev) => {
-        return rev.userID === user?._id;
+      return rev.userID === user?._id;
     });
     setUserReview(reviewed);
-}, [product, user]);
+  }, [product, user]);
 
-
-const delReview = async () => {
+  const delReview = async () => {
     const formData = {
-        userID: user?._id
-    }
-    dispatch(deleteReview({ id, formData }))
-    navigate(-1)
-}
-
-const startEdit = async () => {
-    setIsEditing(true)
-    setRate(userReview[0].star)
-    setReview(userReview[0].review)
-}
-
-
-const editReview = async (e) => {
-  e.preventDefault();
-
-  const today = new Date();
-  const date = today.toDateString();
-  if (rate === 0 || review === "") {
-    return toast.error("Please enter rating and review");
-  }
-  const formData = {
-    star: rate,
-    review,
-    reviewDate: date,
-    userID: userReview[0].userID,
+      userID: user?._id,
+    };
+    dispatch(deleteReview({ id, formData }));
+    navigate(-1);
   };
 
-  console.log("formData", formData);
-  
-  
-  await dispatch(updateReview({ id, formData }));
-  navigate(-1);
-};
+  const starEdit = async () => {
+    setIsEditing(true);
+    setRate(userReview[0].star);
+    setReview(userReview[0].review);
+  };
 
+  const editReview = async (e) => {
+    e.preventDefault();
 
-return (
+    const today = new Date();
+    const date = today.toDateString();
+    if (rate === 0 || review === "") {
+      return toast.error("Please enter rating and review");
+    }
+    const formData = {
+      star: rate,
+      review,
+      reviewDate: date,
+      userID: userReview[0].userID,
+    };
+
+    // console.log("formData", formData);
+
+    await dispatch(updateReview({ id, formData }));
+    navigate(-1);
+  };
+
+  return (
     <section>
-      <div className={`gen-container ${styles["review-container"]}`}>
+      <div className={styles["review-container"]}>
         <h2>Review Product</h2>
         {isLoading && product === null ? (
           <SpinnerGIF />
@@ -126,7 +121,7 @@ return (
               const { star, review, reviewDate, name } = item;
               return (
                 <div key={index} className={`${styles.review} --flex-between`}>
-                  <div >
+                  <div>
                     <StarRatings
                       starDimension="20px"
                       starSpacing="2px"
@@ -148,7 +143,7 @@ return (
                     <FaEdit
                       color="green"
                       size={25}
-                      onClick={() => startEdit()}
+                      onClick={() => starEdit()}
                     />
                     <BsTrash color="red" size={25} onClick={delReview} />
                   </div>

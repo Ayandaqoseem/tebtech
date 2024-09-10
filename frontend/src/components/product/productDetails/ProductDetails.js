@@ -231,7 +231,7 @@ export default function ProductDetails() {
             averageRating={averageRating}
             noOfRatings={product?.ratings.length}
           />
-          <div className="--underline"></div>
+          <div className="product-detail-underline"></div>
           <div className={styles.ratings}>
             {product !== null && product?.ratings.length > 0 && (
               <ProductRatingSummary ratings={product?.ratings} />

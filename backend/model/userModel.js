@@ -45,9 +45,8 @@ const userSchema = mongoose.Schema(
         ref: "Product",
       },
     ],
-    balance: {
-      type: Number,
-      default: 0,
+    serviceReview: {
+      type: [Object]
     },
     googleId: {
       type: String,

@@ -27,7 +27,7 @@ export default function Wishlist() {
 
   return (
     <section>
-      <div className="wishlist-container">
+      <div className={wishlist.length === 0 ? "wishlist-no-prod" :"wishlist-container"}>
         <PageMenu />
         <h2 className="--my wishlist-h2">My Wishlist</h2>
         <div className="--underline"></div>

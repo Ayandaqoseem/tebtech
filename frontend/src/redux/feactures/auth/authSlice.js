@@ -7,6 +7,7 @@ const initialState = {
   user: null,
   enquiry: null,
   users: [],
+  reviews: [],
   wishlist: [],
   isError: false,
   isSuccess: false,
@@ -251,6 +252,81 @@ export const removeFromWishlist = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Review Service
+export const reviewService = createAsyncThunk(
+  "auth/reviewService",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      return await authService.reviewService(id, formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+// Delete Service Review 
+export const deleteReviewService = createAsyncThunk(
+  "auth/deleteReviewService",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      return await authService.deleteReviewService(id, formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Update Service Review
+export const updateReviewService = createAsyncThunk(
+  "auth/updateReviewService",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      return await authService.updateReviewService(id, formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Get all Service Review
+export const allReviews = createAsyncThunk(
+  "auth/allReviews",
+  async (_, thunkAPI) => {
+    try {
+      return await authService.allReviews();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -509,6 +585,74 @@ const authSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         toast.error(action.payload);
+      })
+
+      // Service Review
+      .addCase(reviewService.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(reviewService.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success(action.payload);
+      })
+      .addCase(reviewService.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+      // Delete Review Service
+      .addCase(deleteReviewService.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteReviewService.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success(action.payload);
+      })
+      .addCase(deleteReviewService.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+
+      // Update Review Service
+      .addCase(updateReviewService.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateReviewService.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success(action.payload);
+      })
+      .addCase(updateReviewService.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+      // Get all Review Service
+      .addCase(allReviews.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(allReviews.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        state.reviews = action.payload;
+      })
+      .addCase(allReviews.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });

@@ -19,7 +19,7 @@ import Reset from "./pages/auth/Reset";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getLoginStatus } from "./redux/feactures/auth/authSlice";
+import { allReviews, getLoginStatus } from "./redux/feactures/auth/authSlice";
 import UserProfile from "./pages/profile/UserProfile";
 import NewPassword from "./pages/auth/NewPassword";
 import Request from "./components/request/Request";
@@ -35,9 +35,10 @@ import CheckoutFlutterwave from "./pages/checkout/CheckoutFlutterwave";
 import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
 import OrderHistory from "./pages/orderHistory/OrderHistory";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
-import Wallet from "./pages/wallet/Wallet";
+// import Wallet from "./pages/wallet/Wallet";
 import Wishlist from "./pages/wishlist/Wishlist";
 import ReviewProduct from "./pages/review/reviewProduct/reviewProduct";
+// import ReviewService from "./pages/review/reviewService/ReviewService";
 // import Cart from "./pages/cart/Cart";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getLoginStatus());
+    dispatch(allReviews())
   }, [dispatch]);
   return (
     <>
@@ -118,7 +120,7 @@ function App() {
             }
           />
 
-<Route
+          <Route
             path="/review-product/:id"
             element={
               <ShowOnLogin>
@@ -126,6 +128,15 @@ function App() {
               </ShowOnLogin>
             }
           />
+
+          {/* <Route
+            path="/review-service/:id"
+            element={
+              <ShowOnLogin>
+                <ReviewService />
+              </ShowOnLogin>
+            }
+          /> */}
 
           <Route
             path="/order-history"

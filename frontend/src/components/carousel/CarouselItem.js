@@ -1,71 +1,32 @@
-import React from "react";
 import "./Carousel.scss";
-import { getCartQuantityById, shortenText } from "../../utils";
-// import DOMPurify from "dompurify";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ADD_TO_CART,
-  CALCULATE_TOTAL_QUANTITY,
-  saveCartDB,
-  selectCartItems,
-} from "../../redux/feactures/product/cartSlice";
-import { Link } from "react-router-dom";
+import { ImQuotesRight } from "react-icons/im";
+import { ImQuotesLeft } from "react-icons/im";
+import StarRatings from "react-star-ratings";
 
-function removeHTMLTags(input) {
-  if(!input) {
-    return "";
-  }
-  const regex = /<[^>]+>/g;
-  return input.replace(regex, "");
-}
-
-const CarouselItem = ({
-  url,
-  name,
-  regularPrice,
-  price,
-  description,
-  product,
-}) => {
-  const cartItems = useSelector(selectCartItems);
-  const dispatch = useDispatch();
-
-
-  console.log("PRODUCT", product);
-  
-  const addToCart = (product) => {
-    const cartQuantity = getCartQuantityById(cartItems, product._id);
-    if (cartQuantity === product.quantity) {
-      return toast.info("Max number of product reached!!!");
-    }
-    dispatch(ADD_TO_CART(product));
-    dispatch(CALCULATE_TOTAL_QUANTITY());
-    dispatch(
-      saveCartDB({ cartItems: JSON.parse(localStorage.getItem("cartItems")) })
-    );
-  };
-
-  const desc = removeHTMLTags(description);
+const CarouselItem = ({ name, photo, reviewDate, review, star }) => {
   return (
     <div className="carouselItem">
-      <Link to={`/product-details/${product._id}`}>
-        <img className="product--image" src={url} alt="product" />
-        {/* <p className="price">{`$${price}`}</p> */}
-        <p className="price">
-          <span>{regularPrice > 0 && <del>${regularPrice}</del>}</span>
-          {` $${price} `}
-        </p>
-
-        <h4>{shortenText(name, 18)}</h4>
-        <p className="--mb">{shortenText(desc, 26)}</p>
-      </Link>
-      <button
-        className="--btn --btn-primary --btn-block"
-        onClick={() => addToCart(product)}
-      >
-        Add To Cart
-      </button>
+      <div className="carouselItem-wrapper">
+        <ImQuotesRight size={40} color="#0066ff" className="right" />
+        <div>
+          <div className="review-content-wrapper">
+            <StarRatings
+              starDimension="20px"
+              starSpacing="2px"
+              starRatedColor="#F6B01E"
+              rating={star}
+              editing={false}
+            />
+            <p className="review-text">{reviewDate}</p>
+            <p className="review-text review-content">{review}</p>
+          </div>
+          <span>
+            <img className="product--image" src={photo} alt="product" />
+            <p className="review-text">{name}</p>
+          </span>
+        </div>
+        <ImQuotesLeft size={40} color="#0066ff" className="left" />
+      </div>
     </div>
   );
 };
