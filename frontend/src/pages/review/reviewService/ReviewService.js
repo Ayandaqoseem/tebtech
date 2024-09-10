@@ -153,7 +153,7 @@ export default function ReviewService() {
                 onChange={(e) => setReview(e.target.value)}
                 cols="30"
                 rows="10"
-                maxLength="200"
+                maxLength="500"
               ></textarea>
               {!isEditing ? (
                 <button

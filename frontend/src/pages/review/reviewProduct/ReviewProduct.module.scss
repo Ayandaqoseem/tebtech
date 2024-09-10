@@ -19,6 +19,9 @@
 }
 
 @media (max-width: 450px) {
+    .review-container {
+        margin: 8rem 0 16rem 0 !important;
+    }
     .review {
         flex-direction: column;
     }

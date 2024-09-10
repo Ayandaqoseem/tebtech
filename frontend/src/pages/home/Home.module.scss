@@ -270,6 +270,30 @@ section {
   @media (max-width: 400px) {
     width: 100%;
   }
+
+  .testimony-wrapper {
+    margin-bottom: 3rem;
+
+    .testimony {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: orangered;
+    
+    .hr {
+      width: 30px;
+      height: 2px;
+      background: orangered;
+    }
+
+  
+  }
+  .h3 {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #344650;
+  }
+  }
 }
 .home-latest-product {
   width: 100%;
@@ -632,6 +656,9 @@ section {
     //   margin-top: 44rem;
     // }
   }
+  .h3 {
+    font-size: 2.4rem !important;
+  }
 }
 
 @media (max-width: 450px) {
@@ -708,15 +735,7 @@ section {
         }
       }
     }
-    // .ProductListContainer {
-    //   h4 {
-    //     font-size: 1.6rem;
-    //     padding-top: 36rem;
-    //   }
-    //   .item {
-    //     flex-direction: column
-    //   }
-    // }
+  
 
     .small-div-container {
       .small-div-subContainer {
@@ -747,4 +766,9 @@ section {
       }
     }
   }
+  .testimony-wrapper {
+    padding: 0 1rem !important;
+
+  }
+ 
 }

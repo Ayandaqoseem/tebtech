@@ -1,3 +1,15 @@
+.footer-gen-conatiner {
+  position: relative;
+  
+  .footer-content-container {
+    position: absolute;
+    background: #ccc;
+    width: 100%;
+    color: #ffffff;
+   padding: 1rem;
+  }
+}
+
 .home-footer {
   background-image: url(../../assets/field-panel.webp);
   position: relative;

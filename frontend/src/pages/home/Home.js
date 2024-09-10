@@ -13,7 +13,6 @@ import LatestProductList from "../../components/product/productList/LatestProduc
 import ProductCarousel from "../../components/carousel/Carousel";
 import { allReviews } from "../../redux/feactures/auth/authSlice";
 
-
 export default function Home() {
   const { reviews } = useSelector((state) => state.auth);
 
@@ -35,7 +34,7 @@ export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(allReviews())
+    dispatch(allReviews());
   }, [dispatch]);
 
   const { products } = useSelector((state) => state.product);
@@ -244,8 +243,15 @@ export default function Home() {
       <section>
         <div className={styles["review-wrapper"]}>
           <div className={styles["review-product-carousel"]}>
-        <ProductCarousel products={userReviews} />
-        </div>
+            <div className={styles["testimony-wrapper"]}>
+              <div className={styles["testimony"]}>
+                <p>Our Clients Testimony</p>
+                <div className={styles.hr}></div>
+              </div>
+                <h2 className={styles.h3}>What People Say</h2>
+            </div>
+            <ProductCarousel products={userReviews} />
+          </div>
         </div>
         <div className={styles["small-div-container"]}>
           <div className={styles["small-div-subContainer"]}>
