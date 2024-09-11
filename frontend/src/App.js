@@ -26,7 +26,6 @@ import Request from "./components/request/Request";
 import ShowOnLogin from "./components/hiddenLink/hiddenLink";
 import AdminOnlyRoute from "./components/AdminOnlyRoute/AdminOnlyRoute";
 import Admin from "./components/admin/Admin";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SingleBlog from "./pages/blog/SingleBlog";
 import Product from "./pages/shop/Product";
 import ProductDetails from "./components/product/productDetails/ProductDetails";
@@ -38,6 +37,7 @@ import OrderDetails from "./pages/orderDetails/OrderDetails";
 // import Wallet from "./pages/wallet/Wallet";
 import Wishlist from "./pages/wishlist/Wishlist";
 import ReviewProduct from "./pages/review/reviewProduct/reviewProduct";
+import PrivacyPolicy from "./pages/policy/PrivacyPolicy";
 // import ReviewService from "./pages/review/reviewService/ReviewService";
 // import Cart from "./pages/cart/Cart";
 
