@@ -11,24 +11,29 @@ import {
   reviewService,
   updateReviewService,
 } from "../../../redux/feactures/auth/authSlice";
-// import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function ReviewService() {
   const dispatch = useDispatch();
-//   const navigate = useNavigate();
   const { isLoading, user } = useSelector((state) => state.auth);
   const [rate, setRate] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [review, setReview] = useState("");
+  const [remainingChars, setRemainingChars] = useState(500); 
 
   const changeStar = (newRating, name) => {
     setRate(newRating);
-    console.table(newRating, name);
   };
 
-  //   console.log("USER", user);
-//   console.log("EDITING", isEditing);
+  const handleReviewChange = (e) => {
+    const value = e.target.value;
+
+    // Only update if the remaining characters are more than 0 or the user is deleting
+    if (value.length <= 500) {
+      setReview(value);
+      setRemainingChars(500 - value.length); 
+    }
+  };
 
   const delReview = (e) => {
     e.preventDefault();
@@ -39,16 +44,12 @@ export default function ReviewService() {
     };
     dispatch(deleteReviewService({ id, formData })).then(() => {
       dispatch(getUser(user._id));
-
     });
   };
-
-  
 
   const submitReview = (e) => {
     e.preventDefault();
     const id = user?._id;
-
     const today = new Date();
     const date = today.toDateString();
 
@@ -62,26 +63,23 @@ export default function ReviewService() {
     };
     dispatch(reviewService({ id, formData })).then(() => {
       dispatch(getUser(user._id));
-
     });
   };
 
-
-  const starEdit = async () => {
+  const starEdit = () => {
     setIsEditing(true);
     setRate(user?.serviceReview[0]?.star);
     setReview(user?.serviceReview[0]?.review);
   };
+
   const editReview = (e) => {
     e.preventDefault();
-
     const today = new Date();
     const date = today.toDateString();
     if (rate === 0 || review === "") {
       return toast.error("Please enter rating and review");
     }
     const id = user?._id;
-
     const formData = {
       star: rate,
       review,
@@ -150,16 +148,20 @@ export default function ReviewService() {
               <textarea
                 value={review}
                 required
-                onChange={(e) => setReview(e.target.value)}
+                onChange={handleReviewChange}
                 cols="30"
                 rows="10"
                 maxLength="500"
               ></textarea>
+              {/* Remaining characters display */}
+              <p>
+                Remaining characters: {remainingChars}/500
+              </p>
               {!isEditing ? (
                 <button
                   onClick={(e) => submitReview(e)}
                   className="--btn --btn-primary"
-                  disabled={isLoading}
+                  disabled={isLoading || remainingChars === 0} 
                 >
                   Submit Review
                 </button>

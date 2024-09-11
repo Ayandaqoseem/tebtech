@@ -42,19 +42,21 @@ export default function Home() {
     ? products.filter((item) => item.quantity > 0).slice(0, 20)
     : [];
 
-  const userReviews = reviews?.map((review) => {
-    return (
-      <div key={review.id}>
-        <CarouselItem
-          name={review.name}
-          photo={review.photo}
-          reviewDate={review.reviewDate}
-          review={review.review}
-          star={review.star}
-        />
-      </div>
-    );
-  });
+  const userReviews = Array.isArray(reviews)
+    ? reviews.map((review) => {
+        return (
+          <div key={review.id}>
+            <CarouselItem
+              name={review.name}
+              photo={review.photo}
+              reviewDate={review.reviewDate}
+              review={review.review}
+              star={review.star}
+            />
+          </div>
+        );
+      })
+    : [];
 
   // console.log("LATEST PRODUCT", userReviews);
 
@@ -248,7 +250,7 @@ export default function Home() {
                 <p>Our Clients Testimony</p>
                 <div className={styles.hr}></div>
               </div>
-                <h2 className={styles.h3}>What People Say</h2>
+              <h2 className={styles.h3}>What People Say</h2>
             </div>
             <ProductCarousel products={userReviews} />
           </div>

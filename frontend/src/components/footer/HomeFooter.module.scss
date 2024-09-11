@@ -1,21 +1,92 @@
 .footer-gen-conatiner {
   position: relative;
-  
+
   .footer-content-container {
     position: absolute;
-    background: #ccc;
+    // background: #ccc;
     width: 100%;
     color: #ffffff;
-   padding: 1rem;
+    padding: 1rem;
+  }
+  .footer-content-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    color: #ffffff;
+    margin-top: 2rem;
+  }
+  .footer-content-link {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    & * {
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 1.2rem;
+    }
+  }
+  .footer-content-link a:hover {
+    color: #ffa047;
+  }
+  .footer-content-h3 {
+    color: #ffa047;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .footer-contact {
+    .parag {
+      margin-bottom: 1rem;
+    }
+  }
+  .footer-content-input {
+    border: 1px solid #ffa047;
+    padding: 1rem;
+    color: #ffffff;
+    border-radius: 5px;
+    input {
+      border: none;
+      background-color: transparent;
+      color: #ffffff;
+      outline: none;
+    }
+    input::placeholder {
+      color: #ffffff;
+    }
+    .footer-content-btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 3px;
+      background-color: #ffa047;
+      border: none;
+      color: #ffffff;
+    }
+  }
+  .footer-content-survey {
+    margin-top: 4rem;
+    background-color: #ffa047;
+    padding: 0.5rem;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  .footer-content-icon {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    .icon {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
 
 .home-footer {
   background-image: url(../../assets/field-panel.webp);
   position: relative;
-  background-position: cover;
+  // background-position: contain;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   width: 100%;
   height: 25vh;
   z-index: -1;
@@ -34,9 +105,9 @@
 .home-footer-1 {
   background-image: url(../../assets/full-sc-panel.jpg);
   position: relative;
-  background-position: contain;
+  // background-position: contain;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   width: 100%;
   height: 30vh;
   z-index: -1;
@@ -50,4 +121,31 @@
   top: 0;
   left: 0;
   z-index: 0;
+}
+
+@media (max-width: 800px) {
+  .footer-gen-conatiner {
+    height: 110vh;
+  }
+
+  .footer-content-container {
+    top: 2rem;
+  }
+  .home-footer {
+    height: 60vh;
+  }
+  .home-footer::after {
+    height: 60vh;
+  }
+
+  .home-footer-1 {
+    height: 50vh;
+  }
+  .home-footer-1::after {
+    height: 50vh;
+  }
+
+  .footer-contact {
+    margin-top: 2rem;
+  }
 }
