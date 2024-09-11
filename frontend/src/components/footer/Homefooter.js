@@ -9,9 +9,9 @@ export default function HomeFooter() {
       <div className={styles["footer-content-container"]}>
         <div className={styles["footer-content-wrapper"]}>
           <div className={styles["footer-content-link"]}>
-            <Link>Payment & Delivery Information</Link>
-            <Link>Return Policy</Link>
-            <Link>Terms and Conditions</Link>
+            <Link to={"/payment-policy"}>Payment & Delivery Information</Link>
+            <Link to={"/return-policy"}>Return Policy</Link>
+            <Link to={"/terms-policy"}>Terms and Conditions</Link>
           </div>
 
           <div className={styles["footer-contact"]}>

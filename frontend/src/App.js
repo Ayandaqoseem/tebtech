@@ -38,6 +38,9 @@ import OrderDetails from "./pages/orderDetails/OrderDetails";
 import Wishlist from "./pages/wishlist/Wishlist";
 import ReviewProduct from "./pages/review/reviewProduct/reviewProduct";
 import PrivacyPolicy from "./pages/policy/PrivacyPolicy";
+import PaymentDeliveryInfo from "./pages/policy/paymentDeliveryInfo/PaymentDeliveryInfo";
+import ReturnPolicy from "./pages/policy/returnPolicy/ReturnPolicy";
+import Terms from "./pages/policy/terms/Terms";
 // import ReviewService from "./pages/review/reviewService/ReviewService";
 // import Cart from "./pages/cart/Cart";
 
@@ -59,6 +62,9 @@ function App() {
           <Route path="/send-a-request" element={<Request />} />
           <Route path="/services" element={<Services />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/payment-policy" element={<PaymentDeliveryInfo />} />
+          <Route path="/return-policy" element={<ReturnPolicy />} />
+          <Route path="/terms-policy" element={<Terms />} />
 
           <Route
             path="/admin/dashboard/*"

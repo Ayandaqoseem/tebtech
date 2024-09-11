@@ -1,0 +1,24 @@
+.terms-container {
+    margin: 9rem 0rem 15rem 0rem;
+    padding: 0 4rem;
+}
+
+.terms-h3 {
+    margin: 1rem 0;
+    font-size: 1.4rem;
+}
+
+.terms-parag {
+    margin-bottom: 2rem;
+    width: 80%;
+}
+
+@media(max-width: 500px) {
+    .terms-container {
+        padding: 0 1rem !important;
+    }
+
+    .terms-parag {
+        width: 100% !important;
+    }
+}

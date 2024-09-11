@@ -69,7 +69,7 @@ export default function Footer() {
           )}
         </div>
 
-        <p>All Rights Resevered &copy; {year} Tebtechnology Ltd || <Link to={"/terms"}>terms</Link> || <Link to="/privacy-policy">Privacy Policy</Link></p>
+        <p>All Rights Resevered &copy; {year} Tebtechnology Ltd || <Link to={"/terms-policy"}>terms</Link> || <Link to="/privacy-policy">Privacy Policy</Link></p>
       </div>
     </>
   );

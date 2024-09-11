@@ -1,0 +1,37 @@
+.payment-container {
+    margin: 9rem 0rem 15rem 0rem;
+    padding: 0 4rem;
+}
+
+.parag-text {
+    margin-bottom: 1rem;
+}
+
+.text-header {
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+.text-h3 {
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.payment-policy-ul {
+    padding-left: 2rem;
+    li {
+        margin-bottom: 1rem;
+    }
+}
+
+
+@media(max-width: 400px) {
+    .payment-container {
+        padding: 0 1rem !important;
+    }
+
+    .parag-text-h2 {
+        font-weight: 700 !important;
+        font-size: 1.1rem !important;
+    }
+}
