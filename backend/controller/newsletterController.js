@@ -19,7 +19,7 @@ const newsletter = asyncHandler(async (req, res) => {
 
   if (existingSubscriber) {
     res.status(400);
-    throw new Error("Email is already subscribed");
+    throw new Error("Email already subscribed");
   }
 
   const createNewsletter = new Newsletter({ email });
