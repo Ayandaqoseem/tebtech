@@ -18,7 +18,8 @@ const newsletter = asyncHandler(async (req, res) => {
   const existingSubscriber = await Newsletter.findOne({ email });
 
   if (existingSubscriber) {
-    return res.status(400).json({ message: "Email is already subscribed" });
+    res.status(400);
+    throw new Error("Email is already subscribed");
   }
 
   const createNewsletter = new Newsletter({ email });
