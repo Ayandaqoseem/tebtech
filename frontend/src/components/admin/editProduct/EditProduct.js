@@ -67,6 +67,11 @@ const EditProduct = () => {
     setProduct({ ...product, [name]: value });
   };
 
+  const handleInputCheck = (e) => {
+    const { name, checked } = e.target;
+    setProduct({ ...product, [name]: checked });
+  }
+
   const saveProduct = async (e) => {
     e.preventDefault();
     if (files.length < 1) {
@@ -83,6 +88,7 @@ const EditProduct = () => {
       price: product?.price,
       description: description,
       image: files,
+      newItem: product?.newItem,
     };
 
     console.log(formData);
@@ -110,6 +116,7 @@ const EditProduct = () => {
         categories={categories}
         filteredBrands={filteredBrands}
         isEditing={true}
+        handleInputCheck={handleInputCheck}
       />
     </div>
   );

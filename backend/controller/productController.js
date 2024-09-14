@@ -17,6 +17,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
     image,
     regularPrice,
     color,
+    newItem
   } = req.body;
 
   //   Validation
@@ -37,6 +38,7 @@ const createProduct = expressAsyncHandler(async (req, res) => {
     image,
     regularPrice,
     color,
+    newItem
   });
 
   res.status(201).json(product);
@@ -85,6 +87,7 @@ const updateProduct = expressAsyncHandler(async (req, res) => {
     image,
     regularPrice,
     color,
+    newItem
   } = req.body;
   const { id } = req.params;
 
@@ -107,6 +110,7 @@ const updateProduct = expressAsyncHandler(async (req, res) => {
       image,
       regularPrice,
       color,
+      newItem
     },
     {
       new: true,

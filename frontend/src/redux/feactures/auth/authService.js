@@ -80,8 +80,8 @@ const updateUser = async (userData) => {
 
 // Update user photo
 const updatePhoto = async (userData) => {
-const response = await axios.patch(API_URL + "update-photo", userData)
-return response.data
+  const response = await axios.patch(API_URL + "update-photo", userData);
+  return response.data;
 };
 
 // Forgot Password
@@ -120,47 +120,72 @@ const saveEnquiry = async (userData) => {
 };
 
 // Add to wishlist
-const addToWishlist = async(productData) => {
+const addToWishlist = async (productData) => {
   const response = await axios.post(API_URL + "addToWishlist", productData);
 
-  return response.data.message
-}
+  return response.data.message;
+};
 
 // Get wishlist
-const getWishlist = async() => {
+const getWishlist = async () => {
   const response = await axios.get(API_URL + "getWishlist");
 
-  return response.data
-}
+  return response.data;
+};
 
 // Remove from wishlist
-const removeFromWishlist = async(productId) => {
-  const response = await axios.put(API_URL + `wishlist/${productId}` );
+const removeFromWishlist = async (productId) => {
+  const response = await axios.put(API_URL + `wishlist/${productId}`);
 
-  return response.data.message
-}
+  return response.data.message;
+};
 
-// Service Review 
+// Service Review
 const reviewService = async (id, formData) => {
-  const response = await axios.patch(`${API_URL}service-review/${id}`, formData);
+  const response = await axios.patch(
+    `${API_URL}service-review/${id}`,
+    formData
+  );
   return response.data.message;
 };
 
-// Delete Service Review 
-const deleteReviewService= async (id, formData) => {
-  const response = await axios.patch(`${API_URL}delete-service-review/${id}`, formData);
+// Delete Service Review
+const deleteReviewService = async (id, formData) => {
+  const response = await axios.patch(
+    `${API_URL}delete-service-review/${id}`,
+    formData
+  );
   return response.data.message;
 };
 
-// Update Service Review 
+// Update Service Review
 const updateReviewService = async (id, formData) => {
-  const response = await axios.patch(`${API_URL}update-service-review/${id}`, formData);
+  const response = await axios.patch(
+    `${API_URL}update-service-review/${id}`,
+    formData
+  );
   return response.data.message;
 };
 
-// Get all Service Review 
+// Get all Service Review
 const allReviews = async () => {
   const response = await axios.get(`${API_URL}service-reviews`);
+  return response.data;
+};
+
+// Create newsletter
+const newsletter = async (formData) => {
+  const response = await axios.post(`${BACKEND_URL}/api/newsletter`, formData);
+
+  return response.data;
+};
+
+// Delete newsletter
+const unsubscribe = async (formData) => {
+  const response = await axios.post(
+    `${BACKEND_URL}/api/newsletter/unsubscribe`,
+    formData
+  );
   return response.data;
 };
 
@@ -182,7 +207,9 @@ const authService = {
   reviewService,
   deleteReviewService,
   updateReviewService,
-  allReviews, 
+  allReviews,
+  newsletter,
+  unsubscribe,
 };
 
 export default authService;

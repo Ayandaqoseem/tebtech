@@ -21,10 +21,8 @@ const ProductForm = ({
   categories,
   filteredBrands,
   isEditing,
+  handleInputCheck,
 }) => {
-  const img =
-    "https://res.cloudinary.com/zinotrust/image/upload/v1674999036/nhq5gqr1xecrkipneiup.jpg";
-
   // useEffect(() => {
   //   const updateImagePreview = () => {
   //     // const imagesArray = files.map((file) => {
@@ -43,64 +41,64 @@ const ProductForm = ({
   return (
     <div className="add-product gen-container">
       <div className="main-wrapper">
-      <UploadWidget files={files} setFiles={setFiles} />
+        <UploadWidget files={files} setFiles={setFiles} />
 
-      <Card cardClass={"add-product-card"}>
-        <br />
-        <form onSubmit={saveProduct}>
-          <label>Product Images:</label>
-          <div className="slide-container">
-            <aside>
-              {files.length > 0 &&
-                files.map((image) => (
-                  <div key={image} className="thumbnail">
-                    <img src={image} alt="productImage" height={100} />
-                    <div>
-                      <BsTrash
-                        size={15}
-                        className="thumbnailIcon"
-                        onClick={() => removeImage(image)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              {files.length < 1 && (
-                <p className="--m">No image set for this poduct.</p>
-              )}
-            </aside>
-          </div>
+        <Card cardClass={"add-product-card"}>
           <br />
-          <hr />
-          <label>Product Name:</label>
-          <input
-            type="text"
-            placeholder="Product name"
-            name="name"
-            value={product?.name}
-            onChange={handleInputChange}
-          />
+          <form onSubmit={saveProduct}>
+            <label>Product Images:</label>
+            <div className="slide-container">
+              <aside>
+                {files.length > 0 &&
+                  files.map((image) => (
+                    <div key={image} className="thumbnail">
+                      <img src={image} alt="productImage" height={100} />
+                      <div>
+                        <BsTrash
+                          size={15}
+                          className="thumbnailIcon"
+                          onClick={() => removeImage(image)}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                {files.length < 1 && (
+                  <p className="--m">No image set for this poduct.</p>
+                )}
+              </aside>
+            </div>
+            <br />
+            <hr />
+            <label>Product Name:</label>
+            <input
+              type="text"
+              placeholder="Product name"
+              name="name"
+              value={product?.name}
+              onChange={handleInputChange}
+            />
 
-          <label>Product Category:</label>
-          <select
-            name="category"
-            value={product?.category}
-            className="form-control"
-            onChange={handleInputChange}
-          >
-            {isEditing ? (
-              <option>{product?.category}</option>
-            ) : (
-              <option>Select Category</option>
-            )}
-            {categories.length > 0 &&
-              categories.map((cat) => (
-                <option key={cat._id} value={cat._name}>
-                  {cat.name}
-                </option>
-              ))}
-          </select>
+            <label>Product Category:</label>
+            <select
+              name="category"
+              value={product?.category}
+              className="form-control"
+              onChange={handleInputChange}
+            >
+              {isEditing ? (
+                <option>{product?.category}</option>
+              ) : (
+                <option>Select Category</option>
+              )}
+              {categories.length > 0 &&
+                categories.map((cat) => (
+                  <option key={cat._id} value={cat._name}>
+                    {cat.name}
+                  </option>
+                ))}
+            </select>
 
-          {/* <input
+            {/* <input
             type="text"
             placeholder="Product Category"
             name="category"
@@ -108,85 +106,94 @@ const ProductForm = ({
             onChange={handleInputChange}
           /> */}
 
-          <label>Product Brand:</label>
-          <select
-            name="brand"
-            value={product?.brand}
-            className="form-control"
-            onChange={handleInputChange}
-          >
-            {isEditing ? (
-              <option>{product?.brand}</option>
-            ) : (
-              <option>Select Brand</option>
-            )}
+            <label>Product Brand:</label>
+            <select
+              name="brand"
+              value={product?.brand}
+              className="form-control"
+              onChange={handleInputChange}
+            >
+              {isEditing ? (
+                <option>{product?.brand}</option>
+              ) : (
+                <option>Select Brand</option>
+              )}
 
-            {filteredBrands.length > 0 &&
-              filteredBrands.map((brand) => (
-                <option key={brand._id} value={brand.name}>
-                  {brand.name}
-                </option>
-              ))}
-          </select>
-          {/* <input
+              {filteredBrands.length > 0 &&
+                filteredBrands.map((brand) => (
+                  <option key={brand._id} value={brand.name}>
+                    {brand.name}
+                  </option>
+                ))}
+            </select>
+            {/* <input
             type="text"
             placeholder="Brand"
             name="brand"
             value={product?.brand}
             onChange={handleInputChange}
           /> */}
-          <label>Product Color:</label>
-          <input
-            type="text"
-            placeholder="Color"
-            name="color"
-            value={product?.color}
-            onChange={handleInputChange}
-          />
+            <label>Product Color:</label>
+            <input
+              type="text"
+              placeholder="Color"
+              name="color"
+              value={product?.color}
+              onChange={handleInputChange}
+            />
 
-          <label>Regular Price:</label>
-          <input
-            type="text"
-            placeholder="Regular Price"
-            name="regularPrice"
-            value={product?.regularPrice}
-            onChange={handleInputChange}
-          />
-          <label>Product Price:</label>
-          <input
-            type="text"
-            placeholder="Product Price"
-            name="price"
-            value={product?.price}
-            onChange={handleInputChange}
-          />
+            <label>Regular Price:</label>
+            <input
+              type="text"
+              placeholder="Regular Price"
+              name="regularPrice"
+              value={product?.regularPrice}
+              onChange={handleInputChange}
+            />
+            <label>Product Price:</label>
+            <input
+              type="text"
+              placeholder="Product Price"
+              name="price"
+              value={product?.price}
+              onChange={handleInputChange}
+            />
 
-          <label>Product Quantity:</label>
-          <input
-            type="text"
-            placeholder="Product Quantity"
-            name="quantity"
-            value={product?.quantity}
-            onChange={handleInputChange}
-          />
+            <label>Product Quantity:</label>
+            <input
+              type="text"
+              placeholder="Product Quantity"
+              name="quantity"
+              value={product?.quantity}
+              onChange={handleInputChange}
+            />
 
-          <label>Product Description:</label>
-          <ReactQuill
-            theme="snow"
-            value={description}
-            onChange={setDescription}
-            modules={ProductForm.modules}
-            formats={ProductForm.formats}
-            className="quill-editor"
-          />
+            <label>Product Description:</label>
+            <ReactQuill
+              theme="snow"
+              value={description}
+              onChange={setDescription}
+              modules={ProductForm.modules}
+              formats={ProductForm.formats}
+              className="quill-editor"
+            />
 
-          <div className="--product-mt ">
-            <button type="submit" className="--btn --btn-primary">
-              Save Product
-            </button>
-          </div>
-        </form>
-      </Card>
+            <div className="--product-mt ">
+              <p className="check-label">
+                <input
+                  type="checkbox"
+                  name="newItem"
+                  checked={product?.newItem || false}
+                  onChange={handleInputCheck}
+                />
+                <label>Is this a new product?</label>
+              </p>
+              <button type="submit" className="--btn --btn-primary">
+                Save Product
+              </button>
+            </div>
+          </form>
+        </Card>
       </div>
     </div>
   );

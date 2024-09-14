@@ -29,7 +29,7 @@ const ViewProducts = () => {
     (state) => state.product
   );
   const filteredProducts = useSelector(selectFilteredProducts);
-  // console.log(filteredProducts);
+ 
 
   useEffect(() => {
     if (isLoggedIn === true) {
@@ -113,13 +113,14 @@ const ViewProducts = () => {
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Total</th>
+                  <th>New</th>
                   <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 {currentItems.map((product, index) => {
-                  const { _id, name, category, price, quantity } = product;
+                  const { _id, name, category, price, quantity, newItem } = product;
                   return (
                     <tr key={_id}>
                       <td>{itemOffset + index + 1}</td>
@@ -134,6 +135,7 @@ const ViewProducts = () => {
                       <span>&#8358;</span>
                         {price * quantity}
                       </td>
+                      <td className={newItem ? "bg-green" : "bg-orangered"}>{newItem ? "True" : "False"}</td>
                       <td className="icons">
                         <span>
                           <Link to={`/product-details/${_id}`}>

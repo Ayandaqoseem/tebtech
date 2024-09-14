@@ -64,6 +64,10 @@ const productSchema = mongoose.Schema(
       required: [true, "Please add a description"],
       trim: true,
     },
+    newItem: {
+      type: Boolean,
+      default: false
+    },
     image: {
       type: [String],
     },

@@ -11,6 +11,7 @@ const categoryRoute = require("./routes/categoryRoute");
 const brandRoute = require("./routes/brandRoute");
 const couponRoute = require("./routes/couponRoute");
 const orderRoute = require("./routes/orderRoute");
+const newsletterRoute = require("./routes/newsletterRoute");
 const transactionRoute = require("./routes/transactionRoute");
 const errorHandler = require("./middleware/errorMiddleware");
 const session = require("express-session");
@@ -78,6 +79,7 @@ app.use("/api/brand", brandRoute);
 app.use("/api/coupon", couponRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/transaction", transactionRoute);
+app.use("/api/newsletter", newsletterRoute)
 
 app.get("/", (req, res) => {
   res.json({

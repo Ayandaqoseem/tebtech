@@ -7,7 +7,8 @@ const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
 const GoogleUser = require("../model/googleModel");
 const expressAsyncHandler = require("express-async-handler");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { validateEmail } = require("../utils/authUtils");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -31,6 +32,10 @@ const registerUser = asyncHandler(async (req, res) => {
   if (password !== cPassword) {
     res.status(400);
     throw new Error("Passwords do not match");
+  }
+
+  if(!validateEmail(email)) {
+    return res.status(400).json("Kindly provide valid email")
   }
 
   // Check if user exists
@@ -80,6 +85,10 @@ const loginUser = asyncHandler(async (req, res) => {
   if (!email || !password) {
     res.status(400);
     throw new Error("Please add email and password");
+  }
+
+  if(!validateEmail(email)) {
+    return res.status(400).json("Kindly provide valid email")
   }
 
   // Check if user exists

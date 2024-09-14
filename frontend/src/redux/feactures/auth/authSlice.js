@@ -275,7 +275,7 @@ export const reviewService = createAsyncThunk(
     }
   }
 );
-// Delete Service Review 
+// Delete Service Review
 export const deleteReviewService = createAsyncThunk(
   "auth/deleteReviewService",
   async ({ id, formData }, thunkAPI) => {
@@ -332,6 +332,43 @@ export const allReviews = createAsyncThunk(
   }
 );
 
+// Delete subscriber
+export const unsubscribe = createAsyncThunk(
+  "auth/unsubscribe",
+  async (formData, thunkAPI) => {
+    try {
+      return await authService.unsubscribe(formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Create newsletter
+export const newsletter = createAsyncThunk(
+  "auth/newsletter",
+  async (formData, thunkAPI) => {
+    try {
+      return await authService.newsletter(formData);
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -621,7 +658,6 @@ const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-
       // Update Review Service
       .addCase(updateReviewService.pending, (state) => {
         state.isLoading = true;
@@ -647,12 +683,50 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.reviews = action.payload;
+        toast.success(action.payload);
       })
       .addCase(allReviews.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+
+      //  Delete Subscriber
+      .addCase(unsubscribe.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(unsubscribe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success(action.payload);
+      })
+      .addCase(unsubscribe.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.error(action.payload);
+      })
+
+       //  Create newsletter
+       .addCase(newsletter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(newsletter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.isError = false;
+        toast.success(action.payload.message);
+        
+        console.log(action.payload);
+        
+      })
+      .addCase(newsletter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        toast.warning(action.payload);
+        toast.error(action.payload.message);
       });
   },
 });

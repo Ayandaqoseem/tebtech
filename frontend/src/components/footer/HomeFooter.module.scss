@@ -44,11 +44,14 @@
     padding: 1rem;
     color: #ffffff;
     border-radius: 5px;
+    display: flex;
+    gap: 1rem;
     input {
       border: none;
       background-color: transparent;
       color: #ffffff;
       outline: none;
+      padding: auto 1rem;
     }
     input::placeholder {
       color: #ffffff;
@@ -59,6 +62,7 @@
       background-color: #ffa047;
       border: none;
       color: #ffffff;
+      cursor: pointer;
     }
   }
   .footer-content-survey {

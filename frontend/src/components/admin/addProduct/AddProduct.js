@@ -23,6 +23,7 @@ const initialState = {
   price: "",
   color: "",
   regularPrice: "",
+  newItem: false
 };
 
 const AddProduct = () => {
@@ -36,10 +37,12 @@ const AddProduct = () => {
 
   const isLoading = useSelector(selectIsLoading);
 
-  const { name, category, brand, price, quantity, color, regularPrice } =
+  const { name, category, brand, price, quantity, color, regularPrice, newItem } =
     product;
   const { categories, brands } = useSelector((state) => state.category);
 
+  console.log("IsNewItem", newItem);
+  
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getBrands());
@@ -49,6 +52,11 @@ const AddProduct = () => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
+
+  const handleInputCheck = (e) => {
+    const { name, checked } = e.target;
+    setProduct({ ...product, [name]: checked });
+  }
 
   const generateKSKU = (category) => {
     const letter = category.slice(0, 3).toUpperCase();
@@ -74,6 +82,7 @@ const AddProduct = () => {
       price: price,
       description: description,
       image: files,
+      newItem
     };
 
     
@@ -114,6 +123,7 @@ const AddProduct = () => {
         categories={categories}
         filteredBrands={filteredBrands}
         isEditing={false}
+        handleInputCheck={handleInputCheck}
       />
     </div>
   );
