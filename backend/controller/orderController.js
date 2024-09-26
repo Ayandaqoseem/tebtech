@@ -51,7 +51,7 @@ const createOrder = asyncHandler(async (req, res) => {
   const subject = "tebtechnologyltd Order Placed";
   const send_to = req.user.email;
   const template = orderSuccessEmail(req.user.name, cartItems);
-  const reply_to = "tebtechnologyltd@gmail.com" && "tebtechnology23@gmail.com";
+  const reply_to = "no-repy@tebtechnology-ltd@gmail.com";
 
   await sendEmail(subject, send_to, template, reply_to);
 

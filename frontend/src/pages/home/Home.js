@@ -16,8 +16,7 @@ import { allReviews } from "../../redux/feactures/auth/authSlice";
 export default function Home() {
   const { reviews } = useSelector((state) => state.auth);
 
-  // console.log("USERS =>", users);
-  // console.log("REVIEWS =>", reviews);
+ 
 
   const PageHeading = ({ heading, btnText }) => {
     return (
@@ -58,7 +57,7 @@ export default function Home() {
       })
     : [];
 
-  // console.log("LATEST PRODUCT", userReviews);
+  // console.log("LATEST SERVICE", reviews);
 
   const heroTextVariants = {
     initial: {

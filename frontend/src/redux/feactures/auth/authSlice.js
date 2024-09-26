@@ -683,7 +683,8 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        toast.success(action.payload);
+        state.reviews = action.payload;
+        // console.log(action.payload);
       })
       .addCase(allReviews.rejected, (state, action) => {
         state.isLoading = false;
@@ -708,8 +709,8 @@ const authSlice = createSlice({
         toast.error(action.payload);
       })
 
-       //  Create newsletter
-       .addCase(newsletter.pending, (state) => {
+      //  Create newsletter
+      .addCase(newsletter.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(newsletter.fulfilled, (state, action) => {
@@ -717,9 +718,8 @@ const authSlice = createSlice({
         state.isSuccess = true;
         state.isError = false;
         toast.success(action.payload.message);
-        
+
         console.log(action.payload);
-        
       })
       .addCase(newsletter.rejected, (state, action) => {
         state.isLoading = false;

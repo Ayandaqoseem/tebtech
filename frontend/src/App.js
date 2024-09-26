@@ -41,6 +41,7 @@ import PrivacyPolicy from "./pages/policy/PrivacyPolicy";
 import PaymentDeliveryInfo from "./pages/policy/paymentDeliveryInfo/PaymentDeliveryInfo";
 import ReturnPolicy from "./pages/policy/returnPolicy/ReturnPolicy";
 import Terms from "./pages/policy/terms/Terms";
+import Unsubscribe from "./pages/newsLetter/Unsubscribe";
 // import ReviewService from "./pages/review/reviewService/ReviewService";
 // import Cart from "./pages/cart/Cart";
 
@@ -50,7 +51,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getLoginStatus());
-    dispatch(allReviews())
+    dispatch(allReviews());
   }, [dispatch]);
   return (
     <>
@@ -176,6 +177,8 @@ function App() {
             path="/resetpassword/:resetToken"
             element={<NewPassword />}
           />
+
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

@@ -23,5 +23,10 @@ const couponSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Virtual field to check if coupon is active
+// couponSchema.virtual('isActive').get(function () {
+//   return new Date() < this.expiresAt;
+// });
+
 const Coupon = mongoose.model("Coupon", couponSchema);
 module.exports = Coupon;
